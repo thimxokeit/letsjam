@@ -158,28 +158,42 @@
 
     /* ===== Photo Row ===== */
     .photo-row {
+      overflow: hidden;
+      padding: 60px 0;
+      position: relative;
+      width: 100%;
+    }
+
+    .photo-scroll {
       display: flex;
       gap: 20px;
-      overflow-x: auto;
-      padding: 30px 0;
-      scroll-snap-type: x mandatory;
-      justify-content: center; /* 중앙 정렬 추가 */
-      max-width: 1200px; /* 최대 너비 설정 (선택) */
-      margin: 0 auto; /* 좌우 중앙 정렬 */
+      animation: scroll 30s linear infinite;
     }
 
-    .photo-row img {
-      height: 160px;
+    .photo-scroll img {
+      height: 280px;
       border-radius: 20px;
       flex-shrink: 0;
-      scroll-snap-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .photo-row img:hover {
-      transform: translateY(-5px) scale(1.05); /* 위로 + 확대 */
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* 그림자 강화 */
+    .photo-scroll img:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .photo-row:hover .photo-scroll {
+      animation-play-state: paused;
     }
 
     /* ===== CTA ===== */
@@ -510,12 +524,21 @@
 
     <!-- ===== Photo Row ===== -->
     <section class="photo-row">
-      <img src="assets/Sessions=Mic-f.png" alt="보컬" />
-      <img src="assets/Sessions=Drum.png" alt="드럼" />
-      <img src="assets/Sessions=Bass.png" alt="베이스" />
-      <img src="assets/Sessions=Guitar.png" alt="기타" />
-      <img src="assets/Sessions=Keyboard.png" alt="키보드" />
-      <img src="assets/Sessions=ets.png" alt="그 외" />
+      <div class="photo-scroll">
+        <img src="assets/Sessions=Mic-f.png" alt="보컬" />
+        <img src="assets/Sessions=Drum.png" alt="드럼" />
+        <img src="assets/Sessions=Bass.png" alt="베이스" />
+        <img src="assets/Sessions=Guitar.png" alt="기타" />
+        <img src="assets/Sessions=Keyboard.png" alt="키보드" />
+        <img src="assets/Sessions=etc.png" alt="기타 악기" />
+        <!-- 무한 스크롤을 위한 복제 -->
+        <img src="assets/Sessions=Mic-f.png" alt="보컬" />
+        <img src="assets/Sessions=Drum.png" alt="드럼" />
+        <img src="assets/Sessions=Bass.png" alt="베이스" />
+        <img src="assets/Sessions=Guitar.png" alt="기타" />
+        <img src="assets/Sessions=Keyboard.png" alt="키보드" />
+        <img src="assets/Sessions=etc.png" alt="기타 악기" />
+      </div>
     </section>
 
     <!-- ===== 앱 다운로드 CTA ===== -->
