@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="JAM:째미난 밴드 라이프 커뮤니티" />
+    <meta property="og:description" content="JAM에서 밴드를 찾고, 멤버를 구해보세요!" />
+    <meta property="og:image" content="assets/mobile_mockup.png" />
+    <meta property="og:url" content="https://thimxokeit.github.io/letsjam/" />
+    <meta property="og:type" content="website" />
+    
     <title>JAM:째미난 밴드 라이프 커뮤니티</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/jam_logo_small.png" />
@@ -223,6 +229,24 @@
         /* 추가 */
         padding: 0 16px;
         /* 추가 */
+      }
+      .cta-info-text {
+        font-size: 18px;
+        margin-bottom: 10px;
+        word-break: keep-all;
+        padding: 0 16px;
+      }
+      
+      .cta-sub-text {
+        font-size: 17px;
+        margin: 30px 16px 40px;
+        line-height: 1.4; /* 1 → 1.4로 변경하여 가독성 향상 */
+        word-break: keep-all;
+      }
+      
+      .cta-sub-text span {
+        display: block;
+        margin-top: 0.5em;
       }
 
       .cta-btn {
@@ -552,7 +576,7 @@
       <!-- ===== Beta Tester CTA ===== -->
       <section class="cta">
         <h2>🎸 베타 테스터 모집 중</h2>
-        <p style="font-size: 18px; margin-bottom: 10px; word-break: keep-all; padding: 0 16px;"> 테스트 기간: 3월 14일(토) ~ 3월 22일(일) <br>*주말만 진행 </p>
+        <p class="cta-info-text"> 테스트 기간: 3월 14일(토) ~ 3월 22일(일) <br>*주말만 진행 </p>
         <div class="cta-detail-box">
           <div class="cta-grid">
             <div class="cta-grid-item">
@@ -575,7 +599,7 @@
             <div class="cta-divider-v"></div>
           </div>
         </div>
-        <p style="font-size: 17px; margin: 30px 16px 40px; line-height: 1; word-break: keep-all;"> 취미 밴드인을 위한 앱 JAM을 함께 만들어가고 싶으시다면, <span style="display: block; margin-top: 0.5em;"> 아래 링크에서 베타 테스트 참여를 신청해 주세요! </span>
+        <p class="cta-sub-text"> 취미 밴드인을 위한 앱 JAM을 함께 만들어가고 싶으시다면, <span style="display: block; margin-top: 0.5em;"> 아래 링크에서 베타 테스트 참여를 신청해 주세요! </span>
         </p>
         <a href="https://calendar.app.google/nhxunkejqfExV1e79" class="cta-btn" target="_blank"> 베타 테스트 참여 신청하기 → </a>
         <p style="font-size: 14px; margin-top: 20px; opacity: 0.85; padding: 0 16px;"> *참여 신청 후, 테스트 가능한 일정을 선택해 주세요 </p>
