@@ -1,190 +1,196 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sticky Studio 소개 - JAM</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sticky Studio 소개 - JAM</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="../assets/jam_logo_small.png" />
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="../https://thimxokeit.github.io/letsjam/assets/jam_logo_small.png"
+    />
 
-  <!-- Pretendard -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
-  />
+    <!-- Pretendard -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
 
-  <style>
-    :root {
-      --orange: #fc5c2b;
-      --yellow: #fff566;
-      --black: #222;
-      --gray: #a0a0a0;
-      --light-orange: #fd9e81;
-    }
+    <style>
+      :root {
+        --orange: #fc5c2b;
+        --yellow: #fff566;
+        --black: #222;
+        --gray: #a0a0a0;
+        --light-orange: #fd9e81;
+      }
 
-    * {
-      box-sizing: border-box;
-    }
+      * {
+        box-sizing: border-box;
+      }
 
-    body {
-      margin: 0;
-      font-family: Pretendard, sans-serif;
-      background: #fff;
-      color: var(--black);
-    }
+      body {
+        margin: 0;
+        font-family: Pretendard, sans-serif;
+        background: #fff;
+        color: var(--black);
+      }
 
-    /* ===== Header ===== */
-    .header {
-      padding: 40px 16px;
-      border-bottom: 1px solid #f0f0f0;
-    }
+      /* ===== Header ===== */
+      .header {
+        padding: 40px 16px;
+        border-bottom: 1px solid #f0f0f0;
+      }
 
-    .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+      .header-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
 
-    .logo {
-      height: 40px;
-      cursor: pointer;
-    }
+      .logo {
+        height: 40px;
+        cursor: pointer;
+      }
 
-    .logo-text {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--orange);
-      text-decoration: none;
-      letter-spacing: -1px;
-    }
+      .logo-text {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--orange);
+        text-decoration: none;
+        letter-spacing: -1px;
+      }
 
-    /* ===== Main ===== */
-    .main {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 80px 16px 120px;
-    }
+      /* ===== Main ===== */
+      .main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 80px 16px 120px;
+      }
 
-    .page-title {
-      font-size: 48px;
-      font-weight: 700;
-      color: var(--orange);
-      margin: 0 0 16px 0;
-      letter-spacing: -2px;
-    }
+      .page-title {
+        font-size: 48px;
+        font-weight: 700;
+        color: var(--orange);
+        margin: 0 0 16px 0;
+        letter-spacing: -2px;
+      }
 
-    .page-subtitle {
-      font-size: 20px;
-      color: var(--gray);
-      margin: 0 0 60px 0;
-      line-height: 1.6;
-    }
+      .page-subtitle {
+        font-size: 20px;
+        color: var(--gray);
+        margin: 0 0 60px 0;
+        line-height: 1.6;
+      }
 
-    .content-section {
-      margin-bottom: 60px;
-    }
+      .content-section {
+        margin-bottom: 60px;
+      }
 
-    .content-section h2 {
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--black);
-      margin: 0 0 24px 0;
-      letter-spacing: -1px;
-    }
+      .content-section h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--black);
+        margin: 0 0 24px 0;
+        letter-spacing: -1px;
+      }
 
-    .content-section h3 {
-      font-size: 24px;
-      font-weight: 600;
-      color: var(--orange);
-      margin: 40px 0 16px 0;
-      letter-spacing: -0.5px;
-    }
+      .content-section h3 {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--orange);
+        margin: 40px 0 16px 0;
+        letter-spacing: -0.5px;
+      }
 
-    .content-section p {
-      font-size: 16px;
-      line-height: 1.8;
-      color: var(--black);
-      margin: 0 0 20px 0;
-    }
+      .content-section p {
+        font-size: 16px;
+        line-height: 1.8;
+        color: var(--black);
+        margin: 0 0 20px 0;
+      }
 
-    .highlight-box {
-      background: #fff9f5;
-      border-left: 4px solid var(--orange);
-      padding: 24px;
-      border-radius: 8px;
-      margin: 32px 0;
-    }
+      .highlight-box {
+        background: #fff9f5;
+        border-left: 4px solid var(--orange);
+        padding: 24px;
+        border-radius: 8px;
+        margin: 32px 0;
+      }
 
-    .highlight-box p {
-      margin: 0;
-      color: var(--black);
-    }
+      .highlight-box p {
+        margin: 0;
+        color: var(--black);
+      }
 
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 24px;
-      margin-top: 40px;
-    }
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 24px;
+        margin-top: 40px;
+      }
 
-    .team-card {
-      background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 16px;
-      padding: 32px 24px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+      .team-card {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 16px;
+        padding: 32px 24px;
+        text-align: center;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
 
-    /*.team-card:hover {
+      /*.team-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }*/
 
-    .team-avatar {
-      width: 85px;
-      height: 85px;
-      margin: 0 auto 4px; /* 기존 8px → 4px */
-      border-radius: 50%;
-      overflow: hidden;
-    }
+      .team-avatar {
+        width: 85px;
+        height: 85px;
+        margin: 0 auto 4px; /* 기존 8px → 4px */
+        border-radius: 50%;
+        overflow: hidden;
+      }
 
-    .team-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+      .team-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
 
-    .team-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--black);
-      margin: 0 0 6px 0; /* 기존 8px → 6px */
-    }  
+      .team-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--black);
+        margin: 0 0 6px 0; /* 기존 8px → 6px */
+      }
 
-    .team-role {
-      display: inline-block;
-      font-size: 13px;
-      font-weight: 500;
-      padding: 6px 14px;
-      background: #fff3ee;          /* 아주 옅은 주황 */
-      color: var(--orange);
-      border: 1px solid var(--orange);
-      border-radius: 20px;
-      margin: 0;
-    }
+      .team-role {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 6px 14px;
+        background: #fff3ee; /* 아주 옅은 주황 */
+        color: var(--orange);
+        border: 1px solid var(--orange);
+        border-radius: 20px;
+        margin: 0;
+      }
 
-    /* ===== Footer ===== */
+      /* ===== Footer ===== */
       .footer {
         border-top: 1px solid var(--orange);
         padding: 40px 16px 20px;
         max-width: 1200px;
         margin: 0 auto;
       }
-  
+
       .footer-links {
         display: flex;
         flex-direction: row;
@@ -192,7 +198,7 @@
         margin-bottom: 40px;
         flex-wrap: wrap;
       }
-  
+
       .footer-links a {
         background: none;
         border: none;
@@ -204,22 +210,22 @@
         text-decoration: none;
         padding: 0;
       }
-  
+
       .footer-links a:hover {
         color: var(--orange);
       }
-  
+
       .footer-credits {
         display: flex;
         gap: 40px;
         align-items: center;
         flex-wrap: wrap;
       }
-  
+
       .footer-logo {
         height: 35px;
       }
-  
+
       .footer-text {
         display: flex;
         gap: 16px;
@@ -227,170 +233,195 @@
         letter-spacing: -0.12px;
         color: var(--orange);
       }
-  
+
       .footer-text a {
         color: var(--orange);
         text-decoration: none;
         transition: opacity 0.3s ease;
       }
-  
+
       .footer-text a:hover {
         opacity: 0.7;
         text-decoration: underline;
       }
-  
+
       .footer-copyright {
         font-size: 12px;
         letter-spacing: -0.12px;
         color: var(--orange);
       }
-  /* ===== Tablet ===== */
-    @media (max-width: 1279px) {
-      .title h1 {
-        font-size: 90px;
-      }
-      .title img {
-        height: 90px;
-      }
-      .hero {
-        max-width: 800px;
-        height: 250px;
-      }
-      .hero img {
-        height: 380px;
-      }
-      .headline {
-        font-size: 48px;
-      }
-      .cta h2 {
-        font-size: 40px;
-      }
-    }
-
-    /* ===== Mobile ===== */
-    @media (max-width: 799px) {
-      .page-title {
-        font-size: 36px;
+      /* ===== Tablet ===== */
+      @media (max-width: 1279px) {
+        .title h1 {
+          font-size: 90px;
+        }
+        .title img {
+          height: 90px;
+        }
+        .hero {
+          max-width: 800px;
+          height: 250px;
+        }
+        .hero img {
+          height: 380px;
+        }
+        .headline {
+          font-size: 48px;
+        }
+        .cta h2 {
+          font-size: 40px;
+        }
       }
 
-      .page-subtitle {
-        font-size: 18px;
+      /* ===== Mobile ===== */
+      @media (max-width: 799px) {
+        .page-title {
+          font-size: 36px;
+        }
+
+        .page-subtitle {
+          font-size: 18px;
+        }
+
+        .content-section h2 {
+          font-size: 28px;
+        }
+
+        .content-section h3 {
+          font-size: 20px;
+        }
+
+        .footer-links {
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .footer-credits {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 20px;
+        }
       }
-
-      .content-section h2 {
-        font-size: 28px;
-      }
-
-      .content-section h3 {
-        font-size: 20px;
-      }
-
-      .footer-links {
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .footer-credits {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <header class="header">
-    <div class="header-inner">
-      <img src="../assets/jam_logo.png" alt="JAM" class="logo" onclick="location.href='index.html'" />
-    </div>
-  </header>
-
-  <main class="main">
-    <h1 class="page-title">Sticky Studio</h1>
-    <p class="page-subtitle">재미난 삶을 연결하는 서비스를 만듭니다.</p>
-
-    <div class="content-section">
-      <p>
-        우리는 음악을 좋아하는 사람들이 더 쉽게 만나고,<br>
-        함께 연주하며, 오래 즐길 수 있는 환경을 고민합니다.
-      </p>
-    </div>
-
-    <div class="content-section">
-      <h2>MISSION</h2>
-      <div class="highlight-box">
-        <p><strong>함께할 때 더 째미난 음악!</strong></p>
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <img
+          src="https://thimxokeit.github.io/letsjam/assets/jam_logo.png"
+          alt="JAM"
+          class="logo"
+          onclick="location.href = 'index.html'"
+        />
       </div>
-    </div>
+    </header>
 
-    <div class="content-section">
-      <h2>VISION</h2>
-      <p>
-        밴드와 관련된 모든 서비스를 제공해<br>
-        취미 밴드인들이 음악에만 몰입하고 즐길 수 있는 환경을 만듭니다.
-      </p>
-    </div>
+    <main class="main">
+      <h1 class="page-title">Sticky Studio</h1>
+      <p class="page-subtitle">재미난 삶을 연결하는 서비스를 만듭니다.</p>
 
-    <div class="content-section">
-      <h2>TEAM</h2>
-      <div class="team-grid">
-        <div class="team-card">
-          <div class="team-avatar">
-            <img src="../assets/Sessions=Drum.png" alt="zig" />
-          </div>
-          <h3 class="team-name">zig</h3>
-          <span class="team-role">개발</span>
-        </div>
-        
-        <div class="team-card">
-          <div class="team-avatar">
-            <img src="../assets/Sessions=Keyboard.png" alt="yoo" />
-          </div>
-          <h3 class="team-name">yoo</h3>
-          <span class="team-role">디자인</span>
-        </div>
-        
-        <div class="team-card">
-          <div class="team-avatar">
-            <img src="../assets/Sessions=Guitar.png" alt="xoy" />
-          </div>
-          <h3 class="team-name">xoy</h3>
-          <span class="team-role">기획</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="content-section">
-      <h2>Contact</h2>
-      <p>
-        <a href="mailto:jam.chunkybuddy@gmail.com" style="color: var(--orange); text-decoration: none; font-weight: 600;">
-          jam.chunkybuddy@gmail.com
-        </a>
-      </p>
-    </div>
-  </main>
-
-  
-  <footer class="footer">
-    <div class="footer-links">
-      <a href="./about/">Sticky Studio 소개</a>
-      <a href="./terms/">이용약관</a>
-      <a href="./privacy/">개인정보처리방침</a>
-    </div>
-
-    <div class="footer-credits">
-      <img src="../assets/jam_logo.png" alt="JAM" class="footer-logo" />
-      
-      <div class="footer-text">
-        <a href="https://forms.gle/6JcnqBmy8Aaim5qv6" target="_blank">문의하기</a>
-        <a href="https://forms.gle/9MV6DvcKfCKQTxbXA" target="_blank">버그 제보하기</a>
+      <div class="content-section">
+        <p>
+          우리는 음악을 좋아하는 사람들이 더 쉽게 만나고,<br />
+          함께 연주하며, 오래 즐길 수 있는 환경을 고민합니다.
+        </p>
       </div>
 
-      <p class="footer-copyright">© 2026 JAM. All rights reserved.</p>
-    </div>
-  </footer>
+      <div class="content-section">
+        <h2>MISSION</h2>
+        <div class="highlight-box">
+          <p><strong>함께할 때 더 째미난 음악!</strong></p>
+        </div>
+      </div>
 
-</body>
+      <div class="content-section">
+        <h2>VISION</h2>
+        <p>
+          밴드와 관련된 모든 서비스를 제공해<br />
+          취미 밴드인들이 음악에만 몰입하고 즐길 수 있는 환경을 만듭니다.
+        </p>
+      </div>
+
+      <div class="content-section">
+        <h2>TEAM</h2>
+        <div class="team-grid">
+          <div class="team-card">
+            <div class="team-avatar">
+              <img
+                src="https://thimxokeit.github.io/letsjam/assets/Sessions=Drum.png"
+                alt="zig"
+              />
+            </div>
+            <h3 class="team-name">zig</h3>
+            <span class="team-role">개발</span>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar">
+              <img
+                src="https://thimxokeit.github.io/letsjam/assets/Sessions=Keyboard.png"
+                alt="yoo"
+              />
+            </div>
+            <h3 class="team-name">yoo</h3>
+            <span class="team-role">디자인</span>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar">
+              <img
+                src="https://thimxokeit.github.io/letsjam/assets/Sessions=Guitar.png"
+                alt="xoy"
+              />
+            </div>
+            <h3 class="team-name">xoy</h3>
+            <span class="team-role">기획</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2>Contact</h2>
+        <p>
+          <a
+            href="mailto:jam.chunkybuddy@gmail.com"
+            style="
+              color: var(--orange);
+              text-decoration: none;
+              font-weight: 600;
+            "
+          >
+            jam.chunkybuddy@gmail.com
+          </a>
+        </p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="./about/">Sticky Studio 소개</a>
+        <a href="./terms/">이용약관</a>
+        <a href="./privacy/">개인정보처리방침</a>
+      </div>
+
+      <div class="footer-credits">
+        <img
+          src="https://thimxokeit.github.io/letsjam/assets/jam_logo.png"
+          alt="JAM"
+          class="footer-logo"
+        />
+
+        <div class="footer-text">
+          <a href="https://forms.gle/6JcnqBmy8Aaim5qv6" target="_blank"
+            >문의하기</a
+          >
+          <a href="https://forms.gle/9MV6DvcKfCKQTxbXA" target="_blank"
+            >버그 제보하기</a
+          >
+        </div>
+
+        <p class="footer-copyright">© 2026 JAM. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
 </html>
-
