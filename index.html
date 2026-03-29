@@ -510,6 +510,72 @@
           display: none;
           /* 세로선 숨김 */
         }
+
+        .notification-form {
+          max-width: 500px;
+          margin: 0 auto;
+          padding: 0 16px;
+        }
+      
+        .form-group {
+          margin-bottom: 20px;
+        }
+      
+        .email-input {
+          width: 100%;
+          padding: 16px 24px;
+          font-size: 16px;
+          font-family: Pretendard, sans-serif;
+          border: 2px solid white;
+          border-radius: 50px;
+          outline: none;
+          transition: all 0.3s ease;
+          background: white;
+          color: var(--black);
+        }
+      
+        .email-input:focus {
+          border-color: var(--yellow);
+          box-shadow: 0 0 0 4px rgba(255, 245, 102, 0.3);
+        }
+      
+        .email-input::placeholder {
+          color: #999;
+        }
+      
+        .cta-btn[type="submit"] {
+          border: none;
+          cursor: pointer;
+          font-family: Pretendard, sans-serif;
+          width: auto;
+        }
+      
+        .cta-btn:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+        }
+      
+        .message {
+          margin-top: 20px;
+          padding: 12px 20px;
+          border-radius: 12px;
+          font-size: 14px;
+          color: white;
+          display: none;
+        }
+      
+        .message.success {
+          background: rgba(255, 255, 255, 0.2);
+          display: block;
+        }
+      
+        .message.error {
+          background: rgba(211, 47, 47, 0.9);
+          display: block;
+        }
+
+        
         .footer-top {
           flex-direction: column;
           align-items: flex-start;
@@ -693,8 +759,110 @@
         >
           *참여 신청 후, 테스트 가능한 일정을 선택해 주세요
         </p>
+      </section> -->
+      <section class="cta">
+        <h2>🍊곧 만나요!🎸 </h2>
+        <p class="cta-info-text">
+          2026년 4월, JAM이 출시됩니다!
+        </p>
+      
+        <p class="cta-sub-text">
+          이메일을 입력하고 오픈 소식을 가장 먼저 받아보세요!
+        </p>
+        <p style="font-size:13px; opacity:0.8; margin-top:12px;">
+          * 광고 메일은 보내지 않아요
+        </p>
+      
+        <form class="notification-form" id="notificationForm">
+          <div class="form-group">
+            <input 
+              type="email" 
+              class="email-input" 
+              id="emailInput"
+              placeholder="이메일 주소를 입력해주세요"
+              required
+            >
+          </div>
+      
+          <button type="submit" class="cta-btn" id="submitBtn">
+            오픈 알림 신청하기 →
+          </button>
+      
+          <p class="message" id="message"></p>
+        </form>
       </section>
-    </main> -->
+
+      <script>
+      (function() {
+        const form = document.getElementById('notificationForm');
+        const emailInput = document.getElementById('emailInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const message = document.getElementById('message');
+    
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxmqvpYqakpRMDdJkRRmjVmpXAn-2HyuwRrpO-hY2ldc2B81W4wjppPNlrKhQW3z2Me/exec';
+    
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+    
+          const email = emailInput.value.trim();
+    
+          // 이메일 유효성 검사
+          if (!email || !isValidEmail(email)) {
+            showMessage('올바른 이메일 주소를 입력해주세요.', 'error');
+            return;
+          }
+    
+          // 버튼 비활성화
+          submitBtn.disabled = true;
+          submitBtn.textContent = '신청 중...';
+    
+          try {
+            // Google Apps Script로 데이터 전송
+            const response = await fetch(SCRIPT_URL, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email: email,
+                timestamp: new Date().toISOString()
+              })
+            });
+    
+            // no-cors 모드에서는 응답을 확인할 수 없으므로 성공으로 간주
+            showMessage('신청이 완료되었습니다! 출시 소식을 가장 먼저 보내드릴게요 🎵', 'success');
+            emailInput.value = '';
+            
+          } catch (error) {
+            console.error('Error:', error);
+            showMessage('일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 'error');
+          } finally {
+            // 버튼 다시 활성화
+            submitBtn.disabled = false;
+            submitBtn.textContent = '오픈 알림 신청하기 →';
+          }
+        });
+    
+        function isValidEmail(email) {
+          const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return regex.test(email);
+        }
+    
+        function showMessage(text, type) {
+          message.textContent = text;
+          message.className = `message ${type}`;
+          
+          // 3초 후 에러 메시지 숨기기
+          if (type === 'error') {
+            setTimeout(() => {
+              message.style.display = 'none';
+            }, 3000);
+          }
+        }
+      })();
+    </script>
+    </main>
     <footer class="footer">
       <!-- 상단: 로고 + 회사소개 -->
       <div class="footer-top">
