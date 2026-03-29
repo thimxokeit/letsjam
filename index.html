@@ -514,8 +514,11 @@
         }
 
         .notification-form {
-          max-width: 600px; /* 폼 전체 너비 제한 */
+          max-width: 500px; /* 전체 폼 너비 조절 */
           margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
           padding: 0 16px;
         }
       
@@ -527,36 +530,50 @@
         }
       
         .email-input {
-          flex: 1; /* 입력창이 남은 공간 차지 */
-          min-width: 280px;
-          padding: 16px 24px;
+          width: 100%;
+          padding: 18px 24px;
           font-size: 16px;
           font-family: Pretendard, sans-serif;
-          border: 2px solid transparent;
-          border-radius: 50px;
+          border: none; /* 테두리 제거 */
+          border-radius: 12px; /* 약간 각진 느낌으로 세련되게 */
           outline: none;
-          transition: all 0.3s ease;
-          background: white;
+          background-color: white;
           color: var(--black);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
+          transition: all 0.3s ease;
         }
       
         .email-input:focus {
-          border-color: var(--yellow);
-          box-shadow: 0 0 0 4px rgba(255, 245, 102, 0.3);
+          box-shadow: 0 0 0 3px var(--yellow); /* 포커스 시 노란색 강조 */
         }
       
         /* CTA 내 버튼 스타일 오버라이드 */
         .cta .cta-btn#submitBtn {
-          margin: 0; /* 불필요한 마진 제거 */
-          white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+          width: 100%; /* 입력창과 너비 맞춤 */
+          padding: 18px;
+          font-size: 17px;
+          font-weight: 700;
+          background-color: var(--black); /* 오렌지 배경과 대비되도록 검정색 추천, 혹은 흰색 */
+          color: white;
+          border: none !important; /* 회색 테두리 강제 제거 */
+          outline: none !important;
+          border-radius: 12px;
           cursor: pointer;
-          border: none;
-          line-height: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-      
+
+        .cta .cta-btn#submitBtn:hover {
+          transform: translateY(-2px);
+          background-color: #333;
+          box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta .cta-btn#submitBtn:active {
+          transform: translateY(0);
+        }
+
+        
         .message {
           margin-top: 20px;
           padding: 12px 20px;
@@ -586,6 +603,10 @@
           .cta .cta-btn#submitBtn {
             width: 100%;
             padding: 18px 0;
+          }
+        }
+        .notification-form {
+            max-width: 100%;
           }
         }
 
@@ -763,13 +784,10 @@
       <section class="cta">
         <h2>🍊 곧 만나요! 🎸</h2>
         <p class="cta-info-text">
-          2026년 4월, JAM이 출시됩니다!
-        </p>
-      
-        <p class="cta-sub-text" style="margin-bottom: 8px;">
+          2026년 4월, JAM이 출시됩니다!<br>
           이메일을 입력하고 오픈 소식을 가장 먼저 받아보세요!
         </p>
-        <p style="font-size:13px; opacity:0.8; margin-bottom:24px;">
+        <p style="font-size:13px; opacity:0.8; margin-bottom:12px;">
           * 광고 메일은 보내지 않아요
         </p>
       
