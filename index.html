@@ -29,6 +29,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
     />
+
     <style>
       :root {
         --orange: #fc5c2b;
@@ -37,47 +38,48 @@
         --gray: #a0a0a0;
         --light-orange: #fd9e81;
       }
-
+    
       * {
         box-sizing: border-box;
-      }
-
-      body {
         margin: 0;
-        font-family: Pretendard, sans-serif;
+        padding: 0;
+      }
+    
+      body {
+        font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
         background: #fff;
         color: var(--black);
+        line-height: 1.5;
       }
-
-      /* ===== Header ===== */
+    
+      /* ===== Header & Title ===== */
       .header {
-        padding: 60px 16px 60px;
+        padding: 80px 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 40px;
         overflow: hidden;
       }
-
+    
       .title {
         display: flex;
         align-items: center;
         gap: 12px;
       }
-
+    
       .title h1 {
         font-size: 100px;
         font-weight: 800;
         color: var(--orange);
         letter-spacing: -5px;
         line-height: 1;
-        margin: 0;
       }
-
+    
       .title img {
         height: 100px;
       }
-
+    
       /* ===== Hero Image ===== */
       .hero {
         position: relative;
@@ -87,31 +89,27 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 60px;
+        margin: 60px auto 0;
       }
-
+    
       .hero img {
         height: 400px;
-        transform: translateY(0px);
+        object-fit: contain;
       }
-
-      /* ===== Main ===== */
+    
+      /* ===== Main Content ===== */
       .main {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 16px;
+        padding: 0 20px;
       }
-
+    
       /* ===== Benefits ===== */
       .benefits {
-        padding: 20px 0;
+        padding: 80px 0;
         text-align: center;
       }
-
-      .benefits-head {
-        margin-bottom: 40px;
-      }
-
+    
       .eyebrow {
         font-size: 16px;
         font-weight: 600;
@@ -120,508 +118,216 @@
         text-transform: uppercase;
         margin-bottom: 16px;
       }
-
+    
       .headline {
         font-size: 56px;
         font-weight: 700;
         letter-spacing: -2px;
-        margin: 0 0 24px 0;
-        color: var(--black);
-        word-break: keep-all;
-        /* 추가 */
+        margin-bottom: 24px;
         line-height: 1.2;
-        /* 추가 */
+        word-break: keep-all;
       }
-
+    
       .body {
         font-size: 20px;
-        line-height: 1.6;
         color: var(--gray);
         max-width: 700px;
-        margin: 0 auto;
+        margin: 0 auto 60px;
       }
-
+    
       .benefits-list {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 40px;
-        margin-top: 60px;
+        gap: 30px;
       }
-
+    
       .benefit-item {
         padding: 40px 30px;
         background: #f9f9f9;
-        border-radius: 20px;
+        border-radius: 24px;
         transition: transform 0.3s ease;
+        text-align: left;
       }
-
+    
       .benefit-item:hover {
-        transform: translateY(-5px);
+        transform: translateY(-8px);
       }
-
+    
       .benefit-item h3 {
-        font-size: 28px;
-        font-weight: 700;
-        margin: 0 0 16px 0;
+        font-size: 24px;
         color: var(--orange);
+        margin-bottom: 12px;
       }
-
-      .benefit-item p {
-        font-size: 16px;
-        line-height: 1.6;
-        color: var(--black);
-        margin: 0;
-      }
-
-      /* ===== Photo Row ===== */
+    
+      /* ===== Photo Row Animation ===== */
       .photo-row {
         overflow: hidden;
         padding: 60px 0;
-        position: relative;
         width: 100%;
       }
-
+    
       .photo-scroll {
         display: flex;
         gap: 20px;
-        animation: scroll 10s linear infinite;
+        animation: scroll 20s linear infinite;
+        width: max-content;
       }
-
+    
       .photo-scroll img {
         height: 180px;
         border-radius: 20px;
-        flex-shrink: 0;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        transition:
-          transform 0.3s ease,
-          box-shadow 0.3s ease;
       }
-
-      .photo-scroll img:hover {
-        transform: translateY(-5px) scale(1.05);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      }
-
+    
       @keyframes scroll {
-        0% {
-          transform: translateX(0);
-        }
-
-        100% {
-          transform: translateX(-50%);
-        }
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
       }
-
-      .photo-row:hover .photo-scroll {
-        animation-play-state: paused;
-      }
-
-      /* ===== CTA ===== */
+    
+      /* ===== CTA Section (수정 핵심) ===== */
       .cta {
         text-align: center;
-        padding: 40px 0;
+        padding: 80px 20px;
         background: linear-gradient(135deg, var(--orange) 0%, #ff8a5c 100%);
-        border-radius: 30px;
-        margin: 25px 0;
+        border-radius: 40px;
+        margin: 40px 0;
+        color: white;
       }
-
+    
       .cta h2 {
-        font-size: 40px;
+        font-size: 42px;
         font-weight: 700;
-        color: white;
-        margin: 0 0 10px 0;
+        margin-bottom: 16px;
         letter-spacing: -1.5px;
-        word-break: keep-all;
-        /* 추가 */
-        padding: 0 16px;
-        /* 추가 */
       }
-
-      .cta p {
-        font-size: 20px;
-        color: white;
-        margin: 0 0 40px 0;
-        opacity: 0.9;
-        word-break: keep-all;
-        /* 추가 */
-        padding: 0 16px;
-        /* 추가 */
-      }
+    
       .cta-info-text {
-        font-size: 18px;
-        margin-bottom: 10px;
-        word-break: keep-all;
-        padding: 0 16px;
-      }
-
-      .cta-sub-text {
-        font-size: 17px;
-        margin: 30px 16px 40px;
-        line-height: 1.4; /* 1 → 1.4로 변경하여 가독성 향상 */
+        font-size: 20px;
+        margin-bottom: 30px;
+        opacity: 0.95;
         word-break: keep-all;
       }
-
-      .cta-sub-text span {
-        display: block;
-        margin-top: 0.5em;
+    
+      .notification-form {
+        max-width: 550px;
+        margin: 0 auto;
       }
-
-      .cta-btn {
-        display: inline-block;
-        padding: 18px 48px;
+    
+      .form-group-container {
+        display: flex;
+        gap: 12px;
+        align-items: stretch;
+      }
+    
+      .email-input {
+        flex: 2;
+        padding: 18px 24px;
+        font-size: 16px;
+        border: none;
+        border-radius: 14px;
+        outline: none;
         background: white;
-        color: var(--orange);
-        font-size: 18px;
-        font-weight: 700;
-        text-decoration: none;
-        border-radius: 50px;
-        transition:
-          transform 0.3s ease,
-          box-shadow 0.3s ease;
+        color: var(--black);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       }
-
-      .cta-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      }
-
-      /* ===== CTA Beta Tester Box ===== */
-      .cta-detail-box {
-        max-width: 800px;
-        margin: 30px auto;
-        background: white;
-        padding: 40px;
-        border-radius: 20px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-      }
-
-      .cta-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-        position: relative;
-      }
-
-      .cta-grid-item {
-        text-align: left;
-      }
-
-      .cta-grid-item h4 {
+    
+      .cta .cta-btn#submitBtn {
+        flex: 1;
+        padding: 18px 24px;
         font-size: 16px;
         font-weight: 700;
-        margin: 0 0 8px 0;
-        color: var(--orange);
+        background-color: var(--black);
+        color: white;
+        border: none !important; /* 회색 테두리 완벽 제거 */
+        border-radius: 14px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
-
-      .cta-grid-item p {
-        font-size: 15px;
-        margin: 0;
-        color: #333;
+    
+      .cta .cta-btn#submitBtn:hover {
+        background-color: #333;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
       }
-
-      .cta-divider-h {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        height: 2px;
-        background: var(--orange);
-        opacity: 0.3;
+    
+      .message {
+        margin-top: 20px;
+        font-size: 14px;
+        min-height: 20px;
       }
-
-      .cta-divider-v {
-        position: absolute;
-        left: 50%;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: var(--orange);
-        opacity: 0.3;
-      }
-
+    
       /* ===== Footer ===== */
       .footer {
         border-top: 1px solid #f0f0f0;
-        padding: 40px 16px 20px;
-        max-width: 1200px;
-        margin: 0 auto;
+        padding: 60px 20px;
+        margin-top: 60px;
+        text-align: left;
       }
-
+    
       .footer-top {
         display: flex;
         gap: 12px;
         align-items: center;
-        margin-bottom: 16px;
+        margin-bottom: 20px;
       }
-
-      .footer-logo {
-        height: 28px;
-      }
-
-      .footer-company {
-        font-size: 14px;
-        letter-spacing: -0.35px;
-        color: var(--orange);
-        text-decoration: none;
-        transition: color 0.3s ease;
-      }
-
-      .footer-company:hover {
-        color: var(--black);
-      }
-
+    
+      .footer-logo { height: 28px; }
+    
       .footer-bottom {
         display: flex;
-        gap: 16px;
-        align-items: center;
+        gap: 20px;
         flex-wrap: wrap;
-      }
-
-      .footer-bottom a {
         font-size: 13px;
-        letter-spacing: -0.3px;
+        color: var(--gray);
+      }
+    
+      .footer-bottom a {
         color: var(--black);
         text-decoration: none;
-        transition: color 0.3s ease;
       }
-
-      .footer-bottom a:hover {
-        color: var(--orange);
+    
+      /* ===== Responsive: Tablet & Mobile ===== */
+      @media (max-width: 1024px) {
+        .title h1 { font-size: 80px; }
+        .title img { height: 80px; }
+        .headline { font-size: 44px; }
       }
-
-      .footer-copyright {
-        font-size: 13px;
-        letter-spacing: -0.3px;
-        color: var(--gray);
-        margin: 0;
-      }
-
-      /* ===== Tablet ===== */
-      @media (max-width: 1279px) {
-        .title h1 {
-          font-size: 90px;
-        }
-
-        .title img {
-          height: 90px;
-        }
-
-        .hero {
-          max-width: 800px;
-          height: 250px;
-        }
-
-        .hero img {
-          height: 380px;
-        }
-
-        .headline {
-          font-size: 48px;
-        }
-
-        .cta h2 {
-          font-size: 40px;
-        }
-      }
-
-      /* ===== Mobile ===== */
-      @media (max-width: 799px) {
-        .header {
-          padding-top: 40px;
-          gap: 30px;
-        }
-
-        .title h1 {
-          font-size: 70px;
-        }
-
-        .title img {
-          height: 70px;
-        }
-
-        .hero {
-          height: 220px;
-          max-width: 90%;
-          margin-top: 60px;
-        }
-
-        .hero img {
-          height: 340px;
-          transform: translateY(0px);
-        }
-
-        .headline {
-          font-size: 32px;
-        }
-
-        .body {
-          font-size: 18px;
-        }
-
-        .benefits-list {
-          grid-template-columns: 1fr;
-        }
-
-        .benefit-item h3 {
-          font-size: 20px;
-        }
-
-        .photo-row img {
-          height: 100px;
-        }
-
-        .cta {
-          padding: 60px 16px;
-        }
-
-        .cta h2 {
-          font-size: 28px;
-        }
-
-        .cta p {
-          font-size: 14px;
-        }
-
-        .cta-detail-box {
-          padding: 24px 16px;
-          /* 40px → 24px, 16px로 줄임 */
-          margin: 20px 16px;
-          /* 양옆 여백도 추가 */
-        }
-
-        .cta-grid {
-          grid-template-columns: 1fr;
-          /* 2열 → 1열로 */
-          gap: 20px;
-        }
-
-        .cta-grid-item h4 {
-          font-size: 15px;
-        }
-
-        .cta-grid-item p {
-          font-size: 14px;
-        }
-
-        .cta-divider-h {
-          display: none;
-          /* 가로선 숨김 */
-        }
-
-        .cta-divider-v {
-          display: none;
-          /* 세로선 숨김 */
-        }
-
-        .notification-form {
-          max-width: 500px; /* 전체 폼 너비 조절 */
-          margin: 0 auto;
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          padding: 0 16px;
-        }
-      
+    
+      @media (max-width: 768px) {
+        .header { padding: 40px 20px; }
+        .title h1 { font-size: 60px; }
+        .title img { height: 60px; }
+        .hero { height: 200px; }
+        .hero img { height: 300px; }
+        
+        .headline { font-size: 32px; }
+        .body { font-size: 18px; }
+    
+        /* 모바일 CTA 최적화 */
+        .cta { padding: 50px 20px; border-radius: 30px; }
+        .cta h2 { font-size: 28px; }
+        .cta-info-text { font-size: 16px; }
+        
         .form-group-container {
-          display: flex;
-          gap: 12px;
-          justify-content: center;
-          align-items: stretch;
-        }
-      
-        .email-input {
-          width: 65%;
-          padding: 18px 24px;
-          font-size: 16px;
-          font-family: Pretendard, sans-serif;
-          border: none; /* 테두리 제거 */
-          border-radius: 12px; /* 약간 각진 느낌으로 세련되게 */
-          outline: none;
-          background-color: white;
-          color: var(--black);
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
-          transition: all 0.3s ease;
-        }
-      
-        .email-input:focus {
-          box-shadow: 0 0 0 3px var(--yellow); /* 포커스 시 노란색 강조 */
-        }
-      
-        /* CTA 내 버튼 스타일 오버라이드 */
-        .cta .cta-btn#submitBtn {
-          width: 65%; /* 입력창과 너비 맞춤 */
-          padding: 18px;
-          font-size: 17px;
-          font-weight: 700;
-          background-color: var(--black); /* 오렌지 배경과 대비되도록 검정색 추천, 혹은 흰색 */
-          color: white;
-          border: none !important; /* 회색 테두리 강제 제거 */
-          outline: none !important;
-          border-radius: 12px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .cta .cta-btn#submitBtn:hover {
-          transform: translateY(-2px);
-          background-color: #333;
-          box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+          flex-direction: column;
         }
         
-        .cta .cta-btn#submitBtn:active {
-          transform: translateY(0);
-        }
-
-        
-        .message {
-          margin-top: 20px;
-          padding: 12px 20px;
-          border-radius: 12px;
-          font-size: 14px;
-          color: white;
-          display: none; /* 기본 숨김 */
+        .email-input, .cta .cta-btn#submitBtn {
+          width: 100%;
+          flex: none;
           text-align: center;
-          background: rgba(0, 0, 0, 0.1);
         }
-      
-        .message.success { display: block; background: rgba(255, 255, 255, 0.2); }
-        .message.error { display: block; background: rgba(211, 47, 47, 0.8); }
-      
-        /* ===== 모바일 대응 (800px 미만) ===== */
-        @media (max-width: 799px) {
-          .form-group-container {
-            flex-direction: column; /* 수직 정렬 */
-          }
-          
-          .email-input {
-            width: 100%;
-            min-width: unset;
-            text-align: center; /* 모바일은 중앙 정렬이 더 깔끔함 */
-          }
-      
-          .cta .cta-btn#submitBtn {
-            width: 100%;
-            padding: 18px 0;
-          }
-        }
-        .notification-form {
-            max-width: 80%;
-          }
-        }
-
-      /* ===== 작은 모바일 (iPhone SE 등) ===== */
-      @media (max-width: 375px) {
-        .headline {
-          font-size: 28px;
-          /* 더 작은 화면 대응 */
-        }
-
-        .cta h2 {
-          font-size: 24px;
-        }
+      }
+    
+      @media (max-width: 480px) {
+        .title h1 { font-size: 50px; }
+        .title img { height: 50px; }
+        .headline { font-size: 28px; }
       }
     </style>
+    
   </head>
   <body>
     <header class="header">
