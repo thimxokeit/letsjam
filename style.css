@@ -47,6 +47,17 @@ body {
   height: 100px;
 }
 
+/* Sub-page header logo (via _includes/header.html) */
+.header-inner {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  height: 36px;
+  cursor: pointer;
+}
+
 /* ===== Hero Image ===== */
 .hero {
   position: relative;
