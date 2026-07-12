@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"echo \\\"=== index.html 에서 logo/header 클래스 사용 ===\\\"; rtk grep -n \\\"class=\\\\\\\"logo\\\\\\\"\\\\|header-inner\\\\|class=\\\\\\\"header\\\\\\\"\\\\|class=\\\\\\\"title\\\\\\\"\\\" index.html; echo \\\"=== style.css 에 이미 .log...",
-  "error": "Exit code 1\n=== index.html 에서 logo/header 클래스 사용 ===\n2 matches in 1F:\n\n[file] index.html (2):\n    53: <header class=\"header\">\n    54: <div class=\"title\">\n\n=== style.css 에 이미 .logo / .header-inner 있나 ===\n0 matches for '\\.logo\\|\\.header-inner'",
-  "timestamp": "2026-07-12T06:06:01.826Z",
-  "retry_count": 1
-}
