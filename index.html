@@ -49,10 +49,6 @@
         --pop: cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
-      .header {
-        overflow-x: clip;
-      }
-
       /* ---- Title: "Let's" + JAM 로고 ---- */
       .title h1 {
         animation: lets-in 0.6s var(--pop) 0.05s both;
@@ -252,6 +248,8 @@
         right: -2%;
         top: 26%;
         width: clamp(90px, 20vw, 240px);
+        height: auto;
+        max-height: none;
         transform-origin: 20% 90%;
         animation:
           hand-in 0.7s var(--pop) 1.2s both,
@@ -280,17 +278,11 @@
       .cta .bounce:last-child {
         animation-delay: 0.3s;
       }
-      .cta-btn {
-        transition:
-          transform 0.3s ease,
-          box-shadow 0.3s ease,
-          background-color 0.3s ease;
-      }
-      .cta-btn:hover:not(:disabled) {
+      .cta .cta-btn#submitBtn:hover:not(:disabled) {
         transform: translateY(-3px);
         box-shadow: 4px 6px 0 var(--jam-yellow);
       }
-      .cta-btn:active:not(:disabled) {
+      .cta .cta-btn#submitBtn:active:not(:disabled) {
         transform: translateY(1px);
         box-shadow: 1px 2px 0 var(--jam-yellow);
       }
