@@ -32,486 +32,9 @@
     />
     <link
       rel="stylesheet"
-      href="https://thimxokeit.github.io/letsjam/style.css?v=3"
+      href="https://thimxokeit.github.io/letsjam/style.css?v=4"
     />
 
-    <!-- ===== JAM Motion (hero sticker scene) ===== -->
-    <style id="jam-motion">
-      :root {
-        --jam-orange: #fc5c2b;
-        --jam-orange-hover: #fc784f;
-        --jam-orange-light: #fd9e81;
-        --jam-yellow: #fff231;
-        --jam-yellow-soft: #fffab3;
-        --jam-black: #222222;
-        /* 목업 이미지가 이미 기울어져 있으면 0deg로 */
-        --phone-tilt: 4deg;
-        /* 번개 색: 오렌지 배경 위에서도 보이도록 */
-        --bolt-face: #fff231;
-        --bolt-face-soft: #fffab3;
-        --bolt-depth: #222222;
-        --pop: cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-
-      /* ---- Title: "Let's" + JAM 로고 ---- */
-      .title h1 {
-        animation: lets-in 0.6s var(--pop) 0.05s both;
-      }
-      .title img {
-        transform-origin: 50% 80%;
-        animation: logo-stamp 0.7s var(--pop) 0.2s both;
-        cursor: pointer;
-      }
-      .title img:hover {
-        animation: logo-wiggle 0.5s ease;
-      }
-
-      /* ---- Hero stage ---- */
-      .hero {
-        position: relative;
-        isolation: isolate;
-      }
-      .hero .phone-wrap {
-        position: relative;
-        z-index: 2;
-        display: block;
-        will-change: transform;
-      }
-      .hero .hero-phone {
-        display: block;
-        margin: 0 auto;
-        transform-origin: 50% 90%;
-        animation:
-          phone-in 0.9s var(--pop) 0.55s both,
-          phone-float 5s ease-in-out 1.6s infinite;
-      }
-
-      .hero-stage {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-      }
-      .hero-stage > * {
-        position: absolute;
-        will-change: transform;
-      }
-
-      /* 오렌지 타원 + 하프톤 */
-      .hero-stage .blob {
-        z-index: -1;
-        left: 50%;
-        top: 60%;
-        width: min(118%, 980px);
-        aspect-ratio: 1.75;
-        margin-left: calc(min(118%, 980px) / -2);
-        translate: 0 -50%;
-      }
-      .hero-stage .blob-shape {
-        position: absolute;
-        inset: 0;
-        background: var(--jam-orange);
-        border-radius: 50%;
-        overflow: hidden;
-        animation:
-          blob-in 0.8s var(--pop) 0.35s both,
-          blob-breathe 9s ease-in-out 1.2s infinite;
-      }
-      .hero-stage .blob-shape::after {
-        content: "";
-        position: absolute;
-        inset: -20px;
-        background-image: radial-gradient(
-          var(--jam-orange-light) 28%,
-          transparent 31%
-        );
-        background-size: 11px 11px;
-        -webkit-mask-image: radial-gradient(
-          ellipse at 30% 75%,
-          #000 0%,
-          transparent 55%
-        );
-        mask-image: radial-gradient(
-          ellipse at 30% 75%,
-          #000 0%,
-          transparent 55%
-        );
-        opacity: 0.55;
-        animation: dots-drift 14s linear infinite;
-      }
-
-      /* 번개 (노란 입체 그림자) */
-      .hero-stage .bolt {
-        z-index: 3;
-        transform-origin: 70% 90%;
-      }
-      .hero-stage .bolt svg {
-        display: block;
-        width: 100%;
-        height: auto;
-        overflow: visible;
-      }
-      .hero-stage .bolt-face {
-        fill: var(--bolt-face);
-      }
-      .hero-stage .bolt-depth {
-        fill: var(--bolt-depth);
-      }
-      .hero-stage .bolt-2 .bolt-face {
-        fill: var(--bolt-face-soft);
-      }
-      .hero-stage .bolt-1 {
-        left: 2%;
-        top: 22%;
-        width: clamp(70px, 15vw, 190px);
-      }
-      .hero-stage .bolt-2 {
-        left: 22%;
-        top: 4%;
-        width: clamp(38px, 7vw, 90px);
-      }
-      .hero-stage .bolt-3 {
-        right: 6%;
-        top: 12%;
-        width: clamp(34px, 6vw, 76px);
-      }
-      .hero-stage .bolt svg {
-        animation:
-          bolt-pop 0.55s var(--pop) both,
-          bolt-zap 4.2s steps(1) infinite;
-      }
-      .hero-stage .bolt-1 svg {
-        animation-delay: 0.95s, 2.2s;
-      }
-      .hero-stage .bolt-2 svg {
-        animation-delay: 1.1s, 3.1s;
-      }
-      .hero-stage .bolt-3 svg {
-        animation-delay: 1.25s, 2.7s;
-      }
-
-      /* 음표 */
-      .hero-stage .note {
-        z-index: 1;
-      }
-      .hero-stage .note svg {
-        display: block;
-        width: 100%;
-        height: auto;
-        animation:
-          note-pop 0.6s var(--pop) both,
-          note-bob 3.6s ease-in-out infinite;
-      }
-      .hero-stage .note-1 {
-        left: 9%;
-        top: 58%;
-        width: clamp(48px, 10vw, 120px);
-        color: #fff;
-      }
-      .hero-stage .note-1 svg {
-        animation-delay: 1.15s, 1.8s;
-      }
-      .hero-stage .note-2 {
-        right: 11%;
-        top: 68%;
-        width: clamp(30px, 5.5vw, 66px);
-        color: #fff;
-      }
-      .hero-stage .note-2 svg {
-        animation-delay: 1.35s, 2.4s;
-        rotate: 14deg;
-      }
-
-      /* 반짝이 */
-      .hero-stage .spark {
-        z-index: 3;
-        width: clamp(14px, 2.4vw, 26px);
-        aspect-ratio: 1;
-        background: var(--jam-yellow);
-        clip-path: polygon(
-          50% 0,
-          62% 38%,
-          100% 50%,
-          62% 62%,
-          50% 100%,
-          38% 62%,
-          0 50%,
-          38% 38%
-        );
-        animation: twinkle 2.4s ease-in-out infinite;
-      }
-      .hero-stage .spark-1 {
-        left: 34%;
-        top: 14%;
-        animation-delay: 1.4s;
-      }
-      .hero-stage .spark-2 {
-        right: 20%;
-        top: 34%;
-        animation-delay: 2s;
-      }
-      .hero-stage .spark-3 {
-        left: 16%;
-        top: 48%;
-        animation-delay: 2.6s;
-      }
-
-      /* (선택) 락 손 이미지 — 디자인 파일에서 PNG로 추출해 넣으면 동작 */
-      .hero-stage .hand {
-        z-index: 3;
-        right: -2%;
-        top: 26%;
-        width: clamp(90px, 20vw, 240px);
-        height: auto;
-        max-height: none;
-        transform-origin: 20% 90%;
-        animation:
-          hand-in 0.7s var(--pop) 1.2s both,
-          hand-rock 1.8s ease-in-out 2s infinite;
-      }
-
-      /* ---- 세션 타일: 호버 시 튀어오르기 ---- */
-      .photo-row:hover .photo-scroll {
-        animation-play-state: paused;
-      }
-      .photo-scroll img {
-        transition: transform 0.3s var(--pop);
-      }
-      .photo-scroll img:hover {
-        transform: translateY(-10px) rotate(-5deg) scale(1.06);
-      }
-      .photo-scroll img:nth-child(even):hover {
-        transform: translateY(-10px) rotate(5deg) scale(1.06);
-      }
-
-      /* ---- CTA ---- */
-      .cta .bounce {
-        display: inline-block;
-        animation: emoji-bounce 2.4s ease-in-out infinite;
-      }
-      .cta .bounce:last-child {
-        animation-delay: 0.3s;
-      }
-      .cta .cta-btn#submitBtn:hover:not(:disabled) {
-        transform: translateY(-3px);
-        box-shadow: 4px 6px 0 var(--jam-yellow);
-      }
-      .cta .cta-btn#submitBtn:active:not(:disabled) {
-        transform: translateY(1px);
-        box-shadow: 1px 2px 0 var(--jam-yellow);
-      }
-      .cta-btn:focus-visible,
-      .email-input:focus-visible {
-        outline: 3px solid var(--jam-yellow);
-        outline-offset: 2px;
-      }
-
-      /* ---- Keyframes ---- */
-      @keyframes lets-in {
-        from {
-          opacity: 0;
-          translate: -48px 0;
-        }
-        to {
-          opacity: 1;
-          translate: 0 0;
-        }
-      }
-      @keyframes logo-stamp {
-        0% {
-          opacity: 0;
-          scale: 1.6;
-          rotate: -10deg;
-        }
-        60% {
-          opacity: 1;
-          scale: 0.94;
-          rotate: 3deg;
-        }
-        100% {
-          opacity: 1;
-          scale: 1;
-          rotate: 0deg;
-        }
-      }
-      @keyframes logo-wiggle {
-        0%,
-        100% {
-          rotate: 0deg;
-        }
-        25% {
-          rotate: -6deg;
-        }
-        50% {
-          rotate: 5deg;
-        }
-        75% {
-          rotate: -3deg;
-        }
-      }
-      @keyframes phone-in {
-        from {
-          opacity: 0;
-          scale: 0.8;
-        }
-        to {
-          opacity: 1;
-          scale: 1;
-        }
-      }
-      @keyframes phone-float {
-        0%,
-        100% {
-          translate: 0 0;
-          rotate: var(--phone-tilt);
-        }
-        50% {
-          translate: 0 -14px;
-          rotate: calc(var(--phone-tilt) - 2.5deg);
-        }
-      }
-      @keyframes blob-in {
-        from {
-          scale: 0.15 0.1;
-        }
-        to {
-          scale: 1;
-        }
-      }
-      @keyframes blob-breathe {
-        0%,
-        100% {
-          border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-        }
-        33% {
-          border-radius: 46% 54% 52% 48% / 55% 47% 53% 45%;
-        }
-        66% {
-          border-radius: 53% 47% 46% 54% / 46% 54% 48% 52%;
-        }
-      }
-      @keyframes dots-drift {
-        to {
-          background-position: 44px 22px;
-        }
-      }
-      @keyframes bolt-pop {
-        from {
-          opacity: 0;
-          scale: 0;
-        }
-        60% {
-          opacity: 1;
-          scale: 1.25;
-        }
-        to {
-          opacity: 1;
-          scale: 1;
-        }
-      }
-      @keyframes bolt-zap {
-        0%,
-        88% {
-          rotate: 0deg;
-        }
-        90% {
-          rotate: -9deg;
-        }
-        93% {
-          rotate: 7deg;
-        }
-        96% {
-          rotate: -4deg;
-        }
-      }
-      @keyframes note-pop {
-        from {
-          opacity: 0;
-          scale: 0.3;
-        }
-        to {
-          opacity: 1;
-          scale: 1;
-        }
-      }
-      @keyframes note-bob {
-        0%,
-        100% {
-          translate: 0 0;
-        }
-        50% {
-          translate: 4px -12px;
-        }
-      }
-      @keyframes twinkle {
-        0%,
-        100% {
-          opacity: 0;
-          scale: 0.3;
-          rotate: 0deg;
-        }
-        45% {
-          opacity: 1;
-          scale: 1;
-          rotate: 45deg;
-        }
-        70% {
-          opacity: 0;
-          scale: 0.4;
-        }
-      }
-      @keyframes hand-in {
-        from {
-          opacity: 0;
-          translate: 40px 40px;
-          rotate: 20deg;
-        }
-        to {
-          opacity: 1;
-          translate: 0 0;
-          rotate: 0deg;
-        }
-      }
-      @keyframes hand-rock {
-        0%,
-        100% {
-          scale: 1;
-        }
-        50% {
-          scale: 1.06;
-        }
-      }
-      @keyframes emoji-bounce {
-        0%,
-        70%,
-        100% {
-          translate: 0 0;
-        }
-        80% {
-          translate: 0 -10px;
-        }
-        90% {
-          translate: 0 2px;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .title h1,
-        .title img,
-        .hero .hero-phone,
-        .hero-stage *,
-        .hero-stage .bolt svg,
-        .hero-stage .note svg,
-        .cta .bounce {
-          animation: none !important;
-        }
-        .hero .hero-phone {
-          rotate: var(--phone-tilt);
-        }
-        .hero-stage .spark {
-          opacity: 0;
-        }
-      }
-    </style>
 
     <!-- Google tag (gtag.js) -->
     <script
@@ -530,75 +53,248 @@
   </head>
   <body>
     <header class="header">
-      <div class="title">
-        <h1>Let's</h1>
-        <img
-          src="https://thimxokeit.github.io/letsjam/assets/jam_logo.png"
-          alt="JAM"
-        />
-      </div>
       <div class="hero">
-        <!-- 장식 레이어: data-depth가 클수록 스크롤·마우스에 더 많이 움직여요 -->
-        <div class="hero-stage" aria-hidden="true">
-          <div class="blob" data-depth="0.25">
-            <div class="blob-shape"></div>
-          </div>
+        <h1 class="sr-only">
+          Let's JAM — 째미난 밴드 라이프 커뮤니티. 내가 들어갈 밴드를 찾고, 우리
+          밴드와 함께할 멤버를 구해요.
+        </h1>
+        <!-- 15초 루프 모션: 모든 스타일은 아래 스크립트의 seek(t)가 계산해요 -->
+        <div class="jam-stage" aria-hidden="true">
+          <svg class="jm-defs" width="0" height="0" focusable="false">
+            <filter id="jm-blur-0" x="0" y="-50%" width="100%" height="200%"><feGaussianBlur stdDeviation="0 0" /></filter>
+            <filter id="jm-blur-1" x="0" y="-50%" width="100%" height="200%"><feGaussianBlur stdDeviation="0 0" /></filter>
+            <filter id="jm-blur-2" x="0" y="-50%" width="100%" height="200%"><feGaussianBlur stdDeviation="0 0" /></filter>
+            <filter id="jm-blur-3" x="0" y="-50%" width="100%" height="200%"><feGaussianBlur stdDeviation="0 0" /></filter>
+            <filter id="jm-blur-page" x="0" y="-20%" width="100%" height="140%"><feGaussianBlur stdDeviation="0 0" /></filter>
+            <symbol id="jm-i-home" viewBox="0 0 24 24"><path fill="currentColor" d="M3 10.4 12 3l9 7.4V20a1.2 1.2 0 0 1-1.2 1.2H15v-6.2H9v6.2H4.2A1.2 1.2 0 0 1 3 20z" /></symbol>
+            <symbol id="jm-i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-8.5-5.2-8.5-11.4A4.6 4.6 0 0 1 12 6.8a4.6 4.6 0 0 1 8.5 2.8C20.5 15.8 12 21 12 21z" /></symbol>
+            <symbol id="jm-i-heart-line" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.2a4.2 4.2 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z" /></symbol>
+            <symbol id="jm-i-studio" viewBox="0 0 24 24"><rect fill="currentColor" x="2.5" y="3" width="19" height="18" rx="4" transform="skewY(-6) translate(0 1.3)" /><path fill="#fff" d="M16 6.8v8.4a2.4 2.4 0 1 1-1.6-2.2V9.6l-5 1.2v5.6a2.4 2.4 0 1 1-1.6-2.2V8.6z" /></symbol>
+            <symbol id="jm-i-profile" viewBox="0 0 24 24"><circle fill="currentColor" cx="12" cy="7.5" r="4.5" /><path fill="currentColor" d="M3.5 21c0-4.6 3.8-7.4 8.5-7.4s8.5 2.8 8.5 7.4z" /></symbol>
+            <symbol id="jm-i-comment" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3.5c5 0 9 3.3 9 7.6s-4 7.6-9 7.6a10 10 0 0 1-2.6-.3L4.5 20.5l1.3-4A7.2 7.2 0 0 1 3 11.1C3 6.8 7 3.5 12 3.5z" /></symbol>
+            <symbol id="jm-i-bell" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5a1.6 1.6 0 0 1 1.6 1.6v.5A6.4 6.4 0 0 1 18.5 11v4.2l1.8 2.6H3.7l1.8-2.6V11a6.4 6.4 0 0 1 4.9-6.4v-.5A1.6 1.6 0 0 1 12 2.5zm-2.6 16.6h5.2a2.6 2.6 0 0 1-5.2 0z" /></symbol>
+            <symbol id="jm-i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="4.2" stroke-dasharray="3.15 3.13" /><circle cx="12" cy="12" r="7" fill="currentColor" /><circle cx="12" cy="12" r="2.8" fill="#fff" /></symbol>
+            <symbol id="jm-i-sliders" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></g><g fill="#fff" stroke="currentColor" stroke-width="2.2"><circle cx="15" cy="6" r="2.4" /><circle cx="8" cy="12" r="2.4" /><circle cx="14" cy="18" r="2.4" /></g></symbol>
+            <symbol id="jm-i-refresh" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9a7.5 7.5 0 0 0-13.4-1.5M5 15a7.5 7.5 0 0 0 13.4 1.5" /><path d="M19 4v5h-5M5 20v-5h5" /></g></symbol>
+            <symbol id="jm-i-plus" viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" d="M12 5v14M5 12h14" /></symbol>
+            <symbol id="jm-i-edit" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5" /><path d="M17.5 3.5l3 3L12 15H9v-3z" /></g></symbol>
+            <symbol id="jm-i-trash" viewBox="0 0 24 24"><g fill="currentColor"><rect x="5" y="4.5" width="14" height="2.2" rx="1" /><rect x="9.5" y="2.5" width="5" height="2.5" rx="1" /><path d="M6.5 8h11l-1 12a1.5 1.5 0 0 1-1.5 1.4H9A1.5 1.5 0 0 1 7.5 20z" /></g></symbol>
+            <symbol id="jm-i-chevron" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></symbol>
+          </svg>
 
-          <div class="bolt bolt-1" data-depth="1.1">
-            <svg viewBox="0 0 120 150">
-              <polygon class="bolt-depth" transform="translate(-10 9)" points="70,0 22,82 52,82 34,150 104,58 70,58 92,0" />
-              <polygon class="bolt-face" points="70,0 22,82 52,82 34,150 104,58 70,58 92,0" />
-            </svg>
-          </div>
-          <div class="bolt bolt-2" data-depth="1.5">
-            <svg viewBox="0 0 120 150">
-              <polygon class="bolt-depth" transform="translate(9 6)" points="70,0 22,82 52,82 34,150 104,58 70,58 92,0" />
-              <polygon class="bolt-face" points="70,0 22,82 52,82 34,150 104,58 70,58 92,0" />
-            </svg>
-          </div>
-          <div class="bolt bolt-3" data-depth="1.3">
-            <svg viewBox="0 0 120 150">
-              <g transform="scale(-1 1) translate(-120 0)">
-                <polygon class="bolt-depth" transform="translate(-10 9)" points="70,0 22,82 52,82 34,150 104,58 70,58 92,0" />
-                <polygon class="bolt-face" points="70,0 22,82 52,82 34,150 104,58 70,58 92,0" />
-              </g>
-            </svg>
-          </div>
+          <div class="jam-world">
+            <!-- Bar 1: 카운트 인 -->
+            <span class="m jm-d jm-count">1</span>
+            <span class="m jm-d jm-count">2</span>
+            <span class="m jm-d jm-count">3</span>
+            <span class="m jm-d jm-count">4</span>
+            <span class="m jm-d jm-lets">Let's</span>
+            <img class="m jm-logo" src="https://thimxokeit.github.io/letsjam/assets/jam_logo.png" alt="" />
 
-          <div class="note note-1" data-depth="0.6">
-            <svg viewBox="0 0 100 100" fill="currentColor">
-              <polygon points="32,20 86,4 86,22 32,38" />
-              <rect x="32" y="20" width="9" height="58" />
-              <rect x="77" y="4" width="9" height="62" />
-              <ellipse cx="26" cy="80" rx="16" ry="12" transform="rotate(-22 26 80)" />
-              <ellipse cx="71" cy="68" rx="16" ry="12" transform="rotate(-22 71 68)" />
-            </svg>
-          </div>
-          <div class="note note-2" data-depth="0.8">
-            <svg viewBox="0 0 100 100" fill="currentColor">
-              <polygon points="32,20 86,4 86,22 32,38" />
-              <rect x="32" y="20" width="9" height="58" />
-              <rect x="77" y="4" width="9" height="62" />
-              <ellipse cx="26" cy="80" rx="16" ry="12" transform="rotate(-22 26 80)" />
-              <ellipse cx="71" cy="68" rx="16" ry="12" transform="rotate(-22 71 68)" />
-            </svg>
-          </div>
+            <!-- Bar 2: 두 가지 글 -->
+            <span class="m jm-d jm-w" data-row="0">내가</span>
+            <span class="m jm-d jm-w" data-row="0">들어갈</span>
+            <span class="m jm-d jm-w jm-key" data-row="1">밴드<span class="jm-white">밴드</span></span>
+            <span class="m jm-d jm-w" data-row="1" data-glue>를</span>
+            <span class="m jm-d jm-w" data-row="1">찾아요</span>
+            <span class="m jm-d jm-w" data-row="2">우리</span>
+            <span class="m jm-d jm-w" data-row="2">밴드와</span>
+            <span class="m jm-d jm-w" data-row="2">함께할</span>
+            <span class="m jm-d jm-w jm-key" data-row="3">멤버<span class="jm-white">멤버</span></span>
+            <span class="m jm-d jm-w" data-row="3" data-glue>를</span>
+            <span class="m jm-d jm-w" data-row="3">구해요</span>
 
-          <span class="spark spark-1" data-depth="1.4"></span>
-          <span class="spark spark-2" data-depth="1.2"></span>
-          <span class="spark spark-3" data-depth="0.9"></span>
+            <!-- Bar 3: 원 → 세션 칩 -->
+            <span class="m jm-circle jm-circle-b"></span>
+            <span class="m jm-chip" data-group="0">보컬(남)</span>
+            <span class="m jm-chip" data-group="0">보컬(여)</span>
+            <span class="m jm-chip" data-group="1">드럼</span>
+            <span class="m jm-chip" data-group="1">기타</span>
+            <span class="m jm-chip" data-group="1">베이스</span>
+            <span class="m jm-chip" data-group="2">키보드</span>
+            <span class="m jm-chip jm-chip-measure" data-group="2">그 외</span>
+            <span class="m jm-morph">
+              <span class="jm-morph-fill"></span>
+              <span class="jm-morph-inner"></span>
+              <span class="jm-morph-label">그 외</span>
+            </span>
 
-          <!-- (선택) 락 손 이미지를 assets에 올리면 주석 해제하세요 -->
-          <!-- <img class="hand" data-depth="1.2" src="https://thimxokeit.github.io/letsjam/assets/rock_hand.png" alt="" /> -->
+            <!-- Bar 4-7: 앱 UI → 폰 (임시 화면: 실제 앱 화면은 추후 교체) -->
+            <div class="m jm-phone">
+              <div class="jm-bezel"></div>
+              <div class="jm-screen">
+                <div class="jm-pages">
+                  <div class="jm-page jm-p-home">
+                    <div class="jm-appbar">
+                      <img src="https://thimxokeit.github.io/letsjam/assets/jam_logo.png" alt="" />
+                      <span class="jm-appbar-icons"><svg><use href="#jm-i-bell" /></svg><svg><use href="#jm-i-gear" /></svg></span>
+                    </div>
+                    <div class="jm-tabs"><span class="is-on">밴드 들어가기</span><span>멤버 구하기</span></div>
+                    <div class="jm-filters">
+                      <svg class="jm-sliders"><use href="#jm-i-sliders" /></svg>
+                      <span class="jm-pill">지역</span>
+                      <span class="jm-pill jm-pill-session">세션<span class="jm-on">세션</span></span>
+                      <span class="jm-reset">초기화<svg><use href="#jm-i-refresh" /></svg></span>
+                    </div>
+                    <div class="jm-cards">
+                      <div class="jm-card jm-feed-card" style="top: 0">
+                        <div class="jm-card-body">
+                          <div class="jm-card-title">인디 밴드 좋아하시는 당신!...</div>
+                          <div class="jm-tags"><span class="jm-tag">보컬(남) 외</span><span class="jm-tag">영등포/여의도/강서 외</span></div>
+                          <div class="jm-meta"><svg><use href="#jm-i-comment" /></svg>3<i></i>1시간 전 업로드</div>
+                        </div>
+                        <div class="jm-thumb">J<span class="jm-thumb-heart"><svg><use href="#jm-i-heart" /></svg></span></div>
+                      </div>
+                      <div class="jm-card jm-feed-card" style="top: 124px">
+                        <div class="jm-card-body">
+                          <div class="jm-card-title">(급구)루시 가능한 베이스 모십..</div>
+                          <div class="jm-tags"><span class="jm-tag">베이스</span><span class="jm-tag">서울 전체</span></div>
+                          <div class="jm-meta"><svg><use href="#jm-i-comment" /></svg>5<i></i>2시간 전 업로드</div>
+                        </div>
+                        <div class="jm-thumb">J<span class="jm-thumb-heart"><svg><use href="#jm-i-heart" /></svg></span></div>
+                      </div>
+                      <div class="jm-card jm-feed-card" style="top: 248px">
+                        <div class="jm-card-body">
+                          <div class="jm-card-title">직장인밴드 로망을 실현할 멤버!</div>
+                          <div class="jm-tags"><span class="jm-tag">드럼</span><span class="jm-tag">베이스</span><span class="jm-tag">경기 전체</span></div>
+                          <div class="jm-meta"><svg><use href="#jm-i-comment" /></svg>2<i></i>4시간 전 업로드</div>
+                        </div>
+                        <div class="jm-thumb">J<span class="jm-thumb-heart"><svg><use href="#jm-i-heart" /></svg></span></div>
+                      </div>
+
+                      <!-- Bar 5: 첫 카드가 열려서 합주실 카드가 돼요 (가상의 예시 합주실) -->
+                      <div class="jm-studio">
+                        <div class="jm-studio-head">
+                          <div class="jm-card jm-head-post">
+                            <div class="jm-card-body">
+                              <div class="jm-card-title">인디 밴드 좋아하시는 당신!...</div>
+                              <div class="jm-tags"><span class="jm-tag">보컬(남) 외</span><span class="jm-tag">영등포/여의도/강서 외</span></div>
+                              <div class="jm-meta"><svg><use href="#jm-i-comment" /></svg>3<i></i>1시간 전 업로드</div>
+                            </div>
+                          </div>
+                          <div class="jm-card jm-head-studio">
+                            <div class="jm-card-body">
+                              <div class="jm-card-title">샘플 합주실 (예시)</div>
+                              <div class="jm-tags"><span class="jm-tag">합주실</span><span class="jm-tag">예시</span></div>
+                              <div class="jm-meta jm-meta-zzim">
+                                <span class="jm-heart"><svg><use href="#jm-i-heart-line" /></svg><svg class="jm-heart-fill"><use href="#jm-i-heart" /></svg></span>찜
+                              </div>
+                            </div>
+                          </div>
+                          <div class="jm-card jm-head-thumb">
+                            <div class="jm-thumb">J</div>
+                          </div>
+                        </div>
+                        <div class="jm-fields">
+                          <div class="jm-field"><b>지역</b><span>서울 마포구</span></div>
+                          <div class="jm-field"><b>룸별 가격</b><span>A룸 15,000원 · B룸 20,000원 (1시간)</span></div>
+                          <div class="jm-field"><b>가용 인원</b><span>A룸 5인 · B룸 8인</span></div>
+                          <div class="jm-field"><b>장비</b><span>드럼 · 기타앰프 · 베이스앰프 · 키보드</span></div>
+                          <div class="jm-field"><b>예약 방법</b><span>전화 · 문자</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="jm-page jm-p-zzim">
+                    <div class="jm-appbar">
+                      <span class="jm-page-title">찜</span>
+                      <span class="jm-appbar-icons"><svg><use href="#jm-i-bell" /></svg><svg><use href="#jm-i-gear" /></svg></span>
+                    </div>
+                    <div class="jm-cards">
+                      <div class="jm-card" style="top: 0">
+                        <div class="jm-card-body">
+                          <div class="jm-card-title">샘플 합주실 (예시)</div>
+                          <div class="jm-tags"><span class="jm-tag">합주실</span><span class="jm-tag">서울 마포구</span></div>
+                          <div class="jm-meta jm-price">15,000원~<i></i><em>룸 2개</em></div>
+                        </div>
+                        <div class="jm-thumb">J<span class="jm-thumb-heart is-on"><svg><use href="#jm-i-heart" /></svg></span></div>
+                      </div>
+                      <div class="jm-card" style="top: 124px">
+                        <div class="jm-card-body">
+                          <div class="jm-card-title">직장인밴드 로망을 실현할 멤버!</div>
+                          <div class="jm-tags"><span class="jm-tag">드럼</span><span class="jm-tag">베이스</span><span class="jm-tag">경기 전체</span></div>
+                          <div class="jm-meta"><svg><use href="#jm-i-comment" /></svg>2<i></i>4시간 전 업로드</div>
+                        </div>
+                        <div class="jm-thumb">J<span class="jm-thumb-heart is-on"><svg><use href="#jm-i-heart" /></svg></span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="jm-page jm-p-studio">
+                    <div class="jm-appbar">
+                      <span class="jm-page-title">합주실</span>
+                      <span class="jm-appbar-icons"><svg><use href="#jm-i-bell" /></svg><svg><use href="#jm-i-gear" /></svg></span>
+                    </div>
+                    <div class="jm-filters">
+                      <svg class="jm-sliders"><use href="#jm-i-sliders" /></svg>
+                      <span class="jm-pill jm-pill-plain">서울</span>
+                      <span class="jm-pill jm-pill-plain">경기/인천</span>
+                      <span class="jm-reset">초기화<svg><use href="#jm-i-refresh" /></svg></span>
+                    </div>
+                    <div class="jm-grid">
+                      <div class="jm-scard">
+                        <div class="jm-scard-body"><div class="jm-card-title">샘플 합주실 A (예시)</div><div class="jm-tags"><span class="jm-tag">서울 마포구</span></div><div class="jm-price">15,000원~<i></i><em>룸 2개</em></div></div>
+                        <div class="jm-scard-img">J<span class="jm-thumb-heart is-on"><svg><use href="#jm-i-heart" /></svg></span></div>
+                      </div>
+                      <div class="jm-scard">
+                        <div class="jm-scard-body"><div class="jm-card-title">샘플 합주실 B (예시)</div><div class="jm-tags"><span class="jm-tag">강남/서초</span></div><div class="jm-price">20,000원~<i></i><em>룸 1개</em></div></div>
+                        <div class="jm-scard-img">J<span class="jm-thumb-heart"><svg><use href="#jm-i-heart" /></svg></span></div>
+                      </div>
+                      <div class="jm-scard">
+                        <div class="jm-scard-body"><div class="jm-card-title">샘플 합주실 C (예시)</div><div class="jm-tags"><span class="jm-tag">홍대/합정/마포</span></div><div class="jm-price">가격 문의</div></div>
+                        <div class="jm-scard-img">J<span class="jm-thumb-heart"><svg><use href="#jm-i-heart" /></svg></span></div>
+                      </div>
+                      <div class="jm-scard">
+                        <div class="jm-scard-body"><div class="jm-card-title">샘플 합주실 D (예시)</div><div class="jm-tags"><span class="jm-tag">경기 전체</span></div><div class="jm-price">18,000원~<i></i><em>룸 1개</em></div></div>
+                        <div class="jm-scard-img">J<span class="jm-thumb-heart"><svg><use href="#jm-i-heart" /></svg></span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="jm-page jm-p-profile">
+                    <div class="jm-cover"></div>
+                    <div class="jm-avatar">J</div>
+                    <div class="jm-name">닉네임</div>
+                    <div class="jm-profile-actions">
+                      <span class="jm-share">공유하기</span>
+                      <span class="jm-round"><svg><use href="#jm-i-edit" /></svg></span>
+                      <span class="jm-round"><svg><use href="#jm-i-trash" /></svg></span>
+                    </div>
+                    <div class="jm-label">세션</div>
+                    <div class="jm-session-tile">
+                      <img src="https://thimxokeit.github.io/letsjam/assets/Sessions=Guitar.png" alt="" /><span>기타</span>
+                    </div>
+                    <div class="jm-label">작성한 글 (1)</div>
+                    <div class="jm-post-row"><span class="jm-post-type">밴드</span><span class="jm-post-title">코러스 가능한 기타입니다!</span><svg><use href="#jm-i-chevron" /></svg></div>
+                  </div>
+                </div>
+
+                <nav class="jm-nav">
+                  <div class="jm-tab"><span class="jm-tab-off"><svg><use href="#jm-i-home" /></svg>홈</span><span class="jm-tab-on"><svg><use href="#jm-i-home" /></svg>홈</span></div>
+                  <div class="jm-tab"><span class="jm-tab-off"><svg><use href="#jm-i-heart" /></svg>찜</span><span class="jm-tab-on"><svg><use href="#jm-i-heart" /></svg>찜</span></div>
+                  <div class="jm-tab"><span class="jm-tab-off"><svg><use href="#jm-i-studio" /></svg>합주실</span><span class="jm-tab-on"><svg><use href="#jm-i-studio" /></svg>합주실</span></div>
+                  <div class="jm-tab"><span class="jm-tab-off"><svg><use href="#jm-i-profile" /></svg>프로필</span><span class="jm-tab-on"><svg><use href="#jm-i-profile" /></svg>프로필</span></div>
+                  <div class="jm-tab jm-write"><span class="jm-fab"><svg><use href="#jm-i-plus" /></svg></span><span class="jm-write-label">글쓰기</span></div>
+                </nav>
+              </div>
+              <div class="jm-notch"></div>
+              <div class="jm-wipe"></div>
+            </div>
+
+            <!-- 엔드 타이틀 (= 첫 프레임) -->
+            <img class="m jm-end-logo jm-end-j" src="https://thimxokeit.github.io/letsjam/assets/jam_logo.png" alt="" />
+            <img class="m jm-end-logo jm-end-am" src="https://thimxokeit.github.io/letsjam/assets/jam_logo.png" alt="" />
+            <span class="m jm-d jm-tagw">째미난</span>
+            <span class="m jm-d jm-tagw">밴드</span>
+            <span class="m jm-d jm-tagw">라이프</span>
+            <span class="m jm-d jm-tagw">커뮤니티</span>
+          </div>
         </div>
-
-        <div class="phone-wrap" data-depth="0.5">
-          <img
-            class="hero-phone"
-            src="https://thimxokeit.github.io/letsjam/assets/mobile_mockup.png"
-            alt="JAM 앱 미리보기"
-          />
-        </div>
+        <button class="jam-toggle" type="button" aria-pressed="false" aria-label="애니메이션 일시정지">
+          <svg class="jt-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1" /><rect x="9.5" y="2" width="3.5" height="12" rx="1" /></svg>
+          <svg class="jt-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11a.8.8 0 0 0 1.2.7l9-5.5a.8.8 0 0 0 0-1.4l-9-5.5A.8.8 0 0 0 4 2.5z" /></svg>
+        </button>
       </div>
     </header>
     <main class="main">
@@ -846,78 +542,557 @@
     </main>
     {% include footer.html %}
 
-    <!-- ===== JAM Motion: 히어로 스크롤·마우스 패럴랙스 ===== -->
+    <!-- ===== Hero 모션: 120 BPM, 7.5마디 = 15초 루프 ===== -->
     <script>
       (function () {
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
-          return;
+        const stage = document.querySelector(".jam-stage");
+        if (!stage) return;
+        const world = stage.querySelector(".jam-world");
+        const toggle = document.querySelector(".jam-toggle");
+        const q = (s) => world.querySelector(s);
+        const qa = (s) => Array.from(world.querySelectorAll(s));
 
-        const header = document.querySelector(".header");
-        const layers = Array.from(
-          document.querySelectorAll(".hero [data-depth]"),
-        ).map((el) => ({ el, d: parseFloat(el.dataset.depth) || 0 }));
-        if (!header || !layers.length) return;
+        const LOOP = 15;
+        const BEAT = 0.5;
+        const LOGO_AR = 4137 / 2050;
+        const J_SPLIT = 0.31; // 로고에서 "J"가 차지하는 가로 비율
+        const SCREEN_W = 360;
+        const SCREEN_H = 780;
+        const PHONE_H = SCREEN_H + 28; // 베젤 포함
+        const PAGE_H = 712;
 
-        const finePointer = window.matchMedia("(pointer: fine)").matches;
-        let mx = 0, my = 0, cx = 0, cy = 0;
-        let scrollY = window.scrollY;
-        let visible = true;
-        let running = false;
+        // ---- 이징: 지수 ease-out, 임계 감쇠 스프링(오버슈트 없음) ----
+        const clamp = (x) => (x < 0 ? 0 : x > 1 ? 1 : x);
+        const lerp = (a, b, p) => a + (b - a) * p;
+        const EXP_END = 1 - Math.pow(2, -10);
+        const expOut = (p) => (p <= 0 ? 0 : p >= 1 ? 1 : (1 - Math.pow(2, -10 * p)) / EXP_END);
+        const SPRING_W = 7;
+        const SPRING_END = 1 - (1 + SPRING_W) * Math.exp(-SPRING_W);
+        const spring = (p) => (p <= 0 ? 0 : p >= 1 ? 1 : (1 - (1 + SPRING_W * p) * Math.exp(-SPRING_W * p)) / SPRING_END);
+        const smooth = (p) => p * p * (3 - 2 * p);
+        const linear = (p) => p;
+        // 시각 t에서 [t0, t0 + dur] 구간의 진행도
+        const k = (t, t0, dur, ease = expOut) => ease(clamp((t - t0) / dur));
 
-        if (finePointer) {
-          window.addEventListener(
-            "mousemove",
-            (e) => {
-              mx = e.clientX / window.innerWidth - 0.5;
-              my = e.clientY / window.innerHeight - 0.5;
-              kick();
-            },
-            { passive: true },
-          );
-        }
-
-        window.addEventListener(
-          "scroll",
-          () => {
-            scrollY = window.scrollY;
-            kick();
+        const LAYOUTS = {
+          desktop: {
+            w: 1600, h: 900, count: 560, lets: 250, logoH: 228, stacked: false,
+            row: 116, rowGap: 44, chip: 46, chipGap: 18, chipRows: [-160, -30, 100],
+            r: 110, circleY: 290, flatS: 1.85, phone: 0.95, push: 1.1,
+            endH: 250, endY: -60, tag: 64, tagY: 150, blur: true,
           },
-          { passive: true },
-        );
+          mobile: {
+            w: 800, h: 1000, count: 520, lets: 220, logoH: 200, stacked: true,
+            row: 80, rowGap: 34, chip: 46, chipGap: 16, chipRows: [-180, -40, 100],
+            r: 100, circleY: 320, flatS: 2.0, phone: 1.02, push: 1.08,
+            endH: 200, endY: -70, tag: 50, tagY: 120, blur: false,
+          },
+        };
 
-        new IntersectionObserver(([entry]) => {
-          visible = entry.isIntersecting;
-          if (visible) kick();
-        }).observe(header);
+        const el = {
+          counts: qa(".jm-count"),
+          lets: q(".jm-lets"),
+          logo: q(".jm-logo"),
+          words: qa(".jm-w"),
+          circleB: q(".jm-circle-b"),
+          chips: qa(".jm-chip"),
+          morph: q(".jm-morph"),
+          morphFill: q(".jm-morph-fill"),
+          morphInner: q(".jm-morph-inner"),
+          morphLabel: q(".jm-morph-label"),
+          phone: q(".jm-phone"),
+          bezel: q(".jm-bezel"),
+          screen: q(".jm-screen"),
+          notch: q(".jm-notch"),
+          wipe: q(".jm-wipe"),
+          pages: qa(".jm-page"),
+          sessionOn: q(".jm-pill-session .jm-on"),
+          sessionPill: q(".jm-pill-session"),
+          filters: q(".jm-p-home .jm-filters"),
+          feedCards: qa(".jm-feed-card"),
+          studio: q(".jm-p-home .jm-studio"),
+          headPost: q(".jm-head-post"),
+          headStudio: q(".jm-head-studio"),
+          fields: qa(".jm-p-home .jm-field"),
+          heartFill: q(".jm-head-studio .jm-heart-fill"),
+          tabOn: qa(".jm-tab-on"),
+          endJ: q(".jm-end-j"),
+          endAM: q(".jm-end-am"),
+          tagWords: qa(".jm-tagw"),
+          blurs: [0, 1, 2, 3].map((i) => document.querySelector(`#jm-blur-${i} feGaussianBlur`)),
+          pageBlur: document.querySelector("#jm-blur-page feGaussianBlur"),
+        };
 
-        function kick() {
-          if (!running && visible) {
-            running = true;
-            requestAnimationFrame(tick);
-          }
+        let L = LAYOUTS.desktop;
+        let G = null; // 레이아웃별로 한 번 측정한 기하 정보 (프레임 간 상태 아님)
+        let blurOn = true;
+
+        // 요소 중심을 월드 중심 기준 (x, y)에 둬요
+        function put(node, x, y, o, sx = 1, sy = sx, extra = "") {
+          if (o <= 0.001) return hide(node);
+          node.style.visibility = "visible";
+          node.style.opacity = o >= 0.999 ? "1" : o.toFixed(3);
+          node.style.transform =
+            `translate(${(x + L.w / 2).toFixed(2)}px,${(y + L.h / 2).toFixed(2)}px) translate(-50%,-50%)` +
+            ` scale(${sx.toFixed(4)},${sy.toFixed(4)})${extra}`;
         }
-
-        function tick() {
-          cx += (mx - cx) * 0.08;
-          cy += (my - cy) * 0.08;
-          const sy = Math.min(scrollY, header.offsetHeight);
-
-          for (const { el, d } of layers) {
-            const x = cx * d * 36;
-            const y = cy * d * 28 - sy * d * 0.35;
-            el.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
-          }
-
-          const settled =
-            Math.abs(mx - cx) < 0.0005 && Math.abs(my - cy) < 0.0005;
-          if (settled || !visible) {
-            running = false;
+        function hide(node) {
+          node.style.visibility = "hidden";
+          node.style.opacity = "0";
+        }
+        function setBlur(node, fe, filterId, amount) {
+          if (!blurOn || amount < 0.6) {
+            node.style.filter = "";
             return;
           }
-          requestAnimationFrame(tick);
+          fe.setAttribute("stdDeviation", `0 ${Math.min(amount, 28).toFixed(1)}`);
+          node.style.filter = `url(#${filterId})`;
         }
 
-        kick();
+        // ---------- 측정 ----------
+        function measure() {
+          const mobile = window.matchMedia("(max-width: 768px)").matches;
+          L = mobile ? LAYOUTS.mobile : LAYOUTS.desktop;
+          blurOn = L.blur;
+          world.style.width = L.w + "px";
+          world.style.height = L.h + "px";
+
+          el.counts.forEach((n) => (n.style.fontSize = L.count + "px"));
+          el.lets.style.fontSize = L.lets + "px";
+          el.logo.style.height = L.logoH + "px";
+          el.words.forEach((n) => (n.style.fontSize = L.row + "px"));
+          el.chips.forEach((n) => (n.style.fontSize = L.chip + "px"));
+          el.morphLabel.style.fontSize = L.chip + "px";
+          el.morph.style.width = el.morph.style.height = L.r * 2 + "px";
+          el.circleB.style.width = el.circleB.style.height = L.r * 2 + "px";
+          [el.endJ, el.endAM].forEach((n) => (n.style.height = L.endH + "px"));
+          el.tagWords.forEach((n) => (n.style.fontSize = L.tag + "px"));
+
+          const g = {};
+          // Bar 1: "4" → "Let's", 로고
+          g.w4 = el.counts[3].offsetWidth;
+          g.letsW = el.lets.offsetWidth;
+          g.logoW = L.logoH * LOGO_AR;
+          if (L.stacked) {
+            g.lets = [0, -L.lets * 0.5];
+            g.logo = [0, L.logoH * 0.62];
+          } else {
+            const gap = 36;
+            const total = g.letsW + gap + g.logoW;
+            g.lets = [-total / 2 + g.letsW / 2, 4];
+            g.logo = [total / 2 - g.logoW / 2, 0];
+          }
+
+          // Bar 2: 4줄 블록, 왼쪽 정렬 → 밴드/멤버가 같은 세로축에 놓여요
+          const rowH = L.row * 1.22;
+          const tops = [0, rowH, 2 * rowH + L.rowGap, 3 * rowH + L.rowGap];
+          const blockH = 4 * rowH + L.rowGap;
+          g.slotY = tops.map((t) => t + rowH / 2 - blockH / 2);
+          g.blockOff = g.slotY.map((_, i) => -(g.slotY[0] + g.slotY[i]) / 2);
+          const space = L.row * 0.26;
+          const rows = [[], [], [], []];
+          el.words.forEach((n) => rows[+n.dataset.row].push(n));
+          const rowW = rows.map((r) =>
+            r.reduce((acc, n, i) => acc + n.offsetWidth + (i && !n.hasAttribute("data-glue") ? space : 0), 0),
+          );
+          const left = -Math.max(...rowW) / 2;
+          g.words = [];
+          rows.forEach((r, ri) => {
+            let x = left;
+            r.forEach((n, j) => {
+              if (j && !n.hasAttribute("data-glue")) x += space;
+              const w = n.offsetWidth;
+              g.words.push({ n, row: ri, j, x: x + w / 2, key: n.classList.contains("jm-key") });
+              x += w;
+            });
+          });
+
+          // Bar 3: 칩 줄 배치
+          const groups = [[], [], []];
+          el.chips.forEach((n) => groups[+n.dataset.group].push(n));
+          g.chips = [];
+          groups.forEach((grp, gi) => {
+            const widths = grp.map((n) => n.offsetWidth);
+            const total = widths.reduce((a, b) => a + b, 0) + L.chipGap * (grp.length - 1);
+            let x = -total / 2;
+            grp.forEach((n, j) => {
+              g.chips.push({ n, group: gi, j, x: x + widths[j] / 2, y: L.chipRows[gi], w: widths[j], h: n.offsetHeight });
+              x += widths[j] + L.chipGap;
+            });
+          });
+          g.etc = g.chips.find((c) => c.n.classList.contains("jm-chip-measure"));
+          hide(g.etc.n); // "그 외"는 원이 직접 모핑해서 돼요
+          g.chips = g.chips.filter((c) => c !== g.etc);
+
+          // Bar 4: 평평한 앱 화면, 세션 필 위치
+          // 평면 화면은 필터 바가 스테이지 위쪽 가장자리에 오도록 잘라 보여줘요
+          const inScreen = (node) => {
+            let x = 0,
+              y = 0;
+            for (let n = node; n && n !== el.screen; n = n.offsetParent) {
+              x += n.offsetLeft;
+              y += n.offsetTop;
+            }
+            return [x, y];
+          };
+          const filtersTop = inScreen(el.filters)[1] - 10;
+          g.flatC = [0, -L.h / 2 + 24 + (SCREEN_H / 2 - filtersTop) * L.flatS];
+          const pill = el.sessionPill;
+          const [pl, pt] = inScreen(pill);
+          const px = pl + pill.offsetWidth / 2;
+          const py = pt + pill.offsetHeight / 2;
+          g.pill = [g.flatC[0] + (px - SCREEN_W / 2) * L.flatS, g.flatC[1] + (py - SCREEN_H / 2) * L.flatS];
+          g.pillScale = (pill.offsetHeight * L.flatS) / g.etc.h;
+
+          // 엔드 타이틀: 폰이 줄어들어 "J" 자리로
+          g.endW = L.endH * LOGO_AR;
+          g.jC = [-g.endW / 2 + (g.endW * J_SPLIT) / 2, L.endY];
+          g.jScale = (L.endH * 0.96) / PHONE_H;
+          const tagW = el.tagWords.map((n) => n.offsetWidth);
+          const tSpace = L.tag * 0.26;
+          let tx = -(tagW.reduce((a, b) => a + b, 0) + tSpace * (tagW.length - 1)) / 2;
+          g.tag = tagW.map((w) => {
+            const c = tx + w / 2;
+            tx += w + tSpace;
+            return c;
+          });
+          G = g;
+          fit();
+        }
+
+        function fit() {
+          const s = stage.clientWidth / L.w;
+          world.style.transform = `scale(${s})`;
+        }
+
+        // ---------- Bar 1 (0-2s): 1 · 2 · 3 · 4 → Let's JAM ----------
+        function countY(i, t) {
+          const tb = i * BEAT;
+          let y = lerp(L.h * 0.85, 0, k(t, tb, 0.2));
+          if (i < 3) y -= k(t, tb + BEAT, 0.22) * L.h * 0.85;
+          return y;
+        }
+        function bar1(t) {
+          const dt = 1 / 60;
+          const stretch = k(t, 1.62, 0.18);
+          const exitLets = k(t, 2.02, 0.35) * L.h;
+          el.counts.forEach((n, i) => {
+            const tb = i * BEAT;
+            if (t < tb || t > 2.2) return hide(n);
+            let y = countY(i, t);
+            if (i < 3) {
+              put(n, 0, y, 1);
+            } else {
+              // "4"가 늘어나며 "Let's"가 돼요
+              const bx = lerp(0, G.lets[0], stretch);
+              const by = lerp(y, G.lets[1], stretch);
+              const bw = lerp(G.w4, G.letsW, stretch);
+              const bh = lerp(L.count, L.lets, stretch);
+              const o = 1 - k(t, 1.68, 0.05, linear);
+              put(n, bx, by - exitLets, o, bw / G.w4, bh / L.count);
+            }
+            const v = Math.abs(countY(i, t) - countY(i, t - dt));
+            setBlur(n, el.blurs[i], `jm-blur-${i}`, i === 3 && t > 1.62 ? 0 : v * 0.22);
+          });
+
+          if (t < 1.68 || t > 2.6) hide(el.lets);
+          else {
+            const bx = lerp(0, G.lets[0], stretch);
+            const by = lerp(0, G.lets[1], stretch);
+            const bw = lerp(G.w4, G.letsW, stretch);
+            const bh = lerp(L.count, L.lets, stretch);
+            put(el.lets, bx, by - exitLets, k(t, 1.68, 0.05, linear), bw / G.letsW, bh / L.lets);
+          }
+
+          if (t < 1.66 || t > 2.6) hide(el.logo);
+          else {
+            const y = G.logo[1] + (1 - k(t, 1.66, 0.2)) * L.h * 0.6 - k(t, 2.06, 0.35) * L.h;
+            put(el.logo, G.logo[0], y, 1);
+          }
+        }
+
+        // ---------- Bar 2 (2-4s): 두 가지 글, 밴드 ↔ 멤버 ----------
+        const ROW_T = [2.0, 2.5, 3.0, 3.25];
+        function blockOff(t) {
+          let off = G.blockOff[0];
+          for (let r = 1; r < 4; r++) off += (G.blockOff[r] - G.blockOff[r - 1]) * k(t, ROW_T[r], 0.4, spring);
+          return off;
+        }
+        // 키워드(밴드/멤버)의 위치: 스왑 후 원으로 모여요
+        function keyPos(w, t) {
+          const from = w.row === 1 ? 1 : 3;
+          const to = w.row === 1 ? 3 : 1;
+          const sw = k(t, 3.5, 0.42, spring);
+          let y = lerp(G.slotY[from], G.slotY[to], sw) + blockOff(t);
+          y += (1 - k(t, ROW_T[w.row] + w.j * 0.06, 0.32)) * L.row * 1.6;
+          const c = k(t, 4.0, 0.4);
+          return [lerp(w.x, 0, c), lerp(y, 0, c), c];
+        }
+        function bar2(t) {
+          const active = t >= 2.0 && t < 4.6;
+          const off = blockOff(t);
+          G.words.forEach((w) => {
+            const n = w.n;
+            const te = ROW_T[w.row] + w.j * 0.06;
+            if (!active || t < te) return hide(n);
+            const o = k(t, te, 0.08, linear);
+            if (w.key) {
+              const [x, y, c] = keyPos(w, t);
+              const white = n.firstElementChild;
+              white.style.opacity = k(t, 4.0, 0.15, linear).toFixed(3);
+              put(n, x, y, o * (1 - k(t, 4.1, 0.2, linear)), lerp(1, 0.25, c));
+            } else {
+              let y = G.slotY[w.row] + off + (1 - k(t, te, 0.32)) * L.row * 1.6;
+              y -= k(t, 3.5 + w.row * 0.04, 0.4) * L.h;
+              put(n, w.x, y, o);
+            }
+          });
+
+          // 두 단어가 각각 오렌지 원으로 줄어들어 하나로 겹쳐요
+          if (t < 4.0 || t >= 4.5) hide(el.circleB);
+          else {
+            const w = G.words.find((x) => x.key && x.row === 3);
+            const [x, y] = keyPos(w, t);
+            put(el.circleB, x, y, 1, k(t, 4.0, 0.35));
+          }
+        }
+
+        // ---------- Bar 3 (4-6s): 원 → 세션 칩 7개 ----------
+        function circlePos(t) {
+          return [0, k(t, 4.5, 0.45, spring) * L.circleY];
+        }
+        function converge(t, i) {
+          return k(t, 6.0 + i * 0.03, 0.45);
+        }
+        function bar3(t) {
+          // 원(= 모프 요소): 4.0 생성 → 4.5부터 아래로 → 5.5 "그 외" 칩으로 모핑
+          if (t < 4.0 || t > 6.6) hide(el.morph);
+          else {
+            let x, y, s;
+            if (t < 4.5) {
+              const w = G.words.find((v) => v.key && v.row === 1);
+              [x, y] = keyPos(w, t);
+              s = k(t, 4.0, 0.35);
+            } else {
+              [x, y] = circlePos(t);
+              s = 1;
+            }
+            const m = k(t, 5.5, 0.4, spring);
+            x = lerp(x, G.etc.x, m);
+            y = lerp(y, G.etc.y, m);
+            const cv = converge(t, 6);
+            x = lerp(x, G.pill[0], cv);
+            y = lerp(y, G.pill[1], cv);
+            s *= lerp(1, G.pillScale, cv);
+            const B = L.r * 2;
+            const iy = lerp(0, (B - G.etc.h) / 2, m);
+            const ix = lerp(0, (B - G.etc.w) / 2, m);
+            const rad = lerp(L.r, G.etc.h / 2, m);
+            el.morphFill.style.clipPath = `inset(${iy.toFixed(1)}px ${ix.toFixed(1)}px round ${rad.toFixed(1)}px)`;
+            el.morphInner.style.clipPath = `inset(${(iy + 3).toFixed(1)}px ${(ix + 3).toFixed(1)}px round ${(rad - 3).toFixed(1)}px)`;
+            el.morphInner.style.opacity = k(t, 5.62, 0.12, linear).toFixed(3);
+            el.morphLabel.style.opacity = k(t, 5.66, 0.12, linear).toFixed(3);
+            put(el.morph, x, y, 1 - k(t, 6.28, 0.14, linear), s);
+          }
+
+          G.chips.forEach((c, i) => {
+            const te = 4.5 + c.group * BEAT + c.j * 0.05;
+            if (t < te || t > 6.6) return hide(c.n);
+            const e = k(t, te, 0.36, spring);
+            const [ox, oy] = circlePos(te);
+            let x = lerp(ox, c.x, e);
+            let y = lerp(oy, c.y, e);
+            let s = lerp(0.3, 1, e);
+            const cv = converge(t, i);
+            x = lerp(x, G.pill[0], cv);
+            y = lerp(y, G.pill[1], cv);
+            s *= lerp(1, G.pillScale, cv);
+            put(c.n, x, y, k(t, te, 0.08, linear) * (1 - k(t, 6.25 + i * 0.03, 0.14, linear)), s);
+          });
+        }
+
+        // ---------- Bar 4-7 (6-14.3s): 앱 UI → 3D 폰 → 탭 ----------
+        const TAB_T = [12.0, 12.5, 13.0, 13.5];
+        function pageY(i, t) {
+          const enter = i === 0 ? 0 : (1 - k(t, TAB_T[i], 0.4)) * PAGE_H;
+          const exit = i === 3 ? 0 : k(t, TAB_T[i + 1], 0.4) * PAGE_H;
+          return enter - exit;
+        }
+        function phoneUI(t) {
+          if (t < 6.0 || t >= 14.3) return hide(el.phone);
+
+          // 평면 → 폰 크기로 접히며 뒤로 눕고(10.0), 일어서요(11.0, 11.5)
+          const a = k(t, 10.0, 0.5);
+          const enterY = (1 - k(t, 6.0, 0.5)) * L.h;
+          let x = 0;
+          let y = lerp(G.flatC[1], 0, a) + enterY;
+          let s = lerp(L.flatS, L.phone, a);
+          let rx = 64 * a;
+          rx = lerp(rx, 30, k(t, 11.0, 0.45, spring));
+          rx = lerp(rx, 0, k(t, 11.5, 0.45, spring));
+          s *= lerp(1, L.push, smooth(clamp((t - 12.0) / 2.0)));
+          // 14.0: J 크기로 줄어들어요
+          const e = k(t, 14.0, 0.3);
+          x = lerp(x, G.jC[0], e);
+          y = lerp(y, G.jC[1], e);
+          s = lerp(s, G.jScale, e);
+          put(el.phone, x, y, 1, s, s, ` rotateX(${rx.toFixed(2)}deg)`);
+
+          const b = k(t, 10.5, 0.35);
+          el.bezel.style.visibility = b > 0 ? "visible" : "hidden";
+          el.bezel.style.clipPath = `inset(${(14 * (1 - b)).toFixed(2)}px round ${(42 + 14 * b).toFixed(1)}px)`;
+          el.notch.style.opacity = k(t, 10.65, 0.15, linear).toFixed(3);
+          el.screen.style.borderRadius = lerp(24, 42, a).toFixed(1) + "px";
+          const w = k(t, 14.0, 0.2);
+          el.wipe.style.visibility = w > 0 ? "visible" : "hidden";
+          el.wipe.style.clipPath = `inset(${((1 - w) * 100).toFixed(2)}% 0 0 0 round 56px)`;
+
+          // 필터 바: 칩들이 모이면 세션이 켜져요
+          el.sessionOn.style.opacity = k(t, 6.3, 0.15, linear).toFixed(3);
+
+          // 피드: 한 박에 한 장씩 아래에서 올라와요
+          el.feedCards.forEach((c, i) => {
+            const te = 6.5 + i * BEAT;
+            c.style.opacity = k(t, te, 0.1, linear).toFixed(3);
+            c.style.transform = `translateY(${((1 - k(t, te, 0.45)) * 240).toFixed(1)}px)`;
+          });
+
+          // 합주실 카드: 8.0 열림, 필드가 8분음표마다, 9.5 찜, 12.0 닫힘
+          const open = k(t, 8.0, 0.4) * (1 - k(t, 12.0, 0.3));
+          if (t < 8.0 || t >= 12.3) hide(el.studio);
+          else {
+            el.studio.style.visibility = "visible";
+            el.studio.style.opacity = "1";
+            const cut = (368 - 112) * (1 - open);
+            el.studio.style.clipPath = `inset(0 0 ${cut.toFixed(1)}px 0 round 20px)`;
+            const h = k(t, 8.0, 0.25) * (1 - k(t, 12.0, 0.2));
+            el.headPost.style.opacity = (1 - h).toFixed(3);
+            el.headPost.style.transform = `translateY(${(-40 * h).toFixed(1)}px)`;
+            el.headStudio.style.opacity = h.toFixed(3);
+            el.headStudio.style.transform = `translateY(${(40 * (1 - h)).toFixed(1)}px)`;
+            el.fields.forEach((f, i) => {
+              const p = k(t, 8.25 + i * 0.25, 0.3);
+              f.style.opacity = p.toFixed(3);
+              f.style.transform = `translateY(${(14 * (1 - p)).toFixed(1)}px)`;
+            });
+            const hp = k(t, 9.5, 0.3);
+            el.heartFill.style.clipPath = `inset(${((1 - hp) * 100).toFixed(1)}% 0 0 0)`;
+          }
+
+          // 하단 탭: 홈 → 찜 → 합주실 → 프로필, 화면은 위로 넘어가요
+          el.pages.forEach((pg, i) => {
+            const y = pageY(i, t);
+            if (Math.abs(y) >= PAGE_H) {
+              hide(pg);
+              return;
+            }
+            pg.style.visibility = "visible";
+            pg.style.opacity = "1";
+            pg.style.transform = `translateY(${y.toFixed(1)}px)`;
+            const v = Math.abs(y - pageY(i, t - 1 / 60));
+            setBlur(pg, el.pageBlur, "jm-blur-page", v * 0.18);
+          });
+          el.tabOn.forEach((on, i) => {
+            const next = i < 3 ? k(t, TAB_T[i + 1], 0.12, linear) : 0;
+            const v = (i === 0 ? 1 : k(t, TAB_T[i], 0.12, linear)) - next;
+            on.style.opacity = v.toFixed(3);
+          });
+        }
+
+        // ---------- 엔드 타이틀 (14-15s) = 첫 프레임 ----------
+        function endTitle(t) {
+          const late = t >= 7;
+          const exit = (d) => (late ? 0 : k(t, d, 0.35) * L.h);
+          if (late && t < 14.3) {
+            [el.endJ, el.endAM, ...el.tagWords].forEach(hide);
+            return;
+          }
+          if (!late && t > 0.7) {
+            [el.endJ, el.endAM, ...el.tagWords].forEach(hide);
+            return;
+          }
+          put(el.endJ, 0, L.endY - exit(0), 1);
+          const am = late ? k(t, 14.3, 0.3) : 1;
+          put(el.endAM, 0, L.endY + (1 - am) * L.endH * 0.35 - exit(0.02), late ? k(t, 14.3, 0.1, linear) : 1);
+          el.tagWords.forEach((n, i) => {
+            const te = 14.5 + i * 0.06;
+            const p = late ? k(t, te, 0.3) : 1;
+            const o = late ? k(t, te, 0.08, linear) : 1;
+            put(n, G.tag[i], L.tagY + (1 - p) * 60 - exit(0.04 + i * 0.03), o);
+          });
+        }
+
+        window.seek = function (t) {
+          if (!G) return;
+          t = ((t % LOOP) + LOOP) % LOOP;
+          bar1(t);
+          bar2(t);
+          bar3(t);
+          phoneUI(t);
+          endTitle(t);
+        };
+
+        // ---------- 재생 ----------
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+        let playing = !reduced.matches;
+        let visible = false;
+        let elapsed = 0;
+        let last = null;
+        let raf = 0;
+
+        function frame(now) {
+          raf = 0;
+          if (last !== null) elapsed += Math.min((now - last) / 1000, 0.1);
+          last = now;
+          window.seek(elapsed % LOOP);
+          if (playing && visible) raf = requestAnimationFrame(frame);
+        }
+        function run() {
+          if (raf || !playing || !visible || !G) return;
+          last = null;
+          raf = requestAnimationFrame(frame);
+        }
+        function stop() {
+          if (raf) cancelAnimationFrame(raf);
+          raf = 0;
+        }
+        function showStill() {
+          stop();
+          window.seek(LOOP - 0.001); // 엔드 타이틀 프레임
+        }
+
+        toggle.addEventListener("click", () => {
+          playing = !playing;
+          toggle.setAttribute("aria-pressed", String(!playing));
+          toggle.setAttribute("aria-label", playing ? "애니메이션 일시정지" : "애니메이션 재생");
+          playing ? run() : stop();
+        });
+        reduced.addEventListener("change", () => {
+          playing = !reduced.matches;
+          playing ? run() : showStill();
+        });
+        new IntersectionObserver(([entry]) => {
+          visible = entry.isIntersecting;
+          visible ? run() : stop();
+        }).observe(stage);
+        window.addEventListener("resize", () => {
+          if (!G) return;
+          measure();
+          window.seek(reduced.matches ? LOOP - 0.001 : elapsed % LOOP);
+        });
+
+        Promise.all([
+          document.fonts.load("800 100px Pretendard"),
+          document.fonts.load("700 100px Pretendard"),
+        ])
+          .catch(() => {})
+          .then(() => document.fonts.ready)
+          .then(() => {
+            measure();
+            window.seek(reduced.matches ? LOOP - 0.001 : 0);
+            world.classList.add("is-ready");
+            run();
+          });
       })();
     </script>
   </body>

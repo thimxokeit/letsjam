@@ -58,23 +58,801 @@ body {
   cursor: pointer;
 }
 
-/* ===== Hero Image ===== */
+/* ===== Hero: 카운트 인 모션 (index.html의 seek(t)가 매 프레임 transform/opacity를 계산) ===== */
 .hero {
   position: relative;
   width: 100%;
-  max-width: 900px;
-  height: auto;
-  min-height: 280px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 60px auto 0;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.hero img {
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.jam-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 32px;
+  background: #ffece6;
+  contain: layout paint;
+}
+
+.jm-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* 디자인 좌표계: 데스크톱 1600x900, 모바일 800x1000. JS가 스테이지 폭에 맞춰 scale */
+.jam-world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1600px;
+  height: 900px;
+  transform-origin: 0 0;
+  perspective: 2400px;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  word-break: keep-all;
+  color: #222222;
+  opacity: 0;
+}
+
+.jam-world.is-ready {
+  opacity: 1;
+}
+
+.jam-world .m {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+.jm-d {
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1;
+  color: #fc5c2b;
+}
+
+.jm-logo,
+.jm-end-logo {
+  display: block;
+  width: auto;
+}
+
+.jm-end-j {
+  clip-path: inset(0 69% 0 0);
+}
+
+.jm-end-am {
+  clip-path: inset(0 0 0 31%);
+}
+
+.jm-key .jm-white {
+  position: absolute;
+  inset: 0;
+  color: #fff;
+}
+
+.jm-circle {
+  border-radius: 50%;
+  background: #fc5c2b;
+}
+
+/* 세션 칩: 오렌지 아웃라인 */
+.jm-chip {
+  padding: 0 0.72em;
+  height: 1.9em;
+  line-height: calc(1.9em - 6px);
+  border: 3px solid #fc5c2b;
+  border-radius: 999px;
+  background: #fff;
+  color: #fc5c2b;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.jm-morph {
+  display: grid;
+  place-items: center;
+}
+
+.jm-morph > * {
+  position: relative;
+  grid-area: 1 / 1;
+  width: 100%;
   height: 100%;
-  max-height: 400px;
-  object-fit: contain;
+}
+
+.jm-morph-fill {
+  background: #fc5c2b;
+}
+
+.jm-morph-inner {
+  background: #fff;
+}
+
+.jm-morph-label {
+  display: grid;
+  place-items: center;
+  color: #fc5c2b;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+/* ---- CSS 폰 (화면 360x780). 앱 화면은 임시 — 실제 화면으로 교체 예정 ---- */
+.jm-phone {
+  width: 360px;
+  height: 780px;
+  font-size: 14px;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+}
+
+.jm-phone svg {
+  display: block;
+}
+
+.jm-bezel {
+  position: absolute;
+  inset: -14px;
+  border-radius: 56px;
+  background: #222222;
+}
+
+.jm-screen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 42px;
+  background: #fff;
+}
+
+.jm-notch {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: 112px;
+  height: 30px;
+  margin-left: -56px;
+  border-radius: 999px;
+  background: #222222;
+}
+
+.jm-wipe {
+  position: absolute;
+  inset: -14px;
+  border-radius: 56px;
+  background: #fc5c2b;
+}
+
+.jm-pages {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 712px;
+  overflow: hidden;
+}
+
+/* 페이지가 상태 표시줄(44px) 아래까지 깔려요 */
+.jm-page {
+  position: absolute;
+  inset: 0;
+  padding: 44px 16px 0;
+  background: #fff;
+}
+
+.jm-appbar {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.jm-appbar img {
+  height: 26px;
+  width: auto;
+}
+
+.jm-appbar-icons {
+  display: flex;
+  gap: 12px;
+  color: #fc5c2b;
+}
+
+.jm-appbar-icons svg {
+  width: 24px;
+  height: 24px;
+}
+
+.jm-page-title {
+  color: #fc5c2b;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.jm-tabs {
+  height: 40px;
+  margin: 0 -16px;
+  display: flex;
+  border-bottom: 2px solid #eeeeee;
+}
+
+.jm-tabs span {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  margin-bottom: -2px;
+  color: #999999;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.jm-tabs .is-on {
+  border-bottom: 2px solid #fc5c2b;
+  color: #fc5c2b;
+}
+
+.jm-filters {
+  height: 36px;
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.jm-sliders {
+  width: 24px;
+  height: 24px;
+  color: #fc5c2b;
+}
+
+.jm-pill {
+  position: relative;
+  height: 32px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid #fc5c2b;
+  border-radius: 999px;
+  background: #fff;
+  color: #fc5c2b;
+  font-weight: 700;
+}
+
+/* 칩이 모여 들어오면 세션 필이 채워져요 */
+.jm-pill .jm-on {
+  position: absolute;
+  inset: -1.5px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: #fc5c2b;
+  color: #fff;
+}
+
+.jm-reset {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #fd9e81;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.jm-reset svg {
+  width: 16px;
+  height: 16px;
+}
+
+.jm-cards {
+  position: relative;
+  margin-top: 14px;
+}
+
+.jm-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 112px;
+  display: flex;
+  overflow: hidden;
+  border: 1.5px solid #fc5c2b;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.jm-card-body {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 0 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.jm-card-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.jm-tags {
+  display: flex;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.jm-tag {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #ffece6;
+  color: #fc5c2b;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.jm-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #999999;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.jm-meta > svg {
+  width: 13px;
+  height: 13px;
+}
+
+.jm-meta i,
+.jm-price i {
+  width: 6px;
+}
+
+.jm-price {
+  display: flex;
+  align-items: center;
+  color: #fc5c2b;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.jm-price em {
+  color: #999999;
+  font-size: 12px;
+  font-style: normal;
+}
+
+/* 사진 자리: 기본 이미지 "J" */
+.jm-thumb,
+.jm-scard-img {
+  position: relative;
+  display: grid;
+  place-items: center;
+  background: #ffece6;
+  color: #fc5c2b;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+.jm-thumb {
+  flex: none;
+  width: 110px;
+  margin-left: 12px;
+}
+
+.jm-thumb-heart {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(34, 34, 34, 0.35);
+  color: #fff;
+}
+
+.jm-thumb-heart.is-on {
+  color: #fc5c2b;
+}
+
+.jm-thumb-heart svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* 합주실 카드 (첫 카드가 열리면서 됨) */
+.jm-studio {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 368px;
+  border: 1.5px solid #fc5c2b;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.jm-studio-head {
+  position: relative;
+  height: 109px;
+  overflow: hidden;
+}
+
+.jm-studio-head .jm-card {
+  top: 0;
+  height: 109px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.jm-head-post .jm-card-body,
+.jm-head-studio .jm-card-body {
+  padding-right: 122px;
+}
+
+.jm-head-thumb {
+  justify-content: flex-end;
+}
+
+.jm-fields {
+  padding: 0 16px;
+}
+
+.jm-field {
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 1px solid #f2f2f2;
+}
+
+.jm-field b {
+  color: #999999;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.jm-field span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.jm-meta-zzim {
+  color: #fc5c2b;
+}
+
+.jm-heart {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  color: #fc5c2b;
+}
+
+.jm-heart svg {
+  position: absolute;
+  inset: 0;
+  width: 15px;
+  height: 15px;
+}
+
+/* 합주실 탭: 2열 그리드 */
+.jm-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.jm-scard {
+  height: 262px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1.5px solid #fc5c2b;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.jm-scard-body {
+  padding: 12px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.jm-scard .jm-card-title {
+  font-size: 15px;
+}
+
+.jm-scard-img {
+  flex: 1;
+}
+
+/* 프로필 탭: 다크 화면 */
+.jm-p-profile {
+  background: #222222;
+  color: #fff;
+  text-align: center;
+}
+
+.jm-cover {
+  height: 214px;
+  margin: -44px -16px 0;
+  background: #333333;
+}
+
+.jm-avatar {
+  width: 96px;
+  height: 96px;
+  margin: -64px auto 10px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fc5c2b;
+  color: #fff;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+.jm-name {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.jm-profile-actions {
+  margin: 16px 0 6px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.jm-share {
+  height: 38px;
+  padding: 0 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #fc5c2b;
+  font-weight: 700;
+}
+
+.jm-round {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid #fc5c2b;
+  border-radius: 50%;
+  color: #fc5c2b;
+}
+
+.jm-round svg {
+  width: 18px;
+  height: 18px;
+}
+
+.jm-p-profile .jm-label {
+  margin: 18px 0 10px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.jm-session-tile {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border: 1.5px solid #dddddd;
+  border-radius: 14px;
+}
+
+.jm-session-tile img {
+  width: 100%;
+  height: 100%;
+}
+
+.jm-session-tile span {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.jm-post-row {
+  height: 52px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px solid #dddddd;
+  border-radius: 14px;
+}
+
+.jm-post-type {
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: #fff;
+  color: #222222;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.jm-post-title {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 700;
+  text-align: left;
+}
+
+.jm-post-row svg {
+  width: 18px;
+  height: 18px;
+}
+
+.jm-nav {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 68px;
+  padding: 0 6px 10px;
+  display: flex;
+  border-top: 1px solid #eeeeee;
+  background: #fff;
+}
+
+.jm-tab {
+  position: relative;
+  flex: 1;
+  display: grid;
+  place-items: center;
+}
+
+.jm-tab-off,
+.jm-tab-on {
+  grid-area: 1 / 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.jm-tab-off {
+  color: #b5b5b5;
+}
+
+.jm-tab-on {
+  background: #fff;
+  color: #fc5c2b;
+}
+
+.jm-tab svg {
+  width: 26px;
+  height: 26px;
+}
+
+.jm-write {
+  flex: 1.1;
+}
+
+.jm-fab {
+  position: absolute;
+  left: 50%;
+  top: -22px;
+  width: 58px;
+  height: 58px;
+  margin-left: -29px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fc5c2b;
+}
+
+.jm-fab svg {
+  width: 28px;
+  height: 28px;
+}
+
+.jm-write-label {
+  margin-top: 30px;
+  color: #999999;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* 일시정지/재생 버튼 */
+.jam-toggle {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: #222222;
+  cursor: pointer;
+}
+
+.jam-toggle svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.jam-toggle .jt-play,
+.jam-toggle[aria-pressed="true"] .jt-pause {
+  display: none;
+}
+
+.jam-toggle[aria-pressed="true"] .jt-play {
+  display: block;
+}
+
+.jam-toggle:focus-visible {
+  outline: 3px solid #fc5c2b;
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .jam-stage {
+    aspect-ratio: 4 / 5;
+    border-radius: 24px;
+  }
+
+  .jam-toggle {
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jam-toggle {
+    display: none;
+  }
 }
 
 /* ===== Main Content ===== */
@@ -238,6 +1016,58 @@ body {
   min-height: 20px;
 }
 
+/* ===== Session tiles & CTA interactions (formerly in index.html #jam-motion) ===== */
+.photo-row:hover .photo-scroll {
+  animation-play-state: paused;
+}
+
+.photo-scroll img {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.photo-scroll img:hover {
+  transform: translateY(-10px) rotate(-5deg) scale(1.06);
+}
+
+.photo-scroll img:nth-child(even):hover {
+  transform: translateY(-10px) rotate(5deg) scale(1.06);
+}
+
+.cta .bounce {
+  display: inline-block;
+  animation: emoji-bounce 2.4s ease-in-out infinite;
+}
+
+.cta .bounce:last-child {
+  animation-delay: 0.3s;
+}
+
+.cta .cta-btn#submitBtn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 4px 6px 0 #fff231;
+}
+
+.cta .cta-btn#submitBtn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 1px 2px 0 #fff231;
+}
+
+.cta-btn:focus-visible,
+.email-input:focus-visible {
+  outline: 3px solid #fff231;
+  outline-offset: 2px;
+}
+
+@keyframes emoji-bounce {
+  0%, 70%, 100% { translate: 0 0; }
+  80% { translate: 0 -10px; }
+  90% { translate: 0 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta .bounce { animation: none; }
+}
+
 /* ===== Footer ===== */
 .footer {
   border-top: 1px solid #f0f0f0;
@@ -364,8 +1194,6 @@ body {
   .header { padding: 40px 20px; }
   .title h1 { font-size: 60px; }
   .title img { height: 60px; }
-  .hero { height: 200px; }
-  .hero img { height: 300px; }
 
   .headline { font-size: 32px; }
   .body { font-size: 18px; }
