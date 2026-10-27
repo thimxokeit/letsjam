@@ -20,12 +20,8 @@ body {
 }
 
 /* ===== Header & Title ===== */
+/* 메인 페이지 히어로 영역: 모션 배경이 화면 폭 전체로 깔려요 */
 .header {
-  padding: 80px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
   overflow: hidden;
 }
 
@@ -47,19 +43,111 @@ body {
   height: 100px;
 }
 
-/* Sub-page header logo (via _includes/header.html) */
-.header-inner {
+/* ===== Site header: 로고 + 햄버거 메뉴, 상단 고정 (_includes/header.html) ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.site-header-inner {
+  max-width: 1200px;
+  height: 64px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-logo {
+  display: flex;
 }
 
 .logo {
-  height: 36px;
+  height: 32px;
+}
+
+.menu-toggle {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
   cursor: pointer;
+}
+
+.menu-toggle span {
+  width: 22px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--black);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+.menu-toggle:focus-visible,
+.site-menu a:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.site-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: max(20px, calc((100% - 1200px) / 2 + 20px));
+  width: 240px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid var(--orange);
+  border-radius: 20px;
+  background: #fff;
+}
+
+.site-menu[hidden] {
+  display: none;
+}
+
+.site-menu a {
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: var(--black);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-menu a:hover {
+  background: #ffece6;
+  color: var(--orange);
 }
 
 /* ===== Hero: 카운트 인 모션 (index.html의 seek(t)가 매 프레임 transform/opacity를 계산) ===== */
 .hero {
+  width: 100%;
+  background: #ffece6;
+}
+
+.hero-inner {
   position: relative;
   width: 100%;
   max-width: 1200px;
@@ -83,7 +171,6 @@ body {
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 32px;
   background: #ffece6;
   contain: layout paint;
 }
@@ -806,6 +893,7 @@ body {
   width: 100%;
   max-width: 720px;
   height: auto;
+  margin: 0 auto 60px;
 }
 
 /* 일시정지/재생 버튼 */
@@ -848,7 +936,6 @@ body {
 @media (max-width: 768px) {
   .jam-stage {
     aspect-ratio: 4 / 5;
-    border-radius: 24px;
   }
 
   .jam-toggle {
@@ -1193,7 +1280,6 @@ body {
 }
 
 @media (max-width: 768px) {
-  .header { padding: 40px 20px; }
   .title h1 { font-size: 60px; }
   .title img { height: 60px; }
 
