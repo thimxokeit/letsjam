@@ -32,7 +32,7 @@
     />
     <link
       rel="stylesheet"
-      href="https://thimxokeit.github.io/letsjam/style.css?v=4"
+      href="https://thimxokeit.github.io/letsjam/style.css?v=5"
     />
 
 
@@ -1033,8 +1033,8 @@
         };
 
         // ---------- 재생 ----------
-        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-        let playing = !reduced.matches;
+        // OS의 동작 줄이기 설정과 상관없이 재생해요. 멈추려면 일시정지 버튼을 써요.
+        let playing = true;
         let visible = false;
         let elapsed = 0;
         let last = null;
@@ -1056,20 +1056,11 @@
           if (raf) cancelAnimationFrame(raf);
           raf = 0;
         }
-        function showStill() {
-          stop();
-          window.seek(LOOP - 0.001); // 엔드 타이틀 프레임
-        }
-
         toggle.addEventListener("click", () => {
           playing = !playing;
           toggle.setAttribute("aria-pressed", String(!playing));
           toggle.setAttribute("aria-label", playing ? "애니메이션 일시정지" : "애니메이션 재생");
           playing ? run() : stop();
-        });
-        reduced.addEventListener("change", () => {
-          playing = !reduced.matches;
-          playing ? run() : showStill();
         });
         new IntersectionObserver(([entry]) => {
           visible = entry.isIntersecting;
@@ -1078,7 +1069,7 @@
         window.addEventListener("resize", () => {
           if (!G) return;
           measure();
-          window.seek(reduced.matches ? LOOP - 0.001 : elapsed % LOOP);
+          window.seek(elapsed % LOOP);
         });
 
         Promise.all([
@@ -1089,7 +1080,7 @@
           .then(() => document.fonts.ready)
           .then(() => {
             measure();
-            window.seek(reduced.matches ? LOOP - 0.001 : 0);
+            window.seek(0);
             world.classList.add("is-ready");
             run();
           });

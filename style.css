@@ -849,12 +849,6 @@ body {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .jam-toggle {
-    display: none;
-  }
-}
-
 /* ===== Main Content ===== */
 .main {
   max-width: 1200px;
