@@ -58,23 +58,571 @@ body {
   cursor: pointer;
 }
 
-/* ===== Hero Image ===== */
+/* ===== Hero: 카운트 인 모션 (index.html의 seek(t)가 매 프레임 transform/opacity를 계산) ===== */
 .hero {
   position: relative;
   width: 100%;
-  max-width: 900px;
-  height: auto;
-  min-height: 280px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 60px auto 0;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.hero img {
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.jam-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 32px;
+  background: #ffece6;
+  contain: layout paint;
+}
+
+.jm-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* 디자인 좌표계: 데스크톱 1600x900, 모바일 800x1000. JS가 스테이지 폭에 맞춰 scale */
+.jam-world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1600px;
+  height: 900px;
+  transform-origin: 0 0;
+  perspective: 2400px;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  word-break: keep-all;
+  color: #222222;
+  opacity: 0;
+}
+
+.jam-world.is-ready {
+  opacity: 1;
+}
+
+.jam-world .m {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+.jm-d {
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1;
+  color: #fc5c2b;
+}
+
+.jm-logo,
+.jm-end-logo {
+  display: block;
+  width: auto;
+}
+
+.jm-end-j {
+  clip-path: inset(0 69% 0 0);
+}
+
+.jm-end-am {
+  clip-path: inset(0 0 0 31%);
+}
+
+.jm-key .jm-white {
+  position: absolute;
+  inset: 0;
+  color: #fff;
+}
+
+.jm-circle {
+  border-radius: 50%;
+  background: #fc5c2b;
+}
+
+/* 세션 칩: 오렌지 아웃라인 */
+.jm-chip {
+  padding: 0 0.72em;
+  height: 1.9em;
+  line-height: calc(1.9em - 6px);
+  border: 3px solid #fc5c2b;
+  border-radius: 999px;
+  background: #fff;
+  color: #fc5c2b;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.jm-morph {
+  display: grid;
+  place-items: center;
+}
+
+.jm-morph > * {
+  position: relative;
+  grid-area: 1 / 1;
+  width: 100%;
   height: 100%;
-  max-height: 400px;
-  object-fit: contain;
+}
+
+.jm-morph-fill {
+  background: #fc5c2b;
+}
+
+.jm-morph-inner {
+  background: #fff;
+}
+
+.jm-morph-label {
+  display: grid;
+  place-items: center;
+  color: #fc5c2b;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+/* ---- CSS 폰 (화면 360x780) ---- */
+.jm-phone {
+  width: 360px;
+  height: 780px;
+  font-size: 14px;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+}
+
+.jm-bezel {
+  position: absolute;
+  inset: -14px;
+  border-radius: 56px;
+  background: #222222;
+}
+
+.jm-screen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 42px;
+  background: #f7f7f7;
+}
+
+.jm-notch {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: 112px;
+  height: 30px;
+  margin-left: -56px;
+  border-radius: 999px;
+  background: #222222;
+}
+
+.jm-wipe {
+  position: absolute;
+  inset: -14px;
+  border-radius: 56px;
+  background: #fc5c2b;
+}
+
+.jm-pages {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 44px;
+  height: 668px;
+  overflow: hidden;
+}
+
+.jm-page {
+  position: absolute;
+  inset: 0;
+  padding: 0 16px;
+}
+
+.jm-appbar {
+  height: 52px;
+  display: flex;
+  align-items: center;
+}
+
+.jm-appbar img {
+  height: 24px;
+  width: auto;
+}
+
+.jm-page-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.jm-filters {
+  height: 36px;
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.jm-pill {
+  position: relative;
+  height: 34px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1.5px solid #dddddd;
+  border-radius: 999px;
+  background: #fff;
+  font-weight: 700;
+}
+
+.jm-pill::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.jm-pill .jm-on {
+  position: absolute;
+  inset: -1.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  border: 1.5px solid #fc5c2b;
+  border-radius: 999px;
+  background: #fff;
+  color: #fc5c2b;
+}
+
+.jm-pill .jm-on::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.jm-reset {
+  margin-left: auto;
+  font-weight: 700;
+  color: #888888;
+}
+
+.jm-cards {
+  position: relative;
+  margin-top: 16px;
+}
+
+.jm-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 112px;
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.jm-card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jm-card-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.jm-tags {
+  display: flex;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.jm-tag {
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #ffece6;
+  color: #fc5c2b;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.jm-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #999999;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.jm-meta svg {
+  width: 14px;
+  height: 14px;
+}
+
+.jm-thumb {
+  flex: none;
+  width: 80px;
+  height: 80px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #ffece6;
+  color: #fc5c2b;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+/* 합주실 카드 (첫 카드가 열리면서 됨) */
+.jm-studio {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 368px;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.jm-studio-head {
+  position: relative;
+  height: 112px;
+  overflow: hidden;
+}
+
+.jm-studio-head .jm-card {
+  top: 0;
+}
+
+.jm-head-post,
+.jm-head-studio {
+  padding-right: 108px;
+  background: none;
+}
+
+.jm-fields {
+  padding: 0 16px;
+}
+
+.jm-field {
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 1px solid #f2f2f2;
+}
+
+.jm-field b {
+  color: #999999;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.jm-field span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.jm-heart {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  color: #fc5c2b;
+}
+
+.jm-heart svg {
+  position: absolute;
+  inset: 0;
+}
+
+.jm-heart .jm-heart-fill {
+  fill: #fc5c2b;
+}
+
+.jm-nav {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 68px;
+  padding-bottom: 10px;
+  display: flex;
+  border-top: 1px solid #eeeeee;
+  background: #fff;
+}
+
+.jm-tab {
+  position: relative;
+  flex: 1;
+  display: grid;
+  place-items: center;
+}
+
+.jm-tab-ind {
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  width: 64px;
+  height: 46px;
+  margin-left: -32px;
+  border-radius: 14px;
+  background: #ffece6;
+}
+
+.jm-tab-off,
+.jm-tab-on {
+  grid-area: 1 / 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.jm-tab-off {
+  color: #b5b5b5;
+}
+
+.jm-tab-on {
+  color: #fc5c2b;
+}
+
+.jm-tab svg,
+.jm-meta svg,
+.jm-heart svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.jm-tab svg {
+  width: 24px;
+  height: 24px;
+}
+
+.jm-avatar {
+  width: 88px;
+  height: 88px;
+  margin: 24px 0 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #ffece6;
+  color: #fc5c2b;
+  font-size: 44px;
+  font-weight: 800;
+}
+
+.jm-label {
+  margin: 16px 0 8px;
+  color: #999999;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.jm-chip-sm {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 6px 14px;
+  border: 1.5px solid #fc5c2b;
+  border-radius: 999px;
+  background: #fff;
+  color: #fc5c2b;
+  font-weight: 700;
+}
+
+/* 일시정지/재생 버튼 */
+.jam-toggle {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: #222222;
+  cursor: pointer;
+}
+
+.jam-toggle svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.jam-toggle .jt-play,
+.jam-toggle[aria-pressed="true"] .jt-pause {
+  display: none;
+}
+
+.jam-toggle[aria-pressed="true"] .jt-play {
+  display: block;
+}
+
+.jam-toggle:focus-visible {
+  outline: 3px solid #fc5c2b;
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .jam-stage {
+    aspect-ratio: 4 / 5;
+    border-radius: 24px;
+  }
+
+  .jam-toggle {
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jam-toggle {
+    display: none;
+  }
 }
 
 /* ===== Main Content ===== */
@@ -238,6 +786,58 @@ body {
   min-height: 20px;
 }
 
+/* ===== Session tiles & CTA interactions (formerly in index.html #jam-motion) ===== */
+.photo-row:hover .photo-scroll {
+  animation-play-state: paused;
+}
+
+.photo-scroll img {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.photo-scroll img:hover {
+  transform: translateY(-10px) rotate(-5deg) scale(1.06);
+}
+
+.photo-scroll img:nth-child(even):hover {
+  transform: translateY(-10px) rotate(5deg) scale(1.06);
+}
+
+.cta .bounce {
+  display: inline-block;
+  animation: emoji-bounce 2.4s ease-in-out infinite;
+}
+
+.cta .bounce:last-child {
+  animation-delay: 0.3s;
+}
+
+.cta .cta-btn#submitBtn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 4px 6px 0 #fff231;
+}
+
+.cta .cta-btn#submitBtn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 1px 2px 0 #fff231;
+}
+
+.cta-btn:focus-visible,
+.email-input:focus-visible {
+  outline: 3px solid #fff231;
+  outline-offset: 2px;
+}
+
+@keyframes emoji-bounce {
+  0%, 70%, 100% { translate: 0 0; }
+  80% { translate: 0 -10px; }
+  90% { translate: 0 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta .bounce { animation: none; }
+}
+
 /* ===== Footer ===== */
 .footer {
   border-top: 1px solid #f0f0f0;
@@ -364,8 +964,6 @@ body {
   .header { padding: 40px 20px; }
   .title h1 { font-size: 60px; }
   .title img { height: 60px; }
-  .hero { height: 200px; }
-  .hero img { height: 300px; }
 
   .headline { font-size: 32px; }
   .body { font-size: 18px; }
