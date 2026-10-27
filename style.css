@@ -800,6 +800,14 @@ body {
   font-weight: 700;
 }
 
+/* 모션 아래 정적 폰 목업 */
+.hero-mockup {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+}
+
 /* 일시정지/재생 버튼 */
 .jam-toggle {
   position: absolute;
