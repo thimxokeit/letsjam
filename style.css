@@ -194,13 +194,17 @@ body {
   letter-spacing: -1px;
 }
 
-/* ---- CSS 폰 (화면 360x780) ---- */
+/* ---- CSS 폰 (화면 360x780). 앱 화면은 임시 — 실제 화면으로 교체 예정 ---- */
 .jm-phone {
   width: 360px;
   height: 780px;
   font-size: 14px;
   line-height: 1.3;
   letter-spacing: -0.3px;
+}
+
+.jm-phone svg {
+  display: block;
 }
 
 .jm-bezel {
@@ -215,7 +219,7 @@ body {
   inset: 0;
   overflow: hidden;
   border-radius: 42px;
-  background: #f7f7f7;
+  background: #fff;
 }
 
 .jm-notch {
@@ -240,97 +244,128 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 44px;
-  height: 668px;
+  top: 0;
+  height: 712px;
   overflow: hidden;
 }
 
+/* 페이지가 상태 표시줄(44px) 아래까지 깔려요 */
 .jm-page {
   position: absolute;
   inset: 0;
-  padding: 0 16px;
+  padding: 44px 16px 0;
+  background: #fff;
 }
 
 .jm-appbar {
   height: 52px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .jm-appbar img {
-  height: 24px;
+  height: 26px;
   width: auto;
 }
 
+.jm-appbar-icons {
+  display: flex;
+  gap: 12px;
+  color: #fc5c2b;
+}
+
+.jm-appbar-icons svg {
+  width: 24px;
+  height: 24px;
+}
+
 .jm-page-title {
-  font-size: 22px;
+  color: #fc5c2b;
+  font-size: 24px;
   font-weight: 800;
   letter-spacing: -1px;
 }
 
+.jm-tabs {
+  height: 40px;
+  margin: 0 -16px;
+  display: flex;
+  border-bottom: 2px solid #eeeeee;
+}
+
+.jm-tabs span {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  margin-bottom: -2px;
+  color: #999999;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.jm-tabs .is-on {
+  border-bottom: 2px solid #fc5c2b;
+  color: #fc5c2b;
+}
+
 .jm-filters {
   height: 36px;
-  margin-top: 8px;
+  margin-top: 12px;
   display: flex;
   gap: 8px;
   align-items: center;
 }
 
+.jm-sliders {
+  width: 24px;
+  height: 24px;
+  color: #fc5c2b;
+}
+
 .jm-pill {
   position: relative;
-  height: 34px;
+  height: 32px;
   padding: 0 14px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  border: 1.5px solid #dddddd;
+  border: 1.5px solid #fc5c2b;
   border-radius: 999px;
   background: #fff;
+  color: #fc5c2b;
   font-weight: 700;
 }
 
-.jm-pill::after {
-  content: "";
-  width: 6px;
-  height: 6px;
-  margin-top: -3px;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: rotate(45deg);
-}
-
+/* 칩이 모여 들어오면 세션 필이 채워져요 */
 .jm-pill .jm-on {
   position: absolute;
   inset: -1.5px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   padding: 0 14px;
-  border: 1.5px solid #fc5c2b;
   border-radius: 999px;
-  background: #fff;
-  color: #fc5c2b;
-}
-
-.jm-pill .jm-on::after {
-  content: "";
-  width: 6px;
-  height: 6px;
-  margin-top: -3px;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: rotate(45deg);
+  background: #fc5c2b;
+  color: #fff;
 }
 
 .jm-reset {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #fd9e81;
+  font-size: 13px;
   font-weight: 700;
-  color: #888888;
+}
+
+.jm-reset svg {
+  width: 16px;
+  height: 16px;
 }
 
 .jm-cards {
   position: relative;
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 .jm-card {
@@ -338,9 +373,9 @@ body {
   left: 0;
   right: 0;
   height: 112px;
-  padding: 16px;
   display: flex;
-  gap: 12px;
+  overflow: hidden;
+  border: 1.5px solid #fc5c2b;
   border-radius: 20px;
   background: #fff;
 }
@@ -348,9 +383,10 @@ body {
 .jm-card-body {
   flex: 1;
   min-width: 0;
+  padding: 14px 0 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
 }
 
 .jm-card-title {
@@ -363,13 +399,13 @@ body {
 
 .jm-tags {
   display: flex;
-  gap: 6px;
+  gap: 5px;
   overflow: hidden;
 }
 
 .jm-tag {
-  padding: 3px 8px;
-  border-radius: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
   background: #ffece6;
   color: #fc5c2b;
   font-size: 12px;
@@ -386,23 +422,69 @@ body {
   font-weight: 700;
 }
 
-.jm-meta svg {
-  width: 14px;
-  height: 14px;
+.jm-meta > svg {
+  width: 13px;
+  height: 13px;
 }
 
-.jm-thumb {
-  flex: none;
-  width: 80px;
-  height: 80px;
+.jm-meta i,
+.jm-price i {
+  width: 6px;
+}
+
+.jm-price {
+  display: flex;
+  align-items: center;
+  color: #fc5c2b;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.jm-price em {
+  color: #999999;
+  font-size: 12px;
+  font-style: normal;
+}
+
+/* 사진 자리: 기본 이미지 "J" */
+.jm-thumb,
+.jm-scard-img {
+  position: relative;
   display: grid;
   place-items: center;
-  border-radius: 14px;
   background: #ffece6;
   color: #fc5c2b;
   font-size: 40px;
   font-weight: 800;
   letter-spacing: -2px;
+}
+
+.jm-thumb {
+  flex: none;
+  width: 110px;
+  margin-left: 12px;
+}
+
+.jm-thumb-heart {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(34, 34, 34, 0.35);
+  color: #fff;
+}
+
+.jm-thumb-heart.is-on {
+  color: #fc5c2b;
+}
+
+.jm-thumb-heart svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* 합주실 카드 (첫 카드가 열리면서 됨) */
@@ -412,24 +494,32 @@ body {
   right: 0;
   top: 0;
   height: 368px;
+  border: 1.5px solid #fc5c2b;
   border-radius: 20px;
   background: #fff;
 }
 
 .jm-studio-head {
   position: relative;
-  height: 112px;
+  height: 109px;
   overflow: hidden;
 }
 
 .jm-studio-head .jm-card {
   top: 0;
+  height: 109px;
+  border: 0;
+  border-radius: 0;
+  background: none;
 }
 
-.jm-head-post,
-.jm-head-studio {
-  padding-right: 108px;
-  background: none;
+.jm-head-post .jm-card-body,
+.jm-head-studio .jm-card-body {
+  padding-right: 122px;
+}
+
+.jm-head-thumb {
+  justify-content: flex-end;
 }
 
 .jm-fields {
@@ -458,20 +548,182 @@ body {
   font-weight: 700;
 }
 
+.jm-meta-zzim {
+  color: #fc5c2b;
+}
+
 .jm-heart {
   position: relative;
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   color: #fc5c2b;
 }
 
 .jm-heart svg {
   position: absolute;
   inset: 0;
+  width: 15px;
+  height: 15px;
 }
 
-.jm-heart .jm-heart-fill {
-  fill: #fc5c2b;
+/* 합주실 탭: 2열 그리드 */
+.jm-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.jm-scard {
+  height: 262px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1.5px solid #fc5c2b;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.jm-scard-body {
+  padding: 12px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.jm-scard .jm-card-title {
+  font-size: 15px;
+}
+
+.jm-scard-img {
+  flex: 1;
+}
+
+/* 프로필 탭: 다크 화면 */
+.jm-p-profile {
+  background: #222222;
+  color: #fff;
+  text-align: center;
+}
+
+.jm-cover {
+  height: 214px;
+  margin: -44px -16px 0;
+  background: #333333;
+}
+
+.jm-avatar {
+  width: 96px;
+  height: 96px;
+  margin: -64px auto 10px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fc5c2b;
+  color: #fff;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+.jm-name {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.jm-profile-actions {
+  margin: 16px 0 6px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.jm-share {
+  height: 38px;
+  padding: 0 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #fc5c2b;
+  font-weight: 700;
+}
+
+.jm-round {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid #fc5c2b;
+  border-radius: 50%;
+  color: #fc5c2b;
+}
+
+.jm-round svg {
+  width: 18px;
+  height: 18px;
+}
+
+.jm-p-profile .jm-label {
+  margin: 18px 0 10px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.jm-session-tile {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border: 1.5px solid #dddddd;
+  border-radius: 14px;
+}
+
+.jm-session-tile img {
+  width: 100%;
+  height: 100%;
+}
+
+.jm-session-tile span {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.jm-post-row {
+  height: 52px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px solid #dddddd;
+  border-radius: 14px;
+}
+
+.jm-post-type {
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: #fff;
+  color: #222222;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.jm-post-title {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 700;
+  text-align: left;
+}
+
+.jm-post-row svg {
+  width: 18px;
+  height: 18px;
 }
 
 .jm-nav {
@@ -480,7 +732,7 @@ body {
   right: 0;
   bottom: 0;
   height: 68px;
-  padding-bottom: 10px;
+  padding: 0 6px 10px;
   display: flex;
   border-top: 1px solid #eeeeee;
   background: #fff;
@@ -493,17 +745,6 @@ body {
   place-items: center;
 }
 
-.jm-tab-ind {
-  position: absolute;
-  left: 50%;
-  top: 7px;
-  width: 64px;
-  height: 46px;
-  margin-left: -32px;
-  border-radius: 14px;
-  background: #ffece6;
-}
-
 .jm-tab-off,
 .jm-tab-on {
   grid-area: 1 / 1;
@@ -511,7 +752,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
   font-size: 11px;
   font-weight: 700;
 }
@@ -521,52 +762,41 @@ body {
 }
 
 .jm-tab-on {
+  background: #fff;
   color: #fc5c2b;
-}
-
-.jm-tab svg,
-.jm-meta svg,
-.jm-heart svg {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linejoin: round;
-  stroke-linecap: round;
 }
 
 .jm-tab svg {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
 }
 
-.jm-avatar {
-  width: 88px;
-  height: 88px;
-  margin: 24px 0 20px;
+.jm-write {
+  flex: 1.1;
+}
+
+.jm-fab {
+  position: absolute;
+  left: 50%;
+  top: -22px;
+  width: 58px;
+  height: 58px;
+  margin-left: -29px;
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: #ffece6;
-  color: #fc5c2b;
-  font-size: 44px;
-  font-weight: 800;
+  background: #fc5c2b;
 }
 
-.jm-label {
-  margin: 16px 0 8px;
+.jm-fab svg {
+  width: 28px;
+  height: 28px;
+}
+
+.jm-write-label {
+  margin-top: 30px;
   color: #999999;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.jm-chip-sm {
-  display: inline-block;
-  margin-right: 6px;
-  padding: 6px 14px;
-  border: 1.5px solid #fc5c2b;
-  border-radius: 999px;
-  background: #fff;
-  color: #fc5c2b;
+  font-size: 11px;
   font-weight: 700;
 }
 
