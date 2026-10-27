@@ -1,10 +1,53 @@
-<header class="header">
-  <div class="header-inner">
-    <img
-      src="https://thimxokeit.github.io/letsjam/assets/jam_logo.png"
-      alt="JAM"
-      class="logo"
-      onclick="location.href='{{ '/intro' | relative_url }}'"
-    />
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-logo" aria-label="JAM 홈">
+      <img
+        src="https://thimxokeit.github.io/letsjam/assets/jam_logo.png"
+        alt="JAM"
+        class="logo"
+      />
+    </a>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="메뉴 열기"
+      aria-expanded="false"
+      aria-controls="site-menu"
+    >
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <nav class="site-menu" id="site-menu" hidden>
+    <a href="/about/">Sticky Studio 소개</a>
+    <a href="https://www.instagram.com/jam_stickystudio/" target="_blank">INSTAGRAM</a>
+    <a href="https://forms.gle/6JcnqBmy8Aaim5qv6" target="_blank">문의하기</a>
+    <a href="https://forms.gle/9MV6DvcKfCKQTxbXA" target="_blank">버그 제보하기</a>
+    <a href="/terms/">이용약관</a>
+    <a href="/privacy/">개인정보처리방침</a>
+    <a href="/community-policy/">커뮤니티 이용규칙</a>
+  </nav>
+  <script>
+    (function () {
+      const header = document.currentScript.closest(".site-header");
+      const toggle = header.querySelector(".menu-toggle");
+      const menu = header.querySelector(".site-menu");
+
+      function setOpen(open) {
+        menu.hidden = !open;
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
+      }
+
+      toggle.addEventListener("click", () => setOpen(menu.hidden));
+      document.addEventListener("click", (e) => {
+        if (!menu.hidden && !header.contains(e.target)) setOpen(false);
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !menu.hidden) {
+          setOpen(false);
+          toggle.focus();
+        }
+      });
+    })();
+  </script>
 </header>

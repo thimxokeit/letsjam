@@ -32,7 +32,7 @@
     />
     <link
       rel="stylesheet"
-      href="https://thimxokeit.github.io/letsjam/style.css?v=5"
+      href="https://thimxokeit.github.io/letsjam/style.css?v=7"
     />
 
 
@@ -52,8 +52,10 @@
     </script>
   </head>
   <body>
-    <header class="header">
+    {% include header.html %}
+    <section class="header">
       <div class="hero">
+        <div class="hero-inner">
         <h1 class="sr-only">
           Let's JAM — 째미난 밴드 라이프 커뮤니티. 내가 들어갈 밴드를 찾고, 우리
           밴드와 함께할 멤버를 구해요.
@@ -295,8 +297,9 @@
           <svg class="jt-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1" /><rect x="9.5" y="2" width="3.5" height="12" rx="1" /></svg>
           <svg class="jt-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11a.8.8 0 0 0 1.2.7l9-5.5a.8.8 0 0 0 0-1.4l-9-5.5A.8.8 0 0 0 4 2.5z" /></svg>
         </button>
+        </div>
       </div>
-    </header>
+    </section>
     <main class="main">
       <!-- ===== Benefits ===== -->
       <section class="benefits">
@@ -304,6 +307,11 @@
           <p class="eyebrow">Chunky Buddy for your music!</p>
           <h2 class="headline">째미난 밴드 라이프 커뮤니티</h2>
           <p class="body">JAM에서 밴드를 찾고, 멤버를 구해보세요!</p>
+          <img
+            class="hero-mockup"
+            src="https://thimxokeit.github.io/letsjam/assets/mobile_mockup.png"
+            alt="JAM 앱 미리보기"
+          />
         </div>
         <div class="benefits-list">
           <div class="benefit-item">
