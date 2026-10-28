@@ -63,10 +63,6 @@
         <!-- 15초 루프 모션: 모든 스타일은 아래 스크립트의 seek(t)가 계산해요 -->
         <div class="jam-stage" aria-hidden="true">
           <svg class="jm-defs" width="0" height="0" focusable="false">
-            <filter id="jm-blur-0" x="0" y="-50%" width="100%" height="200%"><feGaussianBlur stdDeviation="0 0" /></filter>
-            <filter id="jm-blur-1" x="0" y="-50%" width="100%" height="200%"><feGaussianBlur stdDeviation="0 0" /></filter>
-            <filter id="jm-blur-2" x="0" y="-50%" width="100%" height="200%"><feGaussianBlur stdDeviation="0 0" /></filter>
-            <filter id="jm-blur-3" x="0" y="-50%" width="100%" height="200%"><feGaussianBlur stdDeviation="0 0" /></filter>
             <filter id="jm-blur-page" x="0" y="-20%" width="100%" height="140%"><feGaussianBlur stdDeviation="0 0" /></filter>
             <symbol id="jm-i-home" viewBox="0 0 24 24"><path fill="currentColor" d="M3 10.4 12 3l9 7.4V20a1.2 1.2 0 0 1-1.2 1.2H15v-6.2H9v6.2H4.2A1.2 1.2 0 0 1 3 20z" /></symbol>
             <symbol id="jm-i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-8.5-5.2-8.5-11.4A4.6 4.6 0 0 1 12 6.8a4.6 4.6 0 0 1 8.5 2.8C20.5 15.8 12 21 12 21z" /></symbol>
@@ -85,13 +81,10 @@
           </svg>
 
           <div class="jam-world">
-            <!-- Bar 1: 카운트 인 -->
-            <span class="m jm-d jm-count">1</span>
-            <span class="m jm-d jm-count">2</span>
-            <span class="m jm-d jm-count">3</span>
-            <span class="m jm-d jm-count">4</span>
+            <!-- Bar 1: 원 → JAM 로고 -->
             <span class="m jm-d jm-lets">Let's</span>
             <img class="m jm-logo" src="https://thimxokeit.github.io/letsjam/assets/jam_logo.png" alt="" />
+            <span class="m jm-circle jm-intro-circle"></span>
 
             <!-- Bar 2: 두 가지 글 -->
             <span class="m jm-d jm-w" data-row="0">내가</span>
@@ -584,13 +577,13 @@
 
         const LAYOUTS = {
           desktop: {
-            w: 1600, h: 900, count: 560, lets: 250, logoH: 228, stacked: false,
+            w: 1600, h: 900, lets: 250, logoH: 228, stacked: false,
             row: 116, rowGap: 44, chip: 46, chipGap: 18, chipRows: [-160, -30, 100],
             r: 110, circleY: 290, flatS: 1.85, phone: 0.95, push: 1.1,
             endH: 250, endY: -60, tag: 64, tagY: 150, blur: true,
           },
           mobile: {
-            w: 800, h: 1000, count: 520, lets: 220, logoH: 200, stacked: true,
+            w: 800, h: 1000, lets: 220, logoH: 200, stacked: true,
             row: 80, rowGap: 34, chip: 46, chipGap: 16, chipRows: [-180, -40, 100],
             r: 100, circleY: 320, flatS: 2.0, phone: 1.02, push: 1.08,
             endH: 200, endY: -70, tag: 50, tagY: 120, blur: false,
@@ -598,7 +591,7 @@
         };
 
         const el = {
-          counts: qa(".jm-count"),
+          introCircle: q(".jm-intro-circle"),
           lets: q(".jm-lets"),
           logo: q(".jm-logo"),
           words: qa(".jm-w"),
@@ -627,7 +620,6 @@
           endJ: q(".jm-end-j"),
           endAM: q(".jm-end-am"),
           tagWords: qa(".jm-tagw"),
-          blurs: [0, 1, 2, 3].map((i) => document.querySelector(`#jm-blur-${i} feGaussianBlur`)),
           pageBlur: document.querySelector("#jm-blur-page feGaussianBlur"),
         };
 
@@ -665,7 +657,7 @@
           world.style.width = L.w + "px";
           world.style.height = L.h + "px";
 
-          el.counts.forEach((n) => (n.style.fontSize = L.count + "px"));
+          el.introCircle.style.width = el.introCircle.style.height = L.logoH * 1.5 + "px";
           el.lets.style.fontSize = L.lets + "px";
           el.logo.style.height = L.logoH + "px";
           el.words.forEach((n) => (n.style.fontSize = L.row + "px"));
@@ -677,8 +669,7 @@
           el.tagWords.forEach((n) => (n.style.fontSize = L.tag + "px"));
 
           const g = {};
-          // Bar 1: "4" → "Let's", 로고
-          g.w4 = el.counts[3].offsetWidth;
+          // Bar 1: 원 → 로고, "Let's"
           g.letsW = el.lets.offsetWidth;
           g.logoW = L.logoH * LOGO_AR;
           if (L.stacked) {
@@ -773,49 +764,34 @@
           world.style.transform = `scale(${s})`;
         }
 
-        // ---------- Bar 1 (0-2s): 1 · 2 · 3 · 4 → Let's JAM ----------
-        function countY(i, t) {
-          const tb = i * BEAT;
-          let y = lerp(L.h * 0.85, 0, k(t, tb, 0.2));
-          if (i < 3) y -= k(t, tb + BEAT, 0.22) * L.h * 0.85;
-          return y;
-        }
+        // ---------- Bar 1 (0-2s): 원 → JAM 로고 → Let's JAM ----------
+        // 0.0 원이 아래에서 올라와요 · 0.5 커져요 · 1.0 원에서 로고가 나와요 · 1.5 "Let's"
         function bar1(t) {
-          const dt = 1 / 60;
-          const stretch = k(t, 1.62, 0.18);
-          const exitLets = k(t, 2.02, 0.35) * L.h;
-          el.counts.forEach((n, i) => {
-            const tb = i * BEAT;
-            if (t < tb || t > 2.2) return hide(n);
-            let y = countY(i, t);
-            if (i < 3) {
-              put(n, 0, y, 1);
-            } else {
-              // "4"가 늘어나며 "Let's"가 돼요
-              const bx = lerp(0, G.lets[0], stretch);
-              const by = lerp(y, G.lets[1], stretch);
-              const bw = lerp(G.w4, G.letsW, stretch);
-              const bh = lerp(L.count, L.lets, stretch);
-              const o = 1 - k(t, 1.68, 0.05, linear);
-              put(n, bx, by - exitLets, o, bw / G.w4, bh / L.count);
-            }
-            const v = Math.abs(countY(i, t) - countY(i, t - dt));
-            setBlur(n, el.blurs[i], `jm-blur-${i}`, i === 3 && t > 1.62 ? 0 : v * 0.22);
-          });
+          const exit = (d) => k(t, d, 0.35) * L.h;
 
-          if (t < 1.68 || t > 2.6) hide(el.lets);
+          if (t > 1.35) hide(el.introCircle);
           else {
-            const bx = lerp(0, G.lets[0], stretch);
-            const by = lerp(0, G.lets[1], stretch);
-            const bw = lerp(G.w4, G.letsW, stretch);
-            const bh = lerp(L.count, L.lets, stretch);
-            put(el.lets, bx, by - exitLets, k(t, 1.68, 0.05, linear), bw / G.letsW, bh / L.lets);
+            const y = (1 - k(t, 0, 0.3)) * L.h * 0.85;
+            const s = lerp(0.55, 1, k(t, 0.5, 0.35, spring)) * (1 - k(t, 1.0, 0.3));
+            put(el.introCircle, 0, y, 1, s);
           }
 
-          if (t < 1.66 || t > 2.6) hide(el.logo);
+          if (t < 1.0 || t > 2.6) hide(el.logo);
           else {
-            const y = G.logo[1] + (1 - k(t, 1.66, 0.2)) * L.h * 0.6 - k(t, 2.06, 0.35) * L.h;
-            put(el.logo, G.logo[0], y, 1);
+            const p = k(t, 1.0, 0.4);
+            const cover = Math.hypot(G.logoW, L.logoH) / 2;
+            const r = lerp(L.logoH * 0.3, cover, p);
+            el.logo.style.clipPath = p >= 1 ? "" : `circle(${r.toFixed(1)}px at 50% 50%)`;
+            const m = k(t, 1.5, 0.28);
+            put(el.logo, lerp(0, G.logo[0], m), lerp(0, G.logo[1], m) - exit(2.06), 1, lerp(0.8, 1, p));
+          }
+
+          if (t < 1.58 || t > 2.6) hide(el.lets);
+          else {
+            // 세로 배치(모바일)에서는 로고를 가로지르지 않게 짧게 올라와요
+            const rise = L.stacked ? L.lets * 0.35 : L.h * 0.6;
+            const y = G.lets[1] + (1 - k(t, 1.58, 0.3)) * rise - exit(2.02);
+            put(el.lets, G.lets[0], y, k(t, 1.58, 0.08, linear));
           }
         }
 
