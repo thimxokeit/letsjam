@@ -574,67 +574,6 @@ body {
   height: 18px;
 }
 
-/* 합주실 카드 (첫 카드가 열리면서 됨) */
-.jm-studio {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 368px;
-  border: 1.5px solid #fc5c2b;
-  border-radius: 20px;
-  background: #fff;
-}
-
-.jm-studio-head {
-  position: relative;
-  height: 109px;
-  overflow: hidden;
-}
-
-.jm-studio-head .jm-card {
-  top: 0;
-  height: 109px;
-  border: 0;
-  border-radius: 0;
-  background: none;
-}
-
-.jm-head-post .jm-card-body,
-.jm-head-studio .jm-card-body {
-  padding-right: 122px;
-}
-
-.jm-head-thumb {
-  justify-content: flex-end;
-}
-
-.jm-fields {
-  padding: 0 16px;
-}
-
-.jm-field {
-  height: 48px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-top: 1px solid #f2f2f2;
-}
-
-.jm-field b {
-  color: #999999;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.jm-field span {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-size: 14px;
-  font-weight: 700;
-}
-
 .jm-meta-zzim {
   color: #fc5c2b;
 }
@@ -684,6 +623,146 @@ body {
 
 .jm-scard-img {
   flex: 1;
+}
+
+/* 합주실 상세 (앱 상세 화면 참고) */
+.jm-p-detail {
+  padding: 0;
+}
+
+.jm-detail-photo {
+  position: relative;
+  height: 200px;
+  display: grid;
+  place-items: center;
+  background: #2b2b2b;
+  color: #fc5c2b;
+  font-size: 72px;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+.jm-detail-back {
+  position: absolute;
+  left: 14px;
+  top: 52px;
+  width: 26px;
+  height: 26px;
+  color: #fff;
+}
+
+.jm-detail-heart.jm-heart,
+.jm-detail-heart.jm-heart svg {
+  width: 28px;
+  height: 28px;
+}
+
+.jm-detail-heart {
+  position: absolute;
+  right: 16px;
+  top: 52px;
+  color: #c8c8c8;
+}
+
+.jm-detail-heart .jm-heart-fill {
+  color: #fc5c2b;
+}
+
+.jm-detail-body {
+  padding: 0 16px;
+}
+
+.jm-detail-title {
+  padding: 18px 0 14px;
+  border-bottom: 1px solid #e3e3e3;
+  color: #1b2235;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.8px;
+}
+
+.jm-detail-info {
+  padding: 10px 0;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.jm-detail-line {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #333333;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.jm-detail-line svg {
+  width: 18px;
+  height: 18px;
+  color: #333333;
+}
+
+.jm-detail-line .jm-detail-out {
+  width: 14px;
+  height: 14px;
+  color: #999999;
+}
+
+.jm-book {
+  height: 44px;
+  margin-top: 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #fc5c2b;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.jm-detail-h {
+  margin: 22px 0 12px;
+  color: #333333;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.jm-room {
+  padding: 16px;
+  border: 1px solid #dddddd;
+  border-radius: 14px;
+  background: #f6f6f6;
+}
+
+.jm-room-name {
+  margin-bottom: 10px;
+  color: #333333;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.jm-room-line {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.jm-room-line b {
+  flex: none;
+  width: 96px;
+  color: #333333;
+}
+
+.jm-room-line span {
+  color: #888888;
+}
+
+/* 하단 탭 누름: JS가 scale을 계산 */
+.jm-tab:not(.jm-write) {
+  transform-origin: 50% 60%;
 }
 
 /* 프로필 탭: 다크 화면 */
