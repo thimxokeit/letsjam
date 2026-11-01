@@ -544,8 +544,12 @@
         const q = (s) => world.querySelector(s);
         const qa = (s) => Array.from(world.querySelectorAll(s));
 
-        const LOOP = 15;
-        const END = LOOP - 0.001; // 한 번 재생하고 엔드 타이틀에서 멈춰요
+        const LOOP = 15; // 장면 타임라인 길이 (아래 시간들은 모두 이 기준)
+        // "우리 밴드와 함께할 / 멤버를 구해요"가 다 보인 순간에 잠깐 멈춰서 읽을 시간을 줘요
+        const HOLD_AT = 3.45;
+        const HOLD = 0.8;
+        const DURATION = LOOP + HOLD; // 실제 재생 시간
+        const END = DURATION - 0.001; // 한 번 재생하고 엔드 타이틀에서 멈춰요
         const BEAT = 0.5;
         const LOGO_AR = 4137 / 2050;
         const J_SPLIT = 0.31; // 로고에서 "J"가 차지하는 가로 비율
@@ -1011,9 +1015,16 @@
           });
         }
 
+        // 실제 시간 → 장면 시간 (HOLD 동안은 같은 장면에 머물러요)
+        function sceneTime(t) {
+          if (t < HOLD_AT) return t;
+          if (t < HOLD_AT + HOLD) return HOLD_AT;
+          return t - HOLD;
+        }
+
         window.seek = function (t) {
           if (!G) return;
-          t = Math.min(Math.max(t, 0), END);
+          t = sceneTime(Math.min(Math.max(t, 0), END));
           bar1(t);
           bar2(t);
           bar3(t);
@@ -1034,8 +1045,8 @@
           raf = 0;
           if (last !== null) elapsed += Math.min((now - last) / 1000, 0.1);
           last = now;
-          if (elapsed >= LOOP) {
-            elapsed = LOOP;
+          if (elapsed >= DURATION) {
+            elapsed = DURATION;
             window.seek(END);
             playing = false;
             syncButton();
@@ -1054,7 +1065,7 @@
           raf = 0;
         }
         function syncButton() {
-          const ended = elapsed >= LOOP;
+          const ended = elapsed >= DURATION;
           toggle.setAttribute("aria-pressed", String(!playing));
           toggle.setAttribute(
             "aria-label",
@@ -1062,7 +1073,7 @@
           );
         }
         toggle.addEventListener("click", () => {
-          if (!playing && elapsed >= LOOP) elapsed = 0;
+          if (!playing && elapsed >= DURATION) elapsed = 0;
           playing = !playing;
           syncButton();
           playing ? run() : stop();
