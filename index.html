@@ -277,7 +277,7 @@
               <div class="jm-wipe"></div>
             </div>
 
-            <!-- 엔드 타이틀 (= 첫 프레임) -->
+            <!-- 엔드 타이틀 (마지막 프레임) -->
             <img class="m jm-end-logo jm-end-j" src="https://thimxokeit.github.io/letsjam/assets/jam_logo.png" alt="" />
             <img class="m jm-end-logo jm-end-am" src="https://thimxokeit.github.io/letsjam/assets/jam_logo.png" alt="" />
             <span class="m jm-d jm-tagw">째미난</span>
@@ -554,6 +554,7 @@
         const qa = (s) => Array.from(world.querySelectorAll(s));
 
         const LOOP = 15;
+        const END = LOOP - 0.001; // 한 번 재생하고 엔드 타이틀에서 멈춰요
         const BEAT = 0.5;
         const LOGO_AR = 4137 / 2050;
         const J_SPLIT = 0.31; // 로고에서 "J"가 차지하는 가로 비율
@@ -985,30 +986,22 @@
 
         // ---------- 엔드 타이틀 (14-15s) = 첫 프레임 ----------
         function endTitle(t) {
-          const late = t >= 7;
-          const exit = (d) => (late ? 0 : k(t, d, 0.35) * L.h);
-          if (late && t < 14.3) {
+          if (t < 14.3) {
             [el.endJ, el.endAM, ...el.tagWords].forEach(hide);
             return;
           }
-          if (!late && t > 0.7) {
-            [el.endJ, el.endAM, ...el.tagWords].forEach(hide);
-            return;
-          }
-          put(el.endJ, 0, L.endY - exit(0), 1);
-          const am = late ? k(t, 14.3, 0.3) : 1;
-          put(el.endAM, 0, L.endY + (1 - am) * L.endH * 0.35 - exit(0.02), late ? k(t, 14.3, 0.1, linear) : 1);
+          put(el.endJ, 0, L.endY, 1);
+          const am = k(t, 14.3, 0.3);
+          put(el.endAM, 0, L.endY + (1 - am) * L.endH * 0.35, k(t, 14.3, 0.1, linear));
           el.tagWords.forEach((n, i) => {
             const te = 14.5 + i * 0.06;
-            const p = late ? k(t, te, 0.3) : 1;
-            const o = late ? k(t, te, 0.08, linear) : 1;
-            put(n, G.tag[i], L.tagY + (1 - p) * 60 - exit(0.04 + i * 0.03), o);
+            put(n, G.tag[i], L.tagY + (1 - k(t, te, 0.3)) * 60, k(t, te, 0.08, linear));
           });
         }
 
         window.seek = function (t) {
           if (!G) return;
-          t = ((t % LOOP) + LOOP) % LOOP;
+          t = Math.min(Math.max(t, 0), END);
           bar1(t);
           bar2(t);
           bar3(t);
@@ -1017,7 +1010,8 @@
         };
 
         // ---------- 재생 ----------
-        // OS의 동작 줄이기 설정과 상관없이 재생해요. 멈추려면 일시정지 버튼을 써요.
+        // OS의 동작 줄이기 설정과 상관없이 한 번 재생하고 엔드 타이틀에서 멈춰요.
+        // 버튼: 재생 중엔 일시정지, 멈춘 뒤엔 처음부터 다시 재생.
         let playing = true;
         let visible = false;
         let elapsed = 0;
@@ -1028,7 +1022,14 @@
           raf = 0;
           if (last !== null) elapsed += Math.min((now - last) / 1000, 0.1);
           last = now;
-          window.seek(elapsed % LOOP);
+          if (elapsed >= LOOP) {
+            elapsed = LOOP;
+            window.seek(END);
+            playing = false;
+            syncButton();
+            return;
+          }
+          window.seek(elapsed);
           if (playing && visible) raf = requestAnimationFrame(frame);
         }
         function run() {
@@ -1040,10 +1041,18 @@
           if (raf) cancelAnimationFrame(raf);
           raf = 0;
         }
-        toggle.addEventListener("click", () => {
-          playing = !playing;
+        function syncButton() {
+          const ended = elapsed >= LOOP;
           toggle.setAttribute("aria-pressed", String(!playing));
-          toggle.setAttribute("aria-label", playing ? "애니메이션 일시정지" : "애니메이션 재생");
+          toggle.setAttribute(
+            "aria-label",
+            playing ? "애니메이션 일시정지" : ended ? "애니메이션 다시 재생" : "애니메이션 재생",
+          );
+        }
+        toggle.addEventListener("click", () => {
+          if (!playing && elapsed >= LOOP) elapsed = 0;
+          playing = !playing;
+          syncButton();
           playing ? run() : stop();
         });
         new IntersectionObserver(([entry]) => {
@@ -1053,7 +1062,7 @@
         window.addEventListener("resize", () => {
           if (!G) return;
           measure();
-          window.seek(elapsed % LOOP);
+          window.seek(elapsed);
         });
 
         Promise.all([
