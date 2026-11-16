@@ -1032,23 +1032,13 @@ body {
 }
 
 /* ===== Benefits ===== */
-/* ===== Intro: 왼쪽 제목 위로 큰 앱 화면이 겹쳐 깔려요 (주황 원은 섹션 아래 끝에서 잘려요) ===== */
+/* ===== Intro: 왼쪽 제목 + 오른쪽 앱 화면 ===== */
 .intro {
   display: grid;
-  align-items: end;
-  padding-top: 32px;
-}
-
-.intro-text,
-.intro-shot {
-  grid-area: 1 / 1;
-}
-
-.intro-text {
-  position: relative;
-  z-index: 1;
-  align-self: center;
-  max-width: 600px;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 48px;
+  padding: 56px 0 24px;
 }
 
 .intro-title {
@@ -1067,9 +1057,9 @@ body {
 }
 
 .intro-shot {
-  width: 74%;
-  max-width: 880px;
-  justify-self: end;
+  justify-self: center;
+  width: 100%;
+  max-width: 400px;
 }
 
 .intro-shot img,
@@ -1488,8 +1478,6 @@ body {
 /* ===== Responsive: Tablet & Mobile ===== */
 @media (max-width: 1024px) {
   .intro-title { font-size: 48px; }
-  .intro-text { max-width: 46%; }
-  .intro-shot { width: 64%; }
   .feature-text h2 { font-size: 36px; }
   .feature { padding: 0 40px; }
   .benefits-grid { grid-template-columns: 280px 1fr; gap: 28px; }
@@ -1524,20 +1512,14 @@ body {
 
 @media (max-width: 768px) {
   .intro {
-    padding-top: 40px;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px 0 8px;
     text-align: center;
   }
-  .intro-text,
-  .intro-shot { grid-area: auto; }
-  .intro-text { max-width: none; }
   .intro-title { font-size: 36px; margin-bottom: 12px; }
   .intro-body { font-size: 17px; }
-  /* 모바일: 글자 아래에 화면 폭 가득 크게 */
-  .intro-shot {
-    width: calc(100% + 40px);
-    max-width: none;
-    margin: 8px -20px 0;
-  }
+  .intro-shot { max-width: 300px; }
 
   .benefits { padding: 56px 0; }
   .benefits .headline { margin-bottom: 32px; }
