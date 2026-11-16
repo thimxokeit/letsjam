@@ -1065,10 +1065,17 @@ body {
   margin: 0 auto 60px;
 }
 
+/* 카드 4장: 데스크톱 2x2, 모바일 1열 */
 .benefits-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .benefits-list {
+    grid-template-columns: 1fr;
+  }
 }
 
 .benefit-item {
