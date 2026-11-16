@@ -32,7 +32,7 @@
     />
     <link
       rel="stylesheet"
-      href="https://thimxokeit.github.io/letsjam/style.css?v=9"
+      href="https://thimxokeit.github.io/letsjam/style.css?v=10"
     />
 
 
@@ -61,7 +61,8 @@
           밴드와 함께할 멤버를 구해요.
         </h1>
         <!-- 15초 루프 모션: 모든 스타일은 아래 스크립트의 seek(t)가 계산해요 -->
-        <div class="jam-stage" aria-hidden="true">
+        <!-- 모션 숨김: 다시 보이게 하려면 아래 jam-stage와 jam-toggle의 hidden 속성을 지우세요 -->
+        <div class="jam-stage" aria-hidden="true" hidden>
           <svg class="jm-defs" width="0" height="0" focusable="false">
             <filter id="jm-blur-page" x="0" y="-20%" width="100%" height="140%"><feGaussianBlur stdDeviation="0 0" /></filter>
             <symbol id="jm-i-home" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 2.2 21.6 10v11.8h-6.8v-4.6a2.8 2.8 0 0 0-5.6 0v4.6H2.4V10z" /></symbol>
@@ -277,7 +278,7 @@
             <span class="m jm-d jm-tagw">커뮤니티</span>
           </div>
         </div>
-        <button class="jam-toggle" type="button" aria-pressed="false" aria-label="애니메이션 일시정지">
+        <button class="jam-toggle" type="button" aria-pressed="false" aria-label="애니메이션 일시정지" hidden>
           <svg class="jt-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1" /><rect x="9.5" y="2" width="3.5" height="12" rx="1" /></svg>
           <svg class="jt-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11a.8.8 0 0 0 1.2.7l9-5.5a.8.8 0 0 0 0-1.4l-9-5.5A.8.8 0 0 0 4 2.5z" /></svg>
         </button>
@@ -544,7 +545,7 @@
     <script>
       (function () {
         const stage = document.querySelector(".jam-stage");
-        if (!stage) return;
+        if (!stage || stage.hidden) return; // 숨김 상태면 모션을 준비하지 않아요
         const world = stage.querySelector(".jam-world");
         const toggle = document.querySelector(".jam-toggle");
         const q = (s) => world.querySelector(s);

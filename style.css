@@ -979,6 +979,12 @@ body {
   margin: 0 auto 60px;
 }
 
+/* hidden 속성이 display 지정보다 우선하도록 */
+.jam-stage[hidden],
+.jam-toggle[hidden] {
+  display: none;
+}
+
 /* 일시정지/재생 버튼 */
 .jam-toggle {
   position: absolute;
