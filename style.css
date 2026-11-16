@@ -1032,10 +1032,17 @@ body {
 }
 
 /* ===== Benefits ===== */
-/* ===== Intro: 가운데 제목 + 앱 화면 (주황 원이 섹션 아래 끝에서 잘려요) ===== */
+/* ===== Intro: 왼쪽 제목 + 오른쪽 앱 화면 (주황 원이 섹션 아래 끝에서 잘려요) ===== */
 .intro {
-  padding-top: 72px;
-  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 40px;
+  padding-top: 56px;
+}
+
+.intro-text {
+  align-self: center;
 }
 
 .intro-title {
@@ -1055,8 +1062,8 @@ body {
 
 .intro-shot {
   width: 100%;
-  max-width: 820px;
-  margin: 40px auto 0;
+  max-width: 620px;
+  justify-self: end;
 }
 
 .intro-shot img,
@@ -1508,10 +1515,15 @@ body {
 }
 
 @media (max-width: 768px) {
-  .intro { padding-top: 40px; }
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-top: 40px;
+    text-align: center;
+  }
   .intro-title { font-size: 36px; margin-bottom: 12px; }
   .intro-body { font-size: 17px; }
-  .intro-shot { margin-top: 24px; }
+  .intro-shot { justify-self: center; }
 
   .benefits { padding: 56px 0; }
   .benefits .headline { margin-bottom: 32px; }
