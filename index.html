@@ -32,7 +32,7 @@
     />
     <link
       rel="stylesheet"
-      href="https://thimxokeit.github.io/letsjam/style.css?v=10"
+      href="https://thimxokeit.github.io/letsjam/style.css?v=11"
     />
 
 
@@ -56,10 +56,6 @@
     <section class="header">
       <div class="hero">
         <div class="hero-inner">
-        <h1 class="sr-only">
-          Let's JAM — 째미난 밴드 라이프 커뮤니티. 내가 들어갈 밴드를 찾고, 우리
-          밴드와 함께할 멤버를 구해요.
-        </h1>
         <!-- 15초 루프 모션: 모든 스타일은 아래 스크립트의 seek(t)가 계산해요 -->
         <!-- 모션 숨김: 다시 보이게 하려면 아래 jam-stage와 jam-toggle의 hidden 속성을 지우세요 -->
         <div class="jam-stage" aria-hidden="true" hidden>
@@ -286,18 +282,38 @@
       </div>
     </section>
     <main class="main">
-      <!-- ===== Benefits ===== -->
-      <section class="benefits">
-        <div class="benefits-head">
+      <!-- ===== Intro ===== -->
+      <section class="intro">
+        <div class="intro-text">
           <p class="eyebrow">Chunky Buddy for your music!</p>
-          <h2 class="headline">째미난 밴드 라이프 커뮤니티</h2>
-          <p class="body">JAM에서 밴드를 찾고, 멤버를 구해보세요!</p>
+          <h1 class="intro-title">째미난 밴드 라이프 커뮤니티</h1>
+          <p class="intro-body">JAM에서 밴드를 찾고, 멤버를 구해보세요!</p>
+        </div>
+        <div class="intro-shot">
           <img
-            class="hero-mockup"
-            src="https://thimxokeit.github.io/letsjam/assets/mobile_mockup.png"
-            alt="JAM 앱 미리보기"
+            src="https://thimxokeit.github.io/letsjam/assets/app-feed.webp"
+            width="923"
+            height="1560"
+            alt="JAM 앱 홈 화면: 밴드 들어가기 탭의 모집 글 목록"
           />
         </div>
+      </section>
+
+      <!-- ===== Benefits ===== -->
+      <section class="benefits">
+        <h2 class="headline">
+          밴드 찾기부터 멤버 모집,<br />합주실 정보까지 한 곳에서!
+        </h2>
+        <div class="benefits-grid">
+          <div class="shot-panel">
+            <img
+              src="https://thimxokeit.github.io/letsjam/assets/app-bubbles.webp"
+              width="923"
+              height="1560"
+              loading="lazy"
+              alt="JAM 앱 멤버 구하기 탭: 베이스 구해요, 판교에서 합주해요, 신규 합주실 정보 공유해요"
+            />
+          </div>
         <div class="benefits-list">
           <div class="benefit-item">
             <h3>🎵 밴드 들어가기</h3>
@@ -328,7 +344,58 @@
             </p>
           </div>
         </div>
+        </div>
       </section>
+
+      <!-- ===== Features ===== -->
+      <section class="features">
+        <div class="feature">
+          <div class="feature-text">
+            <h2>함께할 밴드와 멤버 찾기</h2>
+            <p>원하는 지역과 세션 필터로 간편하게 찾아요</p>
+          </div>
+          <div class="feature-shot">
+            <img
+              src="https://thimxokeit.github.io/letsjam/assets/app-filter.webp"
+              width="923"
+              height="1560"
+              loading="lazy"
+              alt="JAM 앱 세션 필터: 보컬(남), 보컬(여), 드럼, 베이스, 기타, 키보드, 그 외"
+            />
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-text">
+            <h2>프로필 둘러보기</h2>
+            <p>다양한 취미 밴드인을 만나고 소통해요</p>
+          </div>
+          <div class="feature-shot">
+            <img
+              src="https://thimxokeit.github.io/letsjam/assets/app-profile.webp"
+              width="923"
+              height="1560"
+              loading="lazy"
+              alt="JAM 앱 프로필 화면: 자기소개, 세션, 작성한 글"
+            />
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-text">
+            <h2>우리 동네 합주실 모아보기</h2>
+            <p>지역별 합주실의 상세 내용을 확인해요</p>
+          </div>
+          <div class="feature-shot">
+            <img
+              src="https://thimxokeit.github.io/letsjam/assets/app-studio.webp"
+              width="923"
+              height="1560"
+              loading="lazy"
+              alt="JAM 앱 합주실 탭: 지역별 합주실 목록"
+            />
+          </div>
+        </div>
+      </section>
+
       <!-- ===== Photo Row ===== -->
       <section class="photo-row">
         <div class="photo-scroll">

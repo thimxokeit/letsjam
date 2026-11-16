@@ -970,15 +970,6 @@ body {
   font-weight: 700;
 }
 
-/* 모션 아래 정적 폰 목업 */
-.hero-mockup {
-  display: block;
-  width: 100%;
-  max-width: 720px;
-  height: auto;
-  margin: 0 auto 60px;
-}
-
 /* hidden 속성이 display 지정보다 우선하도록 */
 .jam-stage[hidden],
 .jam-toggle[hidden] {
@@ -1041,9 +1032,124 @@ body {
 }
 
 /* ===== Benefits ===== */
+/* ===== Intro: 제목 + 앱 홈 화면 ===== */
+.intro {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 48px;
+  padding: 72px 0 24px;
+}
+
+.intro-title {
+  margin-bottom: 20px;
+  font-size: 60px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1.15;
+  word-break: keep-all;
+}
+
+.intro-body {
+  color: var(--gray);
+  font-size: 22px;
+  word-break: keep-all;
+}
+
+.intro-shot {
+  justify-self: center;
+  width: 100%;
+  max-width: 380px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  border-radius: 32px;
+}
+
+.intro-shot img,
+.shot-panel img,
+.feature-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ===== Benefits: 한 곳에서 + 카드 ===== */
 .benefits {
   padding: 80px 0;
   text-align: center;
+}
+
+.benefits .headline {
+  margin-bottom: 48px;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 30px;
+  text-align: left;
+}
+
+/* 앱스토어 이미지 배경(#ffece7)과 같은 색이라 이어져 보여요 */
+.shot-panel {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 40px 36px 0;
+  overflow: hidden;
+  border-radius: 32px;
+  background: #ffece7;
+}
+
+.shot-panel img {
+  max-width: 300px;
+}
+
+/* ===== Features: 기능별 화면 ===== */
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-bottom: 40px;
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+  padding: 0 64px;
+  overflow: hidden;
+  border-radius: 40px;
+  background: #ffece7;
+}
+
+.feature:nth-child(even) .feature-text {
+  order: 2;
+}
+
+.feature-text h2 {
+  margin-bottom: 14px;
+  color: var(--orange);
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1.2;
+  word-break: keep-all;
+}
+
+.feature-text p {
+  font-size: 20px;
+  font-weight: 600;
+  word-break: keep-all;
+}
+
+.feature-shot {
+  align-self: end;
+  justify-self: center;
+  width: 100%;
+  max-width: 320px;
+  padding-top: 56px;
 }
 
 .eyebrow {
@@ -1071,21 +1177,15 @@ body {
   margin: 0 auto 60px;
 }
 
-/* 카드 4장: 데스크톱 2x2, 모바일 1열 */
+/* 카드 4장: 앱 화면 옆에 세로로 */
 .benefits-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-}
-
-@media (max-width: 768px) {
-  .benefits-list {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: 1fr;
+  gap: 16px;
 }
 
 .benefit-item {
-  padding: 40px 30px;
+  padding: 30px;
   background: #f9f9f9;
   border-radius: 24px;
   transition: transform 0.3s ease;
@@ -1370,6 +1470,10 @@ body {
 
 /* ===== Responsive: Tablet & Mobile ===== */
 @media (max-width: 1024px) {
+  .intro-title { font-size: 48px; }
+  .feature-text h2 { font-size: 36px; }
+  .feature { padding: 0 40px; }
+  .benefits-grid { grid-template-columns: 320px 1fr; }
   .title h1 { font-size: 80px; }
   .title img { height: 80px; }
   .headline { font-size: 44px; }
@@ -1396,6 +1500,36 @@ body {
     flex: none;
     text-align: center;
   }
+}
+
+@media (max-width: 768px) {
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px 0 8px;
+    text-align: center;
+  }
+  .intro-title { font-size: 36px; margin-bottom: 12px; }
+  .intro-body { font-size: 17px; }
+  .intro-shot { max-width: 300px; border-radius: 24px; }
+
+  .benefits { padding: 56px 0; }
+  .benefits .headline { margin-bottom: 32px; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .shot-panel { padding: 32px 24px 0; border-radius: 24px; }
+  .shot-panel img { max-width: 260px; }
+
+  .feature {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 44px 24px 0;
+    border-radius: 30px;
+    text-align: center;
+  }
+  .feature:nth-child(even) .feature-text { order: 0; }
+  .feature-text h2 { font-size: 30px; margin-bottom: 8px; }
+  .feature-text p { font-size: 17px; }
+  .feature-shot { max-width: 260px; padding-top: 28px; }
 }
 
 @media (max-width: 768px) {
