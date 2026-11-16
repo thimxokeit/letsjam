@@ -32,7 +32,7 @@
     />
     <link
       rel="stylesheet"
-      href="https://thimxokeit.github.io/letsjam/style.css?v=7"
+      href="https://thimxokeit.github.io/letsjam/style.css?v=8"
     />
 
 
@@ -647,7 +647,8 @@
 
         // ---------- 측정 ----------
         function measure() {
-          const mobile = window.matchMedia("(max-width: 768px)").matches;
+          // 스테이지의 실제 모양으로 레이아웃을 골라요: 세로로 길면 모바일(4:5), 가로로 길면 데스크톱(16:9)
+          const mobile = stage.clientWidth < stage.clientHeight;
           L = mobile ? LAYOUTS.mobile : LAYOUTS.desktop;
           blurOn = L.blur;
           world.style.width = L.w + "px";
@@ -760,9 +761,14 @@
           fit();
         }
 
+        // 스테이지 높이는 화면 높이에 맞춰 줄어들 수 있어요. 장면은 잘리지 않게 담고 가운데에 둬요
         function fit() {
-          const s = stage.clientWidth / L.w;
-          world.style.transform = `scale(${s})`;
+          const W = stage.clientWidth;
+          const H = stage.clientHeight;
+          const s = Math.min(W / L.w, H / L.h);
+          const ox = (W - L.w * s) / 2;
+          const oy = (H - L.h * s) / 2;
+          world.style.transform = `translate(${ox.toFixed(1)}px, ${oy.toFixed(1)}px) scale(${s})`;
         }
 
         // ---------- Bar 1 (0-2s): 원 → JAM 로고 → Let's JAM ----------
