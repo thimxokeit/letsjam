@@ -170,6 +170,10 @@ body {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
+  /* 창이 낮으면 화면 높이(상단 헤더 제외)에 맞춰 줄어들어요 */
+  max-height: calc(100vh - 65px);
+  max-height: calc(100svh - 65px);
+  min-height: 280px;
   overflow: hidden;
   background: #ffece6;
   contain: layout paint;
@@ -1061,10 +1065,17 @@ body {
   margin: 0 auto 60px;
 }
 
+/* 카드 4장: 데스크톱 2x2, 모바일 1열 */
 .benefits-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .benefits-list {
+    grid-template-columns: 1fr;
+  }
 }
 
 .benefit-item {

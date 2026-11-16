@@ -32,7 +32,7 @@
     />
     <link
       rel="stylesheet"
-      href="https://thimxokeit.github.io/letsjam/style.css?v=7"
+      href="https://thimxokeit.github.io/letsjam/style.css?v=9"
     />
 
 
@@ -319,6 +319,13 @@
               마음에 드는 멤버에게 바로 연락해보세요.
             </p>
           </div>
+          <div class="benefit-item">
+            <h3>⛺️ 합주실 찾아보기</h3>
+            <p>
+              밴드와 합주할 합주실을 찾아보세요. <br />각 합주실의 방 별 정보를
+              확인할 수 있어요.
+            </p>
+          </div>
         </div>
       </section>
       <!-- ===== Photo Row ===== -->
@@ -435,7 +442,6 @@
       <section class="cta">
         <h2><span class="bounce">🍊</span> 곧 만나요! <span class="bounce">🎸</span></h2>
         <p class="cta-info-text">
-          2026년 4월, JAM이 출시됩니다!<br />
           이메일을 입력하고 오픈 소식을 가장 먼저 받아보세요!
         </p>
         <p style="font-size: 13px; opacity: 0.8; margin-bottom: 12px">
@@ -648,7 +654,8 @@
 
         // ---------- 측정 ----------
         function measure() {
-          const mobile = window.matchMedia("(max-width: 768px)").matches;
+          // 스테이지의 실제 모양으로 레이아웃을 골라요: 세로로 길면 모바일(4:5), 가로로 길면 데스크톱(16:9)
+          const mobile = stage.clientWidth < stage.clientHeight;
           L = mobile ? LAYOUTS.mobile : LAYOUTS.desktop;
           blurOn = L.blur;
           world.style.width = L.w + "px";
@@ -761,9 +768,14 @@
           fit();
         }
 
+        // 스테이지 높이는 화면 높이에 맞춰 줄어들 수 있어요. 장면은 잘리지 않게 담고 가운데에 둬요
         function fit() {
-          const s = stage.clientWidth / L.w;
-          world.style.transform = `scale(${s})`;
+          const W = stage.clientWidth;
+          const H = stage.clientHeight;
+          const s = Math.min(W / L.w, H / L.h);
+          const ox = (W - L.w * s) / 2;
+          const oy = (H - L.h * s) / 2;
+          world.style.transform = `translate(${ox.toFixed(1)}px, ${oy.toFixed(1)}px) scale(${s})`;
         }
 
         // ---------- Bar 1 (0-2s): 원 → JAM 로고 → Let's JAM ----------
