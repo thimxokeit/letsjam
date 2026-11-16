@@ -1085,8 +1085,9 @@ body {
 
 .benefits-grid {
   display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 30px;
+  grid-template-columns: 340px 1fr;
+  align-items: center;
+  gap: 40px;
   text-align: left;
 }
 
@@ -1102,7 +1103,7 @@ body {
 }
 
 .shot-panel img {
-  max-width: 300px;
+  max-width: 260px;
 }
 
 /* ===== Features: 기능별 화면 ===== */
@@ -1177,19 +1178,27 @@ body {
   margin: 0 auto 60px;
 }
 
-/* 카드 4장: 앱 화면 옆에 세로로 */
+/* 카드 4장: 2x2로 컴팩트하게, 배경색 없이 그림자만 */
 .benefits-list {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
 
 .benefit-item {
-  padding: 30px;
-  background: #f9f9f9;
-  border-radius: 24px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(34, 34, 34, 0.08);
   transition: transform 0.3s ease;
   text-align: left;
+}
+
+.benefit-item p {
+  color: #444;
+  font-size: 15px;
+  line-height: 1.55;
+  word-break: keep-all;
 }
 
 .benefit-item:hover {
@@ -1197,9 +1206,10 @@ body {
 }
 
 .benefit-item h3 {
-  font-size: 24px;
+  font-size: 20px;
   color: var(--orange);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+  word-break: keep-all;
 }
 
 /* ===== Photo Row Animation ===== */
@@ -1473,7 +1483,8 @@ body {
   .intro-title { font-size: 48px; }
   .feature-text h2 { font-size: 36px; }
   .feature { padding: 0 40px; }
-  .benefits-grid { grid-template-columns: 320px 1fr; }
+  .benefits-grid { grid-template-columns: 280px 1fr; gap: 28px; }
+  .shot-panel img { max-width: 220px; }
   .title h1 { font-size: 80px; }
   .title img { height: 80px; }
   .headline { font-size: 44px; }
@@ -1518,6 +1529,11 @@ body {
   .benefits-grid { grid-template-columns: 1fr; }
   .shot-panel { padding: 32px 24px 0; border-radius: 24px; }
   .shot-panel img { max-width: 260px; }
+  .benefits-list { gap: 12px; }
+  .benefit-item { padding: 16px; border-radius: 16px; }
+  .benefit-item h3 { font-size: 15px; margin-bottom: 6px; }
+  .benefit-item p { font-size: 13px; }
+  .benefit-item p br { display: none; }
 
   .feature {
     grid-template-columns: 1fr;
