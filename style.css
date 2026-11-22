@@ -1056,6 +1056,23 @@ body {
   word-break: keep-all;
 }
 
+.store-badge {
+  display: inline-block;
+  margin-top: 28px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.store-badge:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+.store-badge img {
+  display: block;
+  width: 180px;
+  height: auto;
+}
+
 .intro-shot {
   justify-self: center;
   width: 100%;
@@ -1519,6 +1536,8 @@ body {
   }
   .intro-title { font-size: 36px; margin-bottom: 12px; }
   .intro-body { font-size: 17px; }
+  .store-badge { margin-top: 20px; }
+  .store-badge img { width: 150px; }
   .intro-shot { max-width: 300px; }
 
   .benefits { padding: 56px 0; }
