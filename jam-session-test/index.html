@@ -125,7 +125,7 @@ footer a{color:inherit}
   <button class="btn" id="sendimg" style="margin-bottom:10px">카카오톡 · 인스타로 공유</button>
   <div class="row"><a class="btn sub" id="dl" href="#">이미지 저장</a><button class="btn sub" id="copylink">메시지 복사</button></div>
   <button class="btn sub" data-close>닫기</button>
-  <p class="tip">메시지 복사: 결과 + 테스트 링크가 함께 복사됨 · 휴대폰에서는 이미지를 길게 눌러 사진에 저장 가능</p>
+  <p class="tip">공유하면 메시지(결과 + 테스트 링크)도 자동으로 복사됨. 텍스트가 안 따라가는 앱에서는 이미지 보낸 뒤 붙여넣기 · 휴대폰에서는 이미지를 길게 눌러 사진에 저장 가능</p>
  </div>
 </div>
 <div class="toast" id="toast">복사 완료! 친구한테 보내보자 🎵</div>
@@ -288,7 +288,8 @@ async function openShare(t){
 }
 document.getElementById('sendimg').onclick=()=>{
   if(!shareFile)return;
-  navigator.share({files:[shareFile],title:'밴드 세션 테스트'}).catch(()=>{});
+  try{navigator.clipboard.writeText(shareMsg).then(()=>toast('메시지도 복사됨! 이미지 보낸 뒤 붙여넣기 🎵'),()=>{})}catch(e){}
+  navigator.share({files:[shareFile],text:shareMsg,title:'밴드 세션 테스트'}).catch(()=>{});
 };
 document.getElementById('copylink').onclick=()=>{
   const done=()=>toast('복사 완료! 카톡에 붙여넣기 🎵');
