@@ -84,7 +84,18 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--y);outline-offset:3
 .mate b{display:block;font-size:15px;letter-spacing:-.3px}
 .mate p{font-size:13px;color:var(--ink2);margin:4px 0 0;line-height:1.45;word-break:keep-all}
 .acts{display:grid;gap:10px}
-.copybox{width:100%;font:inherit;font-size:14px;border-radius:12px;border:1px solid var(--line);padding:10px;display:none}
+.sheet{position:fixed;inset:0;z-index:10;display:none}
+.sheet.on{display:block}
+.sheet .dim{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+.sheet .panel{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:480px;max-height:96vh;overflow:auto;background:#fff;border-radius:24px 24px 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom));animation:up .25s ease}
+@keyframes up{from{transform:translate(-50%,40px);opacity:0}}
+.sheet h3{margin:0 0 14px;font-size:18px;text-align:center}
+.sheet .pv{display:grid;place-items:center;min-height:200px;margin-bottom:14px}
+.sheet .pv img{width:100%;max-height:52vh;object-fit:contain;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.sheet .pv .spin{margin:0}
+.sheet .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.sheet .btn{min-height:52px;font-size:16px}
+.sheet .tip{font-size:13px;color:var(--mute);text-align:center;margin:10px 0 0;word-break:keep-all}
 .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,30px);opacity:0;background:#222;color:#fff;padding:12px 20px;border-radius:99px;font-weight:700;font-size:14px;transition:.3s ease;pointer-events:none}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 footer{text-align:center;font-size:12px;color:var(--mute);padding:0 20px 28px}
@@ -97,6 +108,17 @@ footer a{color:inherit}
 <header><a href="../"><img src="../assets/jam_logo_small.png" alt="">JAM</a></header>
 <main id="app"></main>
 <footer>© JAM · <a href="../">letsjam.work</a></footer>
+</div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="결과 공유">
+ <div class="dim" data-close></div>
+ <div class="panel">
+  <h3>결과 이미지 공유하기</h3>
+  <div class="pv"></div>
+  <button class="btn" id="sendimg" style="margin-bottom:10px">카카오톡 · 인스타로 공유</button>
+  <div class="row"><a class="btn sub" id="dl" href="#">이미지 저장</a><button class="btn sub" id="copylink">링크 복사</button></div>
+  <button class="btn sub" data-close>닫기</button>
+  <p class="tip">공유 버튼이 안 보이면 이미지를 저장한 뒤 카톡이나 인스타에 올리기 · 휴대폰에서는 이미지를 길게 눌러 사진에 저장 가능</p>
+ </div>
 </div>
 <div class="toast" id="toast">복사 완료! 친구한테 보내보자 🎵</div>
 <script>
@@ -198,21 +220,74 @@ function result(t,d){
    <div class="acts">
     <button class="btn" id="share">결과 공유하기</button>
     <button class="btn sub" id="again">테스트 다시하기</button>
-    <a class="btn yel" href="../">JAM에서 진짜 밴드 멤버 찾기 🎸</a>
-    <textarea class="copybox" id="cbox" rows="3" readonly></textarea>
+    <a class="btn yel" href="${APP}" target="_blank" rel="noopener">JAM에서 진짜 밴드 멤버 찾기 🎸</a>
    </div></div>`;
   document.getElementById('again').onclick=()=>{clearHash();intro();window.scrollTo(0,0)};
-  document.getElementById('share').onclick=()=>{
-    const url=location.origin+location.pathname+'#'+SLUG[t];
-    const txt=`나의 밴드 세션은 ${r.name}! “${r.type}”\n너는 어떤 세션이야? 🎶\n${url}`;
-    const box=document.getElementById('cbox');
-    const show=()=>{box.value=txt;box.style.display='block';box.select()};
-    if(navigator.share){navigator.share({title:'밴드 세션 테스트',text:`나의 밴드 세션은 ${r.name}! “${r.type}”`,url}).catch(()=>{});return}
-    try{navigator.clipboard.writeText(txt).then(toast,show)}catch(e){show()}
-  };
+  document.getElementById('share').onclick=()=>openShare(t);
   window.scrollTo(0,0);
 }
-function toast(){const el=document.getElementById('toast');el.classList.add('on');setTimeout(()=>el.classList.remove('on'),1800)}
+
+/* ---------- 공유 이미지 ---------- */
+const APP='https://apps.apple.com/app/apple-store/id6759896230?pt=127381151&ct=session-test&mt=8';
+const FONT='Pretendard,"Noto Sans KR",sans-serif';
+const loadImg=src=>new Promise((ok,no)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=no;im.src=src});
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function wrap(c,text,max){const out=[];let line='';for(const w of text.split(' ')){const t=line?line+' '+w:w;if(c.measureText(t).width>max&&line){out.push(line);line=w}else line=t}out.push(line);return out}
+async function makeCard(t){
+  const r=T[t],W=1080,H=1350,cv=document.createElement('canvas');cv.width=W;cv.height=H;
+  const c=cv.getContext('2d');
+  try{await Promise.all(['500 36px','700 40px','900 76px','900 40px'].map(f=>document.fonts.load(`${f} "Noto Sans KR"`)))}catch(e){}
+  const [art,logo]=await Promise.all([loadImg(r.img),loadImg(A+'jam_logo_small.png')]);
+  c.fillStyle='#FC5C2B';c.fillRect(0,0,W,H);
+  c.fillStyle='rgba(255,242,49,.35)';c.beginPath();c.arc(90,120,150,0,7);c.fill();c.beginPath();c.arc(1000,1180,190,0,7);c.fill();
+  const cx=60,cy=60,cw=W-120,ch=1110;
+  c.fillStyle='#fff';rr(c,cx,cy,cw,ch,56);c.fill();
+  c.textAlign='center';c.textBaseline='alphabetic';
+  c.font=`900 76px ${FONT}`;
+  const lines=wrap(c,r.type,cw-120);
+  const total=40+100+(lines.length-1)*92+40+100+520+80;
+  let y=cy+Math.max(70,(ch-total)/2)+40;
+  c.fillStyle='#4D4D4D';c.font=`700 40px ${FONT}`;c.fillText('나의 밴드 세션은',W/2,y);
+  c.fillStyle='#222';c.font=`900 76px ${FONT}`;y+=100;
+  lines.forEach((l,k)=>c.fillText(l,W/2,y+k*92));y+=(lines.length-1)*92+40;
+  c.font=`900 40px ${FONT}`;const tw=c.measureText(r.name).width+72;
+  c.fillStyle='#FFF231';rr(c,W/2-tw/2,y,tw,68,34);c.fill();
+  c.fillStyle='#222';c.fillText(r.name,W/2,y+48);y+=100;
+  const size=Math.min(520,cy+ch-y-130);
+  c.save();rr(c,W/2-size/2,y,size,size,52);c.clip();c.drawImage(art,W/2-size/2,y,size,size);c.restore();
+  y+=size+80;
+  c.fillStyle='#4D4D4D';c.font=`500 36px ${FONT}`;c.fillText(r.say,W/2,y,cw-80);
+  c.fillStyle='#fff';c.beginPath();c.arc(118,1260,38,0,7);c.fill();c.drawImage(logo,90,1232,56,56);
+  c.textAlign='left';c.fillStyle='#fff';c.font=`900 40px ${FONT}`;c.fillText('밴드 세션 테스트',176,1274);
+  c.textAlign='right';c.font=`700 32px ${FONT}`;c.fillText('너는 어떤 세션? 🎸',W-70,1272);
+  return new Promise(ok=>cv.toBlob(ok,'image/png'));
+}
+let shareFile=null,shareUrl='';
+async function openShare(t){
+  const r=T[t],sheet=document.getElementById('sheet');
+  shareUrl=location.origin+location.pathname+'#'+SLUG[t];
+  sheet.querySelector('.pv').innerHTML='<div class="spin"></div>';
+  sheet.classList.add('on');
+  try{
+    const blob=await makeCard(t);
+    shareFile=new File([blob],`jam-band-session-${SLUG[t]}.png`,{type:'image/png'});
+    const url=URL.createObjectURL(blob);
+    sheet.querySelector('.pv').innerHTML=`<img src="${url}" alt="${r.name} 결과 이미지">`;
+    const dl=document.getElementById('dl');dl.href=url;dl.download=shareFile.name;
+  }catch(e){sheet.querySelector('.pv').innerHTML='<p>이미지를 만들지 못함. 링크 복사로 공유하기</p>'}
+  const can=!!(shareFile&&navigator.canShare&&navigator.canShare({files:[shareFile]}));
+  document.getElementById('sendimg').style.display=can?'':'none';
+}
+document.getElementById('sendimg').onclick=()=>{
+  if(!shareFile)return;
+  navigator.share({files:[shareFile],title:'밴드 세션 테스트'}).catch(()=>{});
+};
+document.getElementById('copylink').onclick=()=>{
+  const done=()=>toast('링크 복사 완료! 친구한테 보내보자 🎵');
+  try{navigator.clipboard.writeText(shareUrl).then(done,()=>prompt('링크를 복사해서 공유하기',shareUrl))}catch(e){prompt('링크를 복사해서 공유하기',shareUrl)}
+};
+document.querySelectorAll('[data-close]').forEach(el=>el.onclick=()=>document.getElementById('sheet').classList.remove('on'));
+function toast(msg){const el=document.getElementById('toast');if(msg)el.textContent=msg;el.classList.add('on');setTimeout(()=>el.classList.remove('on'),1800)}
 document.addEventListener('keydown',e=>{
   if(!app.querySelector('.opts'))return;
   const n=parseInt(e.key,10);if(n>=1&&n<=4)pick(n-1);
