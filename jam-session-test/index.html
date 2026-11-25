@@ -273,7 +273,7 @@ async function makeCard(t){
 let shareFile=null,shareMsg='';
 async function openShare(t){
   const r=T[t],sheet=document.getElementById('sheet');
-  shareMsg=`나의 밴드 세션은 ${r.name}! “${r.type}”\n너도 해보기 👉 ${location.origin+location.pathname}`;
+  shareMsg=`내 밴드 세션은 ${r.name}!\n테스트 하러 가기 👉 ${location.origin+location.pathname}`;
   sheet.querySelector('.pv').innerHTML='<div class="spin"></div>';
   sheet.classList.add('on');
   try{
