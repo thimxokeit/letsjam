@@ -178,7 +178,7 @@ function intro(){
   i=0;ans=[];
   app.innerHTML=`<div class="screen">
    <h1>나에게 딱 맞는<br>밴드 세션은? 🎶</h1>
-   <p>재미로 보는 밴드 세션 테스트예요. 실력과는 전혀 상관없어요! 🎶</p>
+   <p>재미로 보는 밴드 세션 테스트 (실력과 전혀 상관없음)</p>
    <div class="stage">${ORDER.map(t=>`<div class="tile"><img src="${T[t].img}" alt=""><b>${T[t].name}</b></div>`).join('')}</div>
    <button class="btn wide" id="go">테스트 시작하기 🎸</button></div>`;
   document.getElementById('go').onclick=quiz;
