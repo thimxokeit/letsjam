@@ -4,9 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>밴드 세션 테스트 | JAM</title>
-<meta name="description" content="나는 어떤 밴드 세션일까? 재미로 보는 밴드 세션 테스트">
-<meta property="og:title" content="밴드 세션 테스트">
-<meta property="og:description" content="나는 어떤 밴드 세션일까?">
+<meta name="description" content="재미로 보는 밴드 세션 테스트 (실력과 전혀 상관없음)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="JAM">
+<meta property="og:url" content="https://thimxokeit.github.io/letsjam/jam-session-test/">
+<meta property="og:title" content="밴드 세션 테스트 | 나는 어떤 밴드 세션일까?">
+<meta property="og:description" content="재미로 보는 밴드 세션 테스트 (실력과 전혀 상관없음)">
+<meta property="og:image" content="https://thimxokeit.github.io/letsjam/jam-session-test/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://thimxokeit.github.io/letsjam/jam-session-test/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
@@ -115,9 +123,9 @@ footer a{color:inherit}
   <h3>결과 이미지 공유하기</h3>
   <div class="pv"></div>
   <button class="btn" id="sendimg" style="margin-bottom:10px">카카오톡 · 인스타로 공유</button>
-  <div class="row"><a class="btn sub" id="dl" href="#">이미지 저장</a><button class="btn sub" id="copylink">링크 복사</button></div>
+  <div class="row"><a class="btn sub" id="dl" href="#">이미지 저장</a><button class="btn sub" id="copylink">메시지 복사</button></div>
   <button class="btn sub" data-close>닫기</button>
-  <p class="tip">공유 버튼이 안 보이면 이미지를 저장한 뒤 카톡이나 인스타에 올리기 · 휴대폰에서는 이미지를 길게 눌러 사진에 저장 가능</p>
+  <p class="tip">메시지 복사: 결과 + 테스트 링크가 함께 복사됨 · 휴대폰에서는 이미지를 길게 눌러 사진에 저장 가능</p>
  </div>
 </div>
 <div class="toast" id="toast">복사 완료! 친구한테 보내보자 🎵</div>
@@ -262,10 +270,10 @@ async function makeCard(t){
   c.textAlign='right';c.font=`700 32px ${FONT}`;c.fillText('너는 어떤 세션? 🎸',W-70,1272);
   return new Promise(ok=>cv.toBlob(ok,'image/png'));
 }
-let shareFile=null,shareUrl='';
+let shareFile=null,shareMsg='';
 async function openShare(t){
   const r=T[t],sheet=document.getElementById('sheet');
-  shareUrl=location.origin+location.pathname+'#'+SLUG[t];
+  shareMsg=`나의 밴드 세션은 ${r.name}! “${r.type}”\n너도 해보기 👉 ${location.origin+location.pathname}`;
   sheet.querySelector('.pv').innerHTML='<div class="spin"></div>';
   sheet.classList.add('on');
   try{
@@ -283,8 +291,8 @@ document.getElementById('sendimg').onclick=()=>{
   navigator.share({files:[shareFile],title:'밴드 세션 테스트'}).catch(()=>{});
 };
 document.getElementById('copylink').onclick=()=>{
-  const done=()=>toast('링크 복사 완료! 친구한테 보내보자 🎵');
-  try{navigator.clipboard.writeText(shareUrl).then(done,()=>prompt('링크를 복사해서 공유하기',shareUrl))}catch(e){prompt('링크를 복사해서 공유하기',shareUrl)}
+  const done=()=>toast('복사 완료! 카톡에 붙여넣기 🎵');
+  try{navigator.clipboard.writeText(shareMsg).then(done,()=>prompt('메시지를 복사해서 공유하기',shareMsg))}catch(e){prompt('메시지를 복사해서 공유하기',shareMsg)}
 };
 document.querySelectorAll('[data-close]').forEach(el=>el.onclick=()=>document.getElementById('sheet').classList.remove('on'));
 function toast(msg){const el=document.getElementById('toast');if(msg)el.textContent=msg;el.classList.add('on');setTimeout(()=>el.classList.remove('on'),1800)}
