@@ -622,6 +622,75 @@
     </main>
     {% include footer.html %}
 
+    <!-- ===== 플로팅 버튼: 밴드 세션 테스트 ===== -->
+    <style>
+      .session-fab {
+        position: fixed;
+        right: max(20px, env(safe-area-inset-right));
+        bottom: calc(20px + env(safe-area-inset-bottom));
+        z-index: 90;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 20px 8px 8px;
+        border-radius: 999px;
+        background: var(--orange, #fc5c2b);
+        color: #fff;
+        font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        text-decoration: none;
+        box-shadow: 0 10px 24px rgba(252, 92, 43, 0.35);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        animation: session-fab-in 0.5s ease 0.6s both;
+      }
+      .session-fab img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #222;
+        flex: none;
+      }
+      .session-fab:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 28px rgba(252, 92, 43, 0.45);
+      }
+      .session-fab:focus-visible {
+        outline: 3px solid #fff231;
+        outline-offset: 3px;
+      }
+      @keyframes session-fab-in {
+        from { opacity: 0; transform: translateY(20px); }
+      }
+      @media (max-width: 600px) {
+        .session-fab {
+          right: 50%;
+          transform: translateX(50%);
+          white-space: nowrap;
+        }
+        .session-fab:hover { transform: translateX(50%) translateY(-3px); }
+        @keyframes session-fab-in {
+          from { opacity: 0; transform: translateX(50%) translateY(20px); }
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .session-fab { animation: none; transition: none; }
+      }
+    </style>
+    <a
+      class="session-fab"
+      href="https://thimxokeit.github.io/letsjam/jam-session-test/"
+      onclick="typeof gtag === 'function' && gtag('event', 'click_session_test', { location: 'floating_button' })"
+    >
+      <img
+        src="https://thimxokeit.github.io/letsjam/assets/Sessions=Mic-f.png"
+        alt=""
+      />
+      나와 맞는 밴드 세션 테스트 🎸
+    </a>
+
     <!-- ===== Hero 모션: 120 BPM, 7.5마디 = 15초 루프 ===== -->
     <script>
       (function () {
